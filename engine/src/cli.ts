@@ -37,6 +37,14 @@ const COMMANDS: Record<string, { describe: string; load: () => Promise<Command> 
     describe: "Confirm the Claude model IDs and record how the API treats the forecast settings",
     load: async () => (await import("./probes/llm")).probeLlm,
   },
+  candles: {
+    describe: "Fetch and cache daily candles for every asset (--refresh refetches)",
+    load: async () => (await import("./commands/candles")).candlesCommand,
+  },
+  questions: {
+    describe: "Print question counts per split/type and the BREAKOUT base rate",
+    load: async () => (await import("./commands/questions")).questionsCommand,
+  },
 };
 
 function usage(): string {

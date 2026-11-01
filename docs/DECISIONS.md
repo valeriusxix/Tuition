@@ -90,3 +90,21 @@ Anyone can still run against Anthropic directly by leaving `ANTHROPIC_BASE_URL` 
 Each of these is implemented on the day its module is built.
 
 **D19. Expected lesson volume (informational).** At `LESSON_ERROR_THRESHOLD=0.45`, every forecast in [0.45, 0.55] writes a lesson whatever the outcome. Expect about 150–175 lessons plus 32 snapshots per full run, which fits the relayer's write rate.
+
+## 2026-11-01 (Day 2)
+
+**D20. BREAKOUT base rate is 0.371, outside the §16 target of 0.4–0.6.** It is 0.365 in dev and 0.375 in test, from 132 resolved BREAKOUT questions; DIRECTION is 0.455. This is not a bug: across all decision dates, the 180 trailing windows reach their own (rounded) median exactly 0.500 of the time, as the rule requires. The cause is a volatility regime shift. The 180 days behind the replay included turbulent months, with a mean absolute daily log return of 3.0–3.7% in Aug–Nov 2025 and Feb 2026. The replay months were calmer, at 1.7–2.5%. So forward 7-day excursions cleared the trailing median only 33–42% of the time, depending on the asset. AGENT.md's rule is **kept unchanged**: picking a different lookback after seeing these outcomes would fit the design to the evaluation period. The experiment is unaffected, since every arm answers the same questions, and a stable bias like this is exactly what the calibration snapshots and the Laplace base arm should pick up. *Flagged to the owner.*
+
+**D21. Layout additions.** `engine/src/commands/` holds the CLI glue for `candles` and `questions`, so the pure modules (§18) stay free of I/O. `engine/test/helpers.ts` builds synthetic candles for the tests.
+
+**D22. Skipped questions.** A decision date whose window has a candle gap or too little history (187 days before, plus 7 after for replay questions) produces no question. It is listed with its reason by `questions`; there are none in the current data. `Question.skipped` is kept for questions that exist but cannot be resolved later (live mode).
+
+**D23. Candle cache coverage.** Each cache file records `requestedFrom`/`requestedTo`, and only days outside that range are ever fetched. In-progress days are never cached, and a day not yet published is retried on the next run. The Tatum key is on the FREE plan (`x-ttm-plan: FREE;ratelimit=3`, about 100k lifetime credits). The full history took 36 batch calls (about 18k credits) and covers 444 days per asset (2025-08-14 → 2026-10-31) with no gaps.
+
+**D24. Edge guards and conventions.**
+- `volRatio` is 1 when `vol30` is effectively 0.
+- `volRegime` is "normal" when the 180-day median `vol7` is effectively 0. Both can only happen on synthetic series.
+- Accuracy@0.5 gives half credit to an exact 0.5 forecast.
+- Features are rounded to 2 decimals, but regime labels are taken from the unrounded values.
+
+**D25. Line endings.** `.gitattributes` forces LF, so Windows commits and the Linux live bot produce identical files.

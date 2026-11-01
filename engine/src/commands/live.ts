@@ -3,10 +3,10 @@
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { createClaudeForecaster, StubForecaster } from "../agent/forecast";
+import { createClaudeForecaster, StubForecaster, type Forecaster } from "../agent/forecast";
 import { loadConfig } from "../config";
 import { ensureCandles } from "../data/candles";
-import { DEFAULT_LIVE_PATHS, runLive, type LivePaths } from "../live/daily";
+import { DEFAULT_LIVE_PATHS, LIVE_NAMESPACES, runLive, type LivePaths } from "../live/daily";
 import { say } from "../log";
 import { createWalrusStore, InMemoryStore } from "../memory/store";
 
@@ -22,7 +22,16 @@ export async function liveCommand(args: string[]): Promise<void> {
     : DEFAULT_LIVE_PATHS;
   const candles = await ensureCandles(config, { now });
   const store = dry || config.MEMORY_BACKEND === "memory" ? new InMemoryStore() : createWalrusStore(config, paths.ledgerFile);
-  const forecaster = dry ? new StubForecaster() : createClaudeForecaster(config);
+  const forecaster: Forecaster = dry ? new StubForecaster() : createClaudeForecaster(config);
+
+  if (!dry) {
+    // Preflight: prove every credential before forecasting, so a broken key fails the run at once,
+    // even on a day with nothing new to commit.
+    await store.health();
+    await store.recall({ namespace: LIVE_NAMESPACES.lessons, query: "preflight credential check", limit: 1 }); // signed request
+    const model = await forecaster.ping?.();
+    say(`preflight: relayer healthy, Walrus Memory credentials accepted, ${model ?? "model"} answering`);
+  }
 
   const s = await runLive({ config, store, forecaster, candles, now, paths });
   say(`decision date ${s.decisionDate}${dry ? " (DRY RUN: in-memory store, stub forecaster)" : ""}`);

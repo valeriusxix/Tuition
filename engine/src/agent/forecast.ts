@@ -27,6 +27,8 @@ export interface ForecastResult {
 
 export interface Forecaster {
   forecast(prompt: { system: string; user: string }, offeredBlobIds: readonly string[]): Promise<ForecastResult>;
+  /** Cheapest possible real call, proving the key and model ID work; returns the serving model. */
+  ping?(): Promise<string>;
 }
 
 export function limitWords(text: string, max: number): string {
@@ -87,6 +89,13 @@ export class ClaudeForecaster implements Forecaster {
       log.warn("invalid forecast output", { attempt: attempt + 1, problem });
     }
     throw new Error(`forecast failed twice: ${problem}`);
+  }
+
+  async ping(): Promise<string> {
+    const res = await retry(() =>
+      this.client.messages.create({ model: this.model, max_tokens: 16, messages: [{ role: "user", content: "Reply with the single word: ok" }] }),
+    );
+    return res.model;
   }
 }
 

@@ -132,3 +132,10 @@ Writing lessons and calibration snapshots for resolved live forecasts (the rest 
 - The memory-ON and memory-OFF prompts share one system prompt. Only the user message differs: the lessons block, or "No lessons are available."
 
 **D30. Layout additions.** `engine/src/commands/live.ts` holds the CLI glue. `mapLimit` (bounded concurrency) lives in `util/ratelimit.ts`. `AUTH_HINT` moved to `memory/store.ts`, which owns the real-client factory, so the store doesn't import a probe.
+
+**D31. Live preflight.** Every real `live` run first checks three things:
+- relayer `health()`
+- an authenticated `recall` on `tuition.live.lessons`, which proves the delegate key and account
+- a 16-token model call, which proves the API key and model ID (about $0.000004)
+
+A broken credential then fails the run immediately, even on a day with nothing new to commit. This also makes the first Actions run (Oct 31 was already committed by the local run) a real end-to-end credential test.

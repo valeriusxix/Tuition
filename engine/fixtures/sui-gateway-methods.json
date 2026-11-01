@@ -1,0 +1,39 @@
+{
+  "probe": "probe:sui",
+  "recordedAt": "2026-11-01T08:24:13.354Z",
+  "request": {
+    "method": "GET",
+    "url": "https://sui-mainnet.gateway.tatum.io/_methods",
+    "headers": {
+      "x-api-key": "<TATUM_API_KEY>"
+    }
+  },
+  "response": {
+    "status": 200,
+    "statusText": "",
+    "headers": {
+      "alt-svc": "h3=\":443\"; ma=2592000",
+      "cache-control": "public, must-revalidate, max-age=3600",
+      "content-encoding": "br",
+      "content-length": "107",
+      "content-type": "application/json",
+      "date": "Sun, 1 Nov 2026 08:24:13 GMT",
+      "etag": "\"0fd0ba3782cd95a238a49d20dc0d3db2\"",
+      "vary": "Accept",
+      "via": "1.1 google",
+      "x-request-id": "mp595-bc8bd3e5d4247ac4"
+    },
+    "ms": 1023,
+    "attempts": 1,
+    "body": {
+      "sui-mainnet-graphql": {
+        "url": "https://sui-mainnet.gateway.tatum.io/graphql",
+        "protocol": "GraphQL",
+        "methods": [
+          "mutation",
+          "query"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "probe": "probe:llm",
+  "recordedAt": "2026-10-31T22:03:35.295Z",
+  "request": {
+    "model": "anthropic/claude-haiku-5.5",
+    "max_tokens": 2048,
+    "output_config": {
+      "effort": "low",
+      "format": "zodOutputFormat({probability, rationale, cited_lessons})"
+    },
+    "prompt": "Asset A, closes rebased so day 0 = 100.00: day -4 96.10, day -3 97.40, day -2 98.00, day -1 99.20, day 0 100.00. Question: will the close on day +7 be higher than the close on day 0? Give a probability between 0 and 1, a rationale of at most 60 words, and cited_lessons as an empty list."
+  },
+  "response": {
+    "id": "msg_011Cgb55Lc1iBxNgfSe1uMEo",
+    "type": "message",
+    "role": "assistant",
+    "container": null,
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"probability\": 0.54, \"rationale\": \"Recent trend is upward with four consecutive gains from day -4 to day 0, suggesting mild momentum. However, short-term price series are close to random walks, so the edge over a coin flip is small. Without further information about news, volatility, or drift, the probability of a higher close on day +7 is only slightly above 0.5.\", \"cited_lessons\": []}",
+        "citations": []
+      }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "stop_reason": "end_turn",
+    "stop_details": null,
+    "stop_sequence": null,
+    "usage": {
+      "input_tokens": 427,
+      "output_tokens": 131,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "server_tool_use": null,
+      "service_tier": "standard",
+      "speed": "standard",
+      "cost": 0.0001082,
+      "is_byok": false,
+      "cost_details": {
+        "upstream_inference_cost": 0.0001082,
+        "upstream_inference_prompt_cost": 0.0000427,
+        "upstream_inference_completions_cost": 0.0000655
+      }
+    },
+    "context_management": null,
+    "provider": "Azure",
+    "parsed_output": {
+      "probability": 0.54,
+      "rationale": "Recent trend is upward with four consecutive gains from day -4 to day 0, suggesting mild momentum. However, short-term price series are close to random walks, so the edge over a coin flip is small. Without further information about news, volatility, or drift, the probability of a higher close on day +7 is only slightly above 0.5.",
+      "cited_lessons": []
+    }
+  }
+}

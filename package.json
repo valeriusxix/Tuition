@@ -1,0 +1,31 @@
+{
+  "name": "tuition",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "An AI crypto forecaster that learns from its own mistakes on Walrus Memory, and proves it with a memory ON vs OFF experiment.",
+  "workspaces": [
+    "shared",
+    "engine",
+    "web"
+  ],
+  "engines": {
+    "node": "^22.23.4 || ^24.22.1 || >=26.12.1"
+  },
+  "scripts": {
+    "build": "npm run build -w @tuition/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev": "npm run dev -w @tuition/web",
+    "engine": "npm run cli -w @tuition/engine --",
+    "probe:node": "npm run probe:node -w @tuition/engine",
+    "smoke:memwal": "npm run smoke:memwal -w @tuition/engine",
+    "probe:ohlcv": "npm run probe:ohlcv -w @tuition/engine",
+    "probe:sui": "npm run probe:sui -w @tuition/engine",
+    "probe:aggregator": "npm run probe:aggregator -w @tuition/engine",
+    "probe:llm": "npm run probe:llm -w @tuition/engine"
+  },
+  "dependencies": {
+    "@mysten-incubation/memwal": "^0.1.12"
+  }
+}

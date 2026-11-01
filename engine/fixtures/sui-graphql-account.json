@@ -1,0 +1,79 @@
+{
+  "probe": "probe:sui",
+  "recordedAt": "2026-11-01T08:24:13.554Z",
+  "request": {
+    "method": "POST",
+    "url": "https://sui-mainnet.gateway.tatum.io/graphql",
+    "headers": {
+      "x-api-key": "<TATUM_API_KEY>"
+    },
+    "body": {
+      "query": "query ($id: SuiAddress!) {\n  object(address: $id) {\n    address\n    version\n    digest\n    owner { __typename }\n    asMoveObject { contents { type { repr } json } }\n  }\n}",
+      "variables": {
+        "id": "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "statusText": "",
+    "headers": {
+      "alt-svc": "h3=\":443\"; ma=2592000",
+      "content-encoding": "br",
+      "content-type": "application/json",
+      "date": "Sun, 01 Nov 2026 08:24:13 GMT",
+      "server": "envoy",
+      "vary": "Accept-Encoding,origin, access-control-request-method, access-control-request-headers",
+      "via": "1.1 google",
+      "x-envoy-upstream-service-time": "10",
+      "x-request-id": "mp595-bbcf811d241bb28f",
+      "x-sui-rpc-request-id": "60f0caa1-4903-4d98-bf51-0ee8337086de",
+      "x-sui-rpc-version": "1.82.3-bf4073918ed3",
+      "x-ttm-plan": "free;ratelimit=3;strategy=shared"
+    },
+    "ms": 193,
+    "attempts": 1,
+    "body": {
+      "data": {
+        "object": {
+          "address": "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea",
+          "version": 1062994194,
+          "digest": "EDQn2LLkGza73By92ainbY9AejYFwvLvwxwmyFRgSLt1",
+          "owner": {
+            "__typename": "Shared"
+          },
+          "asMoveObject": {
+            "contents": {
+              "type": {
+                "repr": "0xe7c16fbea0560e7057e2bf7422feaa4fb313749fc69c9e9092fac7a33b81d7f5::account::MemWalAccount"
+              },
+              "json": {
+                "id": "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea",
+                "owner": "0xeeae7821b03078632c1994aea66e037746fd92c4d95ad845a1d533f3964e1130",
+                "delegate_keys": [
+                  {
+                    "public_key": "CESHVC4r1uyOr3Ht2HeQTXKFjkOFtZBRS5k9QLx8WQc=",
+                    "sui_address": "0x373fe9297642ec9f83b573c4187d34c9df3a063d4547b07d1a70adb767587a2f",
+                    "label": "Web App",
+                    "created_at": "1793352737153"
+                  },
+                  {
+                    "public_key": "eRs5QfQkmJkNZv+2CUMksnbsdUBBjPPghP4vkk7Tqbc=",
+                    "sui_address": "0xbe36ebf73ce63da3df861a1b574e4493c21b45158fd387a6ca6d91356051e65b",
+                    "label": "New key",
+                    "created_at": "1793353912750"
+                  }
+                ],
+                "created_at": "1793351497588",
+                "active": true,
+                "admin_quarantined": false,
+                "legacy_account_id": null,
+                "access_counter_version": "1"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

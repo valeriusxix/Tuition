@@ -1,0 +1,48 @@
+{
+  "probe": "smoke:memwal",
+  "recordedAt": "2026-11-01T08:24:33.183Z",
+  "request": "memwal.health()",
+  "response": {
+    "status": "ok",
+    "version": "0.1.0",
+    "relayerVersion": "0.1.0",
+    "apiVersion": "1.0.0",
+    "minSupportedSdk": {
+      "typescript": "0.0.4",
+      "python": "0.1.0",
+      "mcp": "0.0.1"
+    },
+    "featureFlags": {
+      "auth.accountBoundNonce": true,
+      "auth.sealSessionHeader": true,
+      "config.publicDeploymentMetadata": true,
+      "remember.asyncJobs": true,
+      "remember.bulk": true,
+      "runtime.versionEndpoint": true
+    },
+    "deprecations": [
+      {
+        "surface": "header:x-delegate-key",
+        "deprecatedSince": "1.0.0",
+        "removalApiVersion": "2.0.0",
+        "guidance": "Use x-seal-session for relayer-managed SEAL decrypt flows; manual-mode requests should send no decrypt credential."
+      },
+      {
+        "surface": "env:SEAL_KEY_SERVERS",
+        "deprecatedSince": "1.0.0",
+        "removalApiVersion": "2.0.0",
+        "guidance": "Use SEAL_SERVER_CONFIGS so independent and committee key-server configs share one JSON schema."
+      }
+    ],
+    "build": {
+      "commit": "a6b1f4073c020faf6074b5176be65d0d60809174"
+    },
+    "mode": "production",
+    "prompt_versions": {
+      "extract": "extract.v7",
+      "ask": "ask.v2"
+    },
+    "write_ready": true,
+    "writes": "ok"
+  }
+}

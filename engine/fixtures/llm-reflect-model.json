@@ -1,0 +1,60 @@
+{
+  "probe": "probe:llm",
+  "recordedAt": "2026-10-31T22:03:36.735Z",
+  "request": {
+    "model": "anthropic/claude-sonnet-5.5",
+    "max_tokens": 1024,
+    "output_config": {
+      "effort": "low"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with the single word: ok"
+      }
+    ]
+  },
+  "response": {
+    "id": "msg_011Cgb55g1aHYk6EV15L3n2Q",
+    "type": "message",
+    "role": "assistant",
+    "container": null,
+    "content": [
+      {
+        "type": "text",
+        "text": "ok",
+        "citations": []
+      }
+    ],
+    "model": "anthropic/claude-sonnet-5.5",
+    "stop_reason": "end_turn",
+    "stop_details": null,
+    "stop_sequence": null,
+    "usage": {
+      "input_tokens": 18,
+      "output_tokens": 4,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "server_tool_use": null,
+      "service_tier": "standard",
+      "speed": "standard",
+      "cost": 0.000076,
+      "is_byok": false,
+      "cost_details": {
+        "upstream_inference_cost": 0.000076,
+        "upstream_inference_prompt_cost": 0.000036,
+        "upstream_inference_completions_cost": 0.00004
+      }
+    },
+    "context_management": null,
+    "provider": "Claude Platform on AWS"
+  }
+}

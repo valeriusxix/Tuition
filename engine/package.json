@@ -1,0 +1,31 @@
+{
+  "name": "@tuition/engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cli": "tsx src/cli.ts",
+    "probe:node": "tsx src/cli.ts probe:node",
+    "smoke:memwal": "tsx src/cli.ts smoke:memwal",
+    "probe:ohlcv": "tsx src/cli.ts probe:ohlcv",
+    "probe:sui": "tsx src/cli.ts probe:sui",
+    "probe:aggregator": "tsx src/cli.ts probe:aggregator",
+    "probe:llm": "tsx src/cli.ts probe:llm",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
+    "@mysten-incubation/memwal": "0.1.12",
+    "@mysten/seal": "^1.5.2",
+    "@mysten/sui": "^2.38.0",
+    "@tuition/shared": "*",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}

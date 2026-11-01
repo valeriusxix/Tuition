@@ -1,0 +1,21 @@
+{
+  "probe": "smoke:memwal",
+  "recordedAt": "2026-11-01T08:25:03.085Z",
+  "request": {
+    "call": "recall(params)",
+    "query": "tuition smoke test",
+    "namespace": "tuition.smoke",
+    "limit": 3
+  },
+  "response": {
+    "results": [
+      {
+        "blob_id": "TRCb_82aCIZTmW8v58CWFcPw1zScALO1eyGOrZVhiRY",
+        "text": "tuition smoke test 2026-11-01T08:24:33.584Z",
+        "distance": 0.16639301540912232,
+        "created_at": "2026-11-01T08:24:54.581839Z"
+      }
+    ],
+    "total": 1
+  }
+}

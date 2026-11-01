@@ -1,0 +1,25 @@
+# Secrets: never commit real keys
+.env*
+!.env.example
+
+# Dependencies and builds
+node_modules
+dist
+dist-ssr
+*.tsbuildinfo
+
+# Engine scratch files (checkpoints are written as *.tmp then renamed)
+engine/state/*.tmp
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Editor and OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.sw?

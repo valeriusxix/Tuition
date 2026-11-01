@@ -1,0 +1,115 @@
+{
+  "probe": "probe:ohlcv",
+  "recordedAt": "2026-10-31T21:56:44.296Z",
+  "request": {
+    "method": "GET",
+    "url": "https://api.tatum.io/v4/data/rate/symbol/OHLCV/batch?symbol=BTC&timeFrom=2026-03-01T00%3A00%3A00Z&numberOfCandles=5&interval=1d",
+    "headers": {
+      "accept": "application/json",
+      "x-api-key": "<TATUM_API_KEY>"
+    }
+  },
+  "response": {
+    "status": 200,
+    "statusText": "",
+    "headers": {
+      "access-control-allow-origin": "*",
+      "alt-svc": "h3=\":443\"; ma=86400",
+      "cf-cache-status": "DYNAMIC",
+      "cf-ray": "a535e94d6bff4137-LHR",
+      "content-encoding": "zstd",
+      "content-security-policy": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Sat, 31 Oct 2026 21:56:44 GMT",
+      "etag": "W/\"6ca-83VPVUGCggFPukewCaOynwpHQlc\"",
+      "expect-ct": "max-age=0",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "referrer-policy": "no-referrer",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8WpPU6sUlSKvrCgFDc1PkTGrvFW%2F9p6T4U7a9hSMTpZUg0LDFvqlicKWfULUKcpOvXnikhHs1aowzJWP37Z0Hcn6D7nirm5axN9SAiIbxTcMIAzL5ZRpx8bQ26XgBdA%3D\"}]}",
+      "server": "cloudflare",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "via": "1.1 google",
+      "x-content-type-options": "nosniff",
+      "x-dns-prefetch-control": "off",
+      "x-download-options": "noopen",
+      "x-frame-options": "sameorigin",
+      "x-permitted-cross-domain-policies": "none",
+      "x-ttm-plan": "FREE;ratelimit=3;strategy=shared",
+      "x-xss-protection": "0"
+    },
+    "ms": 1448,
+    "attempts": 1,
+    "body": [
+      {
+        "symbol": "BTC",
+        "openTime": 1772323200000,
+        "open": "66973.26000000",
+        "high": "68199.99000000",
+        "low": "65056.00000000",
+        "close": "65776.47000000",
+        "volume": "23201.85859000",
+        "closeTime": 1772409599999,
+        "quoteAssetVolume": "1545783742.90620010",
+        "numberOfTrades": 5312013,
+        "takerBuyBaseAssetVolume": "11209.77201000",
+        "takerBuyQuoteAssetVolume": "747161922.84846160"
+      },
+      {
+        "symbol": "BTC",
+        "openTime": 1772409600000,
+        "open": "65776.48000000",
+        "high": "70096.00000000",
+        "low": "65259.21000000",
+        "close": "68830.06000000",
+        "volume": "32010.38431000",
+        "closeTime": 1772495999999,
+        "quoteAssetVolume": "2164578841.84591730",
+        "numberOfTrades": 8397526,
+        "takerBuyBaseAssetVolume": "15335.91369000",
+        "takerBuyQuoteAssetVolume": "1037871544.54815050"
+      },
+      {
+        "symbol": "BTC",
+        "openTime": 1772496000000,
+        "open": "68830.06000000",
+        "high": "69258.08000000",
+        "low": "66158.00000000",
+        "close": "68338.00000000",
+        "volume": "24972.24180000",
+        "closeTime": 1772582399999,
+        "quoteAssetVolume": "1691848669.94301820",
+        "numberOfTrades": 7648119,
+        "takerBuyBaseAssetVolume": "12331.62200000",
+        "takerBuyQuoteAssetVolume": "835461016.09469440"
+      },
+      {
+        "symbol": "BTC",
+        "openTime": 1772582400000,
+        "open": "68338.01000000",
+        "high": "74050.00000000",
+        "low": "67400.00000000",
+        "close": "72666.77000000",
+        "volume": "44919.07610000",
+        "closeTime": 1772668799999,
+        "quoteAssetVolume": "3202864447.63246060",
+        "numberOfTrades": 8618302,
+        "takerBuyBaseAssetVolume": "23641.35243000",
+        "takerBuyQuoteAssetVolume": "1685099057.93017800"
+      },
+      {
+        "symbol": "BTC",
+        "openTime": 1772668800000,
+        "open": "72666.77000000",
+        "high": "73558.15000000",
+        "low": "70645.47000000",
+        "close": "70890.72000000",
+        "volume": "26590.51253000",
+        "closeTime": 1772755199999,
+        "quoteAssetVolume": "1917514690.38783410",
+        "numberOfTrades": 6709160,
+        "takerBuyBaseAssetVolume": "12299.51467000",
+        "takerBuyQuoteAssetVolume": "886773462.47277710"
+      }
+    ]
+  }
+}

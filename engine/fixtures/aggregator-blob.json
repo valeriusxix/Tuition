@@ -1,0 +1,33 @@
+{
+  "probe": "probe:aggregator",
+  "recordedAt": "2026-11-01T08:25:22.955Z",
+  "request": {
+    "method": "GET",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/TRCb_82aCIZTmW8v58CWFcPw1zScALO1eyGOrZVhiRY",
+    "blobId": "TRCb_82aCIZTmW8v58CWFcPw1zScALO1eyGOrZVhiRY"
+  },
+  "response": {
+    "status": 200,
+    "statusText": "",
+    "headers": {
+      "accept-ranges": "bytes",
+      "access-control-allow-origin": "*",
+      "cache-control": "public, max-age=86400",
+      "cf-cache-status": "MISS",
+      "cf-ray": "a53982262ab0c3e3-LOS",
+      "content-length": "334",
+      "date": "Sun, 01 Nov 2026 08:25:23 GMT",
+      "etag": "TRCb_82aCIZTmW8v58CWFcPw1zScALO1eyGOrZVhiRY",
+      "expires": "Mon, 02 Nov 2026 08:25:23 GMT",
+      "server": "cloudflare",
+      "vary": "origin, access-control-request-method, access-control-request-headers",
+      "via": "1.1 google",
+      "x-cache-status": "MISS",
+      "x-content-type-options": "nosniff"
+    },
+    "ms": 2054,
+    "attempts": 1,
+    "byteLength": 334,
+    "sha256": "31dcbe053dd689c53914f539064bafd3b1385a6d4d4aef676cf5daea2eb8d481"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "probe": "probe:sui",
+  "recordedAt": "2026-10-31T21:56:37.480Z",
+  "request": {
+    "method": "POST",
+    "url": "https://sui-mainnet.gateway.tatum.io",
+    "headers": {
+      "x-api-key": "<TATUM_API_KEY>"
+    },
+    "body": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "sui_getObject",
+      "params": [
+        "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea",
+        {
+          "showType": true,
+          "showOwner": true,
+          "showContent": true
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 404,
+    "statusText": "",
+    "headers": {
+      "alt-svc": "h3=\":443\"; ma=2592000",
+      "content-encoding": "br",
+      "content-length": "49",
+      "content-type": "application/json",
+      "date": "Sat, 31 Oct 2026 21:56:37 GMT",
+      "via": "1.1 google",
+      "x-request-id": "b4t8m-17e3bb0795a6ece2",
+      "x-ttm-plan": "free;ratelimit=3;strategy=shared"
+    },
+    "ms": 1115,
+    "attempts": 1,
+    "body": {
+      "statusCode": 404,
+      "message": "Not Found"
+    }
+  }
+}

@@ -45,6 +45,10 @@ const COMMANDS: Record<string, { describe: string; load: () => Promise<Command> 
     describe: "Print question counts per split/type and the BREAKOUT base rate",
     load: async () => (await import("./commands/questions")).questionsCommand,
   },
+  live: {
+    describe: "Daily live forecasts committed to Walrus before the outcome (--dry: no mainnet, no LLM)",
+    load: async () => (await import("./commands/live")).liveCommand,
+  },
 };
 
 function usage(): string {

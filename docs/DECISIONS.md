@@ -108,3 +108,27 @@ Each of these is implemented on the day its module is built.
 - Features are rounded to 2 decimals, but regime labels are taken from the unrounded values.
 
 **D25. Line endings.** `.gitattributes` forces LF, so Windows commits and the Linux live bot produce identical files.
+
+## 2026-11-01 (Day 3)
+
+**D26. Live v1 scope.** `live` now does the following:
+- Resolves due commitments.
+- Creates today's questions, with the decision date set to the last closed candle.
+- Recalls lessons from `LIVE_LESSON_NAMESPACES` plus `tuition.live.lessons`.
+- Forecasts each question.
+- Commits each forecast to `tuition.live.forecasts` on Walrus **before** exporting `web/public/data/live.json`.
+
+Writing lessons and calibration snapshots for resolved live forecasts (the rest of §9 step 2) ships with `agent/reflect.ts` before the first resolution on 2026-11-08. Until then live forecasts have no lessons to recall. Recall errors are logged and the forecast goes ahead without that namespace, so a relayer hiccup can't block a day's commitments.
+
+**D27. Live state and ledger files.** The state is `engine/state/live-forecasts.json`, written atomically after every single commitment. The ledger is `engine/state/live-ledger.jsonl` (D18). The workflow commits both, the candle cache and `web/public/data`, and its commit step runs `if: always()`, so memories written by a run that failed part-way still reach the ledger. Each idempotency key is `sha256("live:forecast:<questionId>")`.
+
+**D28. Commitment text.** The §9.5 body names the BREAKOUT threshold (e.g. `FORECAST (BREAKOUT ±9.7%, Asset D, …)`) so each commitment can be checked on its own. The real symbol appears only in the header (`sym=`), as §9.5 asks.
+
+**D29. Forecast output handling** (§7.10):
+- `probability` must be in [0, 1] and is then clamped to [0.02, 0.98].
+- The rationale is cut at 60 words rather than rejected.
+- `cited_lessons` keeps only blob IDs that were actually shown to the model.
+- One retry with the problem appended, then the forecast fails loudly.
+- The memory-ON and memory-OFF prompts share one system prompt. Only the user message differs: the lessons block, or "No lessons are available."
+
+**D30. Layout additions.** `engine/src/commands/live.ts` holds the CLI glue. `mapLimit` (bounded concurrency) lives in `util/ratelimit.ts`. `AUTH_HINT` moved to `memory/store.ts`, which owns the real-client factory, so the store doesn't import a probe.

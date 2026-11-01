@@ -3,17 +3,13 @@ import { MemWal } from "@mysten-incubation/memwal";
 import { loadConfig, requireEnv } from "../config";
 import { say } from "../log";
 import { appendLedger, ledgerPath } from "../memory/ledger";
+import { AUTH_HINT } from "../memory/store";
 import { memoryKey, sha256Hex } from "../util/hash";
 import { retry, statusOf } from "../util/retry";
 import { saveFixture } from "./fixture";
 
 const NAMESPACE = "tuition.smoke";
 const PROBE = "smoke:memwal";
-
-export const AUTH_HINT =
-  "HTTP 401 from the relayer. Check: (1) MEMWAL_PRIVATE_KEY is the delegate key from memory.walrus.xyz → SDK credentials; " +
-  "(2) that key is registered on this account; (3) MEMWAL_ACCOUNT_ID is the account OBJECT ID, not a wallet address; " +
-  "(4) MEMWAL_SERVER_URL is the mainnet relayer and the credentials are mainnet credentials.";
 
 export async function smokeMemwal(): Promise<void> {
   const config = loadConfig();

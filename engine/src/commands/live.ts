@@ -1,0 +1,33 @@
+// `live [--dry]`: the daily live job (§9). --dry uses the in-memory store, the 0.5 stub forecaster and a
+// temporary directory, so it never touches mainnet, the committed state or web/public/data.
+import { mkdtempSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { createClaudeForecaster, StubForecaster } from "../agent/forecast";
+import { loadConfig } from "../config";
+import { ensureCandles } from "../data/candles";
+import { DEFAULT_LIVE_PATHS, runLive, type LivePaths } from "../live/daily";
+import { say } from "../log";
+import { createWalrusStore, InMemoryStore } from "../memory/store";
+
+export async function liveCommand(args: string[]): Promise<void> {
+  const config = loadConfig();
+  const dry = args.includes("--dry");
+  const now = new Date();
+  const paths: LivePaths = dry
+    ? (() => {
+        const dir = mkdtempSync(join(tmpdir(), "tuition-live-dry-"));
+        return { stateFile: join(dir, "live-forecasts.json"), ledgerFile: join(dir, "live-ledger.jsonl"), liveJson: join(dir, "live.json") };
+      })()
+    : DEFAULT_LIVE_PATHS;
+  const candles = await ensureCandles(config, { now });
+  const store = dry || config.MEMORY_BACKEND === "memory" ? new InMemoryStore() : createWalrusStore(config, paths.ledgerFile);
+  const forecaster = dry ? new StubForecaster() : createClaudeForecaster(config);
+
+  const s = await runLive({ config, store, forecaster, candles, now, paths });
+  say(`decision date ${s.decisionDate}${dry ? " (DRY RUN: in-memory store, stub forecaster)" : ""}`);
+  say(`committed ${s.committed.length} new forecast(s); ${s.alreadyCommitted} already committed; resolved ${s.resolvedNow}`);
+  for (const r of s.committed) say(`  ${r.question.id.padEnd(28)} p=${r.forecast.p.toFixed(2)}  blob ${r.blobId}`);
+  if (s.skipped.length > 0) say(`skipped: ${s.skipped.map((x) => `${x.id} (${x.reason})`).join(", ")}`);
+  say(`live.json: ${s.file.metrics.pending} pending, ${s.file.metrics.resolved} resolved, Brier ${s.file.metrics.brier?.toFixed(3) ?? "-"} → ${paths.liveJson}`);
+}

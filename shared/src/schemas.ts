@@ -89,6 +89,44 @@ export const LessonSchema = z.object({
   timesCited: z.number().int().min(0),
 }) satisfies z.ZodType<Lesson>;
 
+// ── web/public/data/live.json (§12.1) ──────────────────────────────────────
+
+export const LiveForecastRowSchema = z.object({
+  questionId: z.string(),
+  symbol: z.string(), // live forecasts are public commitments: the real ticker is shown (§9.5)
+  assetCode: z.string(),
+  type: QuestionTypeSchema,
+  decisionDate: isoDate,
+  resolveDate: isoDate,
+  threshold: z.number().positive().optional(),
+  regime: z.string(),
+  p: z.number().min(0.02).max(0.98),
+  rationale: z.string(),
+  model: z.string(),
+  citedBlobIds: z.array(z.string()),
+  recalledBlobIds: z.array(z.string()),
+  blobId: z.string().min(1), // the commitment memory on Walrus
+  committedAt: isoDateTime, // when the write completed, before the outcome was knowable
+  outcome: z.union([z.literal(0), z.literal(1)]).optional(),
+  brier: z.number().min(0).max(1).optional(),
+});
+
+export const LiveFileSchema = z.object({
+  generatedAt: isoDateTime,
+  namespace: z.string(),
+  latestDecisionDate: isoDate.nullable(),
+  pending: z.array(LiveForecastRowSchema),
+  resolved: z.array(LiveForecastRowSchema),
+  metrics: z.object({
+    pending: z.number().int().min(0),
+    resolved: z.number().int().min(0),
+    brier: z.number().nullable(),
+  }),
+});
+
+export type LiveForecastRow = z.infer<typeof LiveForecastRowSchema>;
+export type LiveFile = z.infer<typeof LiveFileSchema>;
+
 export const MemoryLedgerEntrySchema = z.object({
   key: z.string().regex(/^[0-9a-f]{64}$/),
   namespace: z.string().min(1),

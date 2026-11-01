@@ -1,0 +1,57 @@
+name: live
+
+# Daily live forecasts (AGENT.md §9): commit each forecast to Walrus Memory before its outcome is
+# knowable, then publish web/public/data/live.json.
+on:
+  schedule:
+    - cron: "17 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - run: node -v
+      - run: npm ci
+
+      - name: Forecast and commit to Walrus Memory
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TATUM_API_KEY: ${{ secrets.TATUM_API_KEY }}
+          MEMWAL_PRIVATE_KEY: ${{ secrets.MEMWAL_PRIVATE_KEY }}
+          MEMWAL_ACCOUNT_ID: ${{ secrets.MEMWAL_ACCOUNT_ID }}
+          ANTHROPIC_BASE_URL: ${{ vars.ANTHROPIC_BASE_URL }}
+          FORECAST_MODEL: ${{ vars.FORECAST_MODEL }}
+          REFLECT_MODEL: ${{ vars.REFLECT_MODEL }}
+          LIVE_LESSON_NAMESPACES: ${{ vars.LIVE_LESSON_NAMESPACES }}
+        run: npm run engine -- live
+
+      # Runs even if the step above failed part-way, so every memory already written to Walrus is
+      # recorded in the committed ledger and never written twice.
+      - name: Commit live data
+        if: always()
+        run: |
+          shopt -s nullglob
+          git config user.name "tuition-bot"
+          git config user.email "tuition-bot@users.noreply.github.com"
+          git add web/public/data engine/data/candles engine/state/live-*
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+            exit 0
+          fi
+          git commit -m "live: forecasts for $(date -u -d yesterday +%F)"
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -300,6 +300,306 @@
    },
    "blobId": "WHESVyPZ05e07ZGoqgbGX5L-DemlsSXWmSQdKlWJdEo",
    "committedAt": "2026-11-01T08:53:15.383Z"
+  },
+  {
+   "question": {
+    "id": "BREAKOUT-BTC-2026-11-01",
+    "symbol": "BTC",
+    "assetCode": "Asset A",
+    "type": "BREAKOUT",
+    "decisionDate": "2026-11-01",
+    "resolveDate": "2026-11-08",
+    "threshold": 0.048,
+    "split": "live",
+    "features": {
+     "ret7": -2.25,
+     "ret30": -7.29,
+     "vol7": 1.82,
+     "vol30": 1.49,
+     "volRatio": 1.22,
+     "smaDist20": -3.19,
+     "smaSlope20": -1.24,
+     "drawdown30": 9.94,
+     "lastRange": 1.16,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "expanding"
+    }
+   },
+   "forecast": {
+    "questionId": "BREAKOUT-BTC-2026-11-01",
+    "arm": "mem",
+    "p": 0.3,
+    "rationale": "Need a high at or above 104.80 or a low at or below 95.20 within 7 days, a 4.8% move from 100. Recent daily ranges are about 1.2%, so reaching 4.8% in a week requires a sustained move. Volatility is expanding but modest, so I estimate below half.",
+    "citedBlobIds": [],
+    "recalled": [],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-02T06:13:52.315Z"
+   },
+   "blobId": "tQmGFjN-izH3PKI-oBGtghn2V4U7TASud0XZTS3Ikn8",
+   "committedAt": "2026-11-02T06:14:36.804Z"
+  },
+  {
+   "question": {
+    "id": "BREAKOUT-ETH-2026-11-01",
+    "symbol": "ETH",
+    "assetCode": "Asset C",
+    "type": "BREAKOUT",
+    "decisionDate": "2026-11-01",
+    "resolveDate": "2026-11-08",
+    "threshold": 0.068,
+    "split": "live",
+    "features": {
+     "ret7": -2.34,
+     "ret30": -14.74,
+     "vol7": 1.96,
+     "vol30": 1.91,
+     "volRatio": 1.02,
+     "smaDist20": -4.11,
+     "smaSlope20": -2.19,
+     "drawdown30": 16.94,
+     "lastRange": 1.33,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "BREAKOUT-ETH-2026-11-01",
+    "arm": "mem",
+    "p": 0.3,
+    "rationale": "Daily vol is about 1.9%, so the 7-day standard deviation is roughly 5%. The 6.8% barriers sit about 1.35 sigma away on each side, and a reflection-principle estimate gives roughly 0.17 per barrier, or about 0.3 combined. The recent downtrend gives no clear directional edge, and no lessons matched.",
+    "citedBlobIds": [],
+    "recalled": [],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-02T06:13:53.746Z"
+   },
+   "blobId": "-SN1LAFcSwDYfzEdLQdIEeHcbisWyMBOQB606xtkg3k",
+   "committedAt": "2026-11-02T06:14:42.472Z"
+  },
+  {
+   "question": {
+    "id": "BREAKOUT-SOL-2026-11-01",
+    "symbol": "SOL",
+    "assetCode": "Asset D",
+    "type": "BREAKOUT",
+    "decisionDate": "2026-11-01",
+    "resolveDate": "2026-11-08",
+    "threshold": 0.082,
+    "split": "live",
+    "features": {
+     "ret7": -6.78,
+     "ret30": -20.33,
+     "vol7": 2.71,
+     "vol30": 2.2,
+     "volRatio": 1.23,
+     "smaDist20": -7.52,
+     "smaSlope20": -2.92,
+     "drawdown30": 22.7,
+     "lastRange": 3.03,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "expanding"
+    }
+   },
+   "forecast": {
+    "questionId": "BREAKOUT-SOL-2026-11-01",
+    "arm": "mem",
+    "p": 0.37,
+    "rationale": "Day-0 close is 100 with 30-day daily vol about 2.2% and recent vol 2.7%. Over 7 days, touching either +8.2% or -8.2% via intraday highs and lows is roughly 30-45% under a random-walk model. Intraday ranges are wide, which pushes toward the upper end. No lessons matched.",
+    "citedBlobIds": [],
+    "recalled": [],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-02T06:14:24.068Z"
+   },
+   "blobId": "Nmk864xcog95MJKhSmQEkI1r-fKHmo2rCrnNKXaZmh0",
+   "committedAt": "2026-11-02T06:15:03.401Z"
+  },
+  {
+   "question": {
+    "id": "BREAKOUT-SUI-2026-11-01",
+    "symbol": "SUI",
+    "assetCode": "Asset B",
+    "type": "BREAKOUT",
+    "decisionDate": "2026-11-01",
+    "resolveDate": "2026-11-08",
+    "threshold": 0.117,
+    "split": "live",
+    "features": {
+     "ret7": -2.15,
+     "ret30": -21.41,
+     "vol7": 3.79,
+     "vol30": 3.62,
+     "volRatio": 1.05,
+     "smaDist20": -6.77,
+     "smaSlope20": -4.28,
+     "drawdown30": 28.83,
+     "lastRange": 2.59,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "BREAKOUT-SUI-2026-11-01",
+    "arm": "mem",
+    "p": 0.42,
+    "rationale": "Recent close-to-close volatility of about 3.7% implies a 7-day standard deviation near 9.8%, so the 11.7% threshold is about 1.2 sigma. A barrier-touch estimate on either side gives roughly 0.4 to 0.45. Slight downward trend and modest intraday range pull it a little lower.",
+    "citedBlobIds": [],
+    "recalled": [],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-02T06:14:47.668Z"
+   },
+   "blobId": "hNiuOxHL4EqTPASu5AglaE9UXLlTnpjRbhw25iBvtTc",
+   "committedAt": "2026-11-02T06:15:24.931Z"
+  },
+  {
+   "question": {
+    "id": "DIRECTION-BTC-2026-11-01",
+    "symbol": "BTC",
+    "assetCode": "Asset A",
+    "type": "DIRECTION",
+    "decisionDate": "2026-11-01",
+    "resolveDate": "2026-11-08",
+    "split": "live",
+    "features": {
+     "ret7": -2.25,
+     "ret30": -7.29,
+     "vol7": 1.82,
+     "vol30": 1.49,
+     "volRatio": 1.22,
+     "smaDist20": -3.19,
+     "smaSlope20": -1.24,
+     "drawdown30": 9.94,
+     "lastRange": 1.16,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "expanding"
+    }
+   },
+   "forecast": {
+    "questionId": "DIRECTION-BTC-2026-11-01",
+    "arm": "mem",
+    "p": 0.45,
+    "rationale": "Downtrend with negative short-term momentum and smaDist below average suggests slight continuation tendency, but short-horizon mean reversion after a 7-day drop is also common. Net view near coin flip with slight lean down.",
+    "citedBlobIds": [],
+    "recalled": [],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-02T06:13:52.202Z"
+   },
+   "blobId": "eQfvXUhqDmPeVMDCRS3vU4rHVGRFO_H7H3LaEJrnEpQ",
+   "committedAt": "2026-11-02T06:14:19.143Z"
+  },
+  {
+   "question": {
+    "id": "DIRECTION-ETH-2026-11-01",
+    "symbol": "ETH",
+    "assetCode": "Asset C",
+    "type": "DIRECTION",
+    "decisionDate": "2026-11-01",
+    "resolveDate": "2026-11-08",
+    "split": "live",
+    "features": {
+     "ret7": -2.34,
+     "ret30": -14.74,
+     "vol7": 1.96,
+     "vol30": 1.91,
+     "volRatio": 1.02,
+     "smaDist20": -4.11,
+     "smaSlope20": -2.19,
+     "drawdown30": 16.94,
+     "lastRange": 1.33,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "DIRECTION-ETH-2026-11-01",
+    "arm": "mem",
+    "p": 0.45,
+    "rationale": "Asset is in a downtrend with price below its 20-day SMA and negative slope, after a 14.7% 30-day drop. Short-term momentum in daily closes slightly favors continuation, but mean reversion after sharp declines is possible. Net lean slightly below even odds for a higher close on day +7.",
+    "citedBlobIds": [],
+    "recalled": [],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-02T06:13:52.273Z"
+   },
+   "blobId": "3fuOeTcuBV1T_ruNrBMBc50LcBwWAvCC6nwdFtO1G3o",
+   "committedAt": "2026-11-02T06:14:16.263Z"
+  },
+  {
+   "question": {
+    "id": "DIRECTION-SOL-2026-11-01",
+    "symbol": "SOL",
+    "assetCode": "Asset D",
+    "type": "DIRECTION",
+    "decisionDate": "2026-11-01",
+    "resolveDate": "2026-11-08",
+    "split": "live",
+    "features": {
+     "ret7": -6.78,
+     "ret30": -20.33,
+     "vol7": 2.71,
+     "vol30": 2.2,
+     "volRatio": 1.23,
+     "smaDist20": -7.52,
+     "smaSlope20": -2.92,
+     "drawdown30": 22.7,
+     "lastRange": 3.03,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "expanding"
+    }
+   },
+   "forecast": {
+    "questionId": "DIRECTION-SOL-2026-11-01",
+    "arm": "mem",
+    "p": 0.45,
+    "rationale": "Strong downtrend with price well below 20-day average and negative slope suggests mild continuation momentum at short horizons, though heavy oversold conditions and a 7-day window leave the call close to a coin flip. No calibration or lessons applied.",
+    "citedBlobIds": [],
+    "recalled": [],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-02T06:14:19.531Z"
+   },
+   "blobId": "cHrJBzvd4rSB754nWQzmV5DqK3W8v2HlfvCyQ74eUmM",
+   "committedAt": "2026-11-02T06:14:57.209Z"
+  },
+  {
+   "question": {
+    "id": "DIRECTION-SUI-2026-11-01",
+    "symbol": "SUI",
+    "assetCode": "Asset B",
+    "type": "DIRECTION",
+    "decisionDate": "2026-11-01",
+    "resolveDate": "2026-11-08",
+    "split": "live",
+    "features": {
+     "ret7": -2.15,
+     "ret30": -21.41,
+     "vol7": 3.79,
+     "vol30": 3.62,
+     "volRatio": 1.05,
+     "smaDist20": -6.77,
+     "smaSlope20": -4.28,
+     "drawdown30": 28.83,
+     "lastRange": 2.59,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "DIRECTION-SUI-2026-11-01",
+    "arm": "mem",
+    "p": 0.45,
+    "rationale": "Downtrend regime with negative momentum (ret30 -21%, smaDist20 -6.8%, negative slope) suggests slight continuation bias, though short-term mean reversion after a 7-day decline is possible. No calibration or lessons applied; near base rate with modest downward tilt.",
+    "citedBlobIds": [],
+    "recalled": [],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-02T06:14:39.931Z"
+   },
+   "blobId": "8qX2TMpZAFfi7se9lx8awfqw9K6rlXyiLnLeatLxkyQ",
+   "committedAt": "2026-11-02T06:15:17.671Z"
   }
  ]
 }

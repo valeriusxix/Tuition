@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { LiveFileSchema } from "@tuition/shared";
 import { describe, expect, it } from "vitest";
 import { interpretOutput, limitWords, type Forecaster } from "../src/agent/forecast";
+import { StubReflector, type Reflector } from "../src/agent/reflect";
 import { parseConfig } from "../src/config";
 import { allowedRuns, forecastMemoryText, LIVE_NAMESPACES, runLive, type LivePaths } from "../src/live/daily";
 import { decodeHeader } from "../src/memory/format";
@@ -13,6 +14,7 @@ import { alternating, candlesFromCloses, geometric } from "./helpers";
 
 const SYMBOLS = ["BTC", "ETH", "SOL", "SUI"];
 const config = parseConfig({ MEMORY_BACKEND: "memory" });
+const reflector = new StubReflector();
 
 /** 260 synthetic daily candles per symbol ending on `lastDay`. */
 function candlesThrough(days: number) {
@@ -45,7 +47,7 @@ describe("live mode", () => {
     const store = new InMemoryStore();
     const paths = tempPaths();
     const { forecaster, prompts } = recordingForecaster();
-    const s = await runLive({ config, store, forecaster, candles: candlesThrough(260), now, paths });
+    const s = await runLive({ config, store, forecaster, reflector, candles: candlesThrough(260), now, paths });
 
     expect(s.decisionDate).toBe("2026-11-01");
     expect(s.committed).toHaveLength(8);
@@ -68,7 +70,7 @@ describe("live mode", () => {
   it("is idempotent: a second run on the same day writes nothing", async () => {
     const store = new InMemoryStore();
     const paths = tempPaths();
-    const deps = { config, store, forecaster: recordingForecaster().forecaster, candles: candlesThrough(260), now, paths };
+    const deps = { config, store, forecaster: recordingForecaster().forecaster, reflector, candles: candlesThrough(260), now, paths };
     await runLive(deps);
     const again = await runLive(deps);
     expect(again.committed).toHaveLength(0);
@@ -80,8 +82,8 @@ describe("live mode", () => {
     const store = new InMemoryStore();
     const paths = tempPaths();
     const forecaster = recordingForecaster().forecaster;
-    await runLive({ config, store, forecaster, candles: candlesThrough(260), now, paths });
-    const later = await runLive({ config, store, forecaster, candles: candlesThrough(267), now: new Date("2026-11-09T00:17:00Z"), paths });
+    await runLive({ config, store, forecaster, reflector, candles: candlesThrough(260), now, paths });
+    const later = await runLive({ config, store, forecaster, reflector, candles: candlesThrough(267), now: new Date("2026-11-09T00:17:00Z"), paths });
     expect(later.resolvedNow).toBe(8);
     expect(later.committed).toHaveLength(8);
     expect(later.file.resolved).toHaveLength(8);
@@ -89,9 +91,65 @@ describe("live mode", () => {
     expect(later.file.resolved.every((r) => r.brier === (r.p - r.outcome!) ** 2)).toBe(true);
   });
 
+  it("on resolution day writes a lesson per bad miss and a calibration snapshot, then uses them", async () => {
+    const store = new InMemoryStore();
+    const paths = tempPaths();
+    const first = recordingForecaster();
+    await runLive({ config, store, forecaster: first.forecaster, reflector, candles: candlesThrough(260), now, paths });
+    const later = recordingForecaster();
+    const s = await runLive({ config, store, forecaster: later.forecaster, reflector, candles: candlesThrough(267), now: new Date("2026-11-09T00:17:00Z"), paths });
+
+    // p = 0.61 everywhere: a NO outcome misses by 0.61 (≥ 0.45, lesson); a YES misses by 0.39 (no lesson).
+    const noes = s.file.resolved.filter((r) => r.outcome === 0).length;
+    expect(noes).toBeGreaterThan(0);
+    expect(s.lessonsWritten).toBe(noes);
+    expect(s.problems).toEqual([]);
+    const lessons = store.writes.filter((w) => w.namespace === LIVE_NAMESPACES.lessons);
+    expect(lessons).toHaveLength(noes);
+    for (const l of lessons) {
+      const h = decodeHeader(l.text)!;
+      expect(h).toMatchObject({ kind: "lesson", fields: { run: "live", sim: "2026-11-08" } });
+      expect(l.simDate).toBe("2026-11-08");
+    }
+    // 8 resolved → one snapshot dated the last closed day, shown to today's forecasts.
+    expect(s.calibrationN).toBe(8);
+    const cal = store.writes.filter((w) => w.namespace === LIVE_NAMESPACES.calibration);
+    expect(cal).toHaveLength(1);
+    expect(cal[0]!.simDate).toBe("2026-11-08");
+    expect(later.prompts.every((p) => p.includes("My latest calibration snapshot:"))).toBe(true);
+    for (const p of later.prompts) expect(isPromptSafe(p, SYMBOLS)).toBe(true);
+    expect(s.file.pending.every((r) => r.recalledBlobIds.length > 0)).toBe(true);
+
+    // Idempotent: re-running the same day writes no new lesson or snapshot.
+    const before = store.writes.length;
+    const again = await runLive({ config, store, forecaster: later.forecaster, reflector, candles: candlesThrough(267), now: new Date("2026-11-09T00:17:00Z"), paths });
+    expect(again.lessonsWritten).toBe(0);
+    expect(store.writes.length).toBe(before);
+  });
+
+  it("still commits today's forecasts when reflection fails, and reports the problem", async () => {
+    const store = new InMemoryStore();
+    const paths = tempPaths();
+    const forecaster = recordingForecaster().forecaster;
+    await runLive({ config, store, forecaster, reflector, candles: candlesThrough(260), now, paths });
+    const broken: Reflector = {
+      async reflect() {
+        throw new Error("HTTP 529 overloaded");
+      },
+    };
+    const s = await runLive({ config, store, forecaster, reflector: broken, candles: candlesThrough(267), now: new Date("2026-11-09T00:17:00Z"), paths });
+    expect(s.committed).toHaveLength(8);
+    expect(s.problems.length).toBeGreaterThan(0);
+    expect(s.problems[0]).toMatch(/529/);
+    // The next run retries the missing lessons.
+    const retry = await runLive({ config, store, forecaster, reflector, candles: candlesThrough(267), now: new Date("2026-11-09T00:17:00Z"), paths });
+    expect(retry.lessonsWritten).toBe(s.problems.length);
+    expect(retry.problems).toEqual([]);
+  });
+
   it("refuses to run without a candle for the decision day", async () => {
     await expect(
-      runLive({ config, store: new InMemoryStore(), forecaster: recordingForecaster().forecaster, candles: candlesThrough(250), now, paths: tempPaths() }),
+      runLive({ config, store: new InMemoryStore(), forecaster: recordingForecaster().forecaster, reflector, candles: candlesThrough(250), now, paths: tempPaths() }),
     ).rejects.toThrow(/No live questions/);
   });
 

@@ -15,7 +15,7 @@ const isoDate = z.iso.date(); // YYYY-MM-DD
 const isoDateTime = z.iso.datetime();
 
 export const QuestionTypeSchema = z.enum(["DIRECTION", "BREAKOUT"]);
-export const ArmSchema = z.enum(["base", "nomem", "mem"]);
+export const ArmSchema = z.enum(["base", "nomem", "nomem2", "mem"]);
 export const SplitSchema = z.enum(["dev", "test", "live"]);
 export const TrendSchema = z.enum(["up", "down", "flat"]);
 export const VolRegimeSchema = z.enum(["low", "normal", "high"]);

@@ -14,6 +14,7 @@
     "candles": "tsx src/cli.ts candles",
     "questions": "tsx src/cli.ts questions",
     "live": "tsx src/cli.ts live",
+    "replay": "tsx src/cli.ts replay",
     "typecheck": "tsc --noEmit -p .",
     "test": "vitest run"
   },

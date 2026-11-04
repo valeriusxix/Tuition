@@ -2,7 +2,7 @@
 // "added" and logged in docs/DECISIONS.md.
 
 export type QuestionType = "DIRECTION" | "BREAKOUT";
-export type Arm = "base" | "nomem" | "mem";
+export type Arm = "base" | "nomem" | "nomem2" | "mem"; // nomem2: A/A replicate of nomem (D18)
 export type Split = "dev" | "test" | "live";
 export type Trend = "up" | "down" | "flat";
 export type VolRegime = "low" | "normal" | "high";

@@ -127,6 +127,199 @@ export const LiveFileSchema = z.object({
 export type LiveForecastRow = z.infer<typeof LiveForecastRowSchema>;
 export type LiveFile = z.infer<typeof LiveFileSchema>;
 
+// ── Replay results: summary, curve, reliability, questions, lessons (§12.1) ─
+// Written by `export --run <runId>` from a replay checkpoint. Every metric is computed on the
+// questions that every arm of the run forecast and that have resolved (the same set for all arms).
+
+export const ScoreSplitSchema = z.enum(["all", "dev", "test"]);
+export const ScoreTypeSchema = z.enum(["all", "DIRECTION", "BREAKOUT"]);
+
+const count = z.number().int().min(0);
+
+export const ArmMetricsSchema = z.object({
+  n: z.number().int().min(1),
+  brier: z.number().min(0).max(1),
+  logLoss: z.number().min(0),
+  accuracy: z.number().min(0).max(1),
+  ece: z.number().min(0).max(1),
+  skillVsBase: z.number().nullable(), // 1 − Brier/Brier(base) on the same questions; null for base itself
+});
+
+/** metrics[arm][split][type]: split all/dev/test × type all/DIRECTION/BREAKOUT; empty slices are omitted. */
+export const ArmSlicesSchema = z.partialRecord(ScoreSplitSchema, z.partialRecord(ScoreTypeSchema, ArmMetricsSchema));
+
+/** A paired block bootstrap by decision week (§8.3). Positive meanDelta = the candidate arm is better. */
+export const ComparisonSchema = z.object({
+  id: z.string(), // `${candidate}_vs_${reference}`, e.g. "mem_vs_nomem"
+  candidate: ArmSchema,
+  reference: ArmSchema,
+  split: ScoreSplitSchema,
+  candidateBrier: z.number(),
+  referenceBrier: z.number(),
+  meanDelta: z.number(), // mean of brier(reference) − brier(candidate)
+  ci95: z.tuple([z.number(), z.number()]),
+  shareAboveZero: z.number().min(0).max(1),
+  resamples: z.number().int().min(1),
+  blocks: z.number().int().min(1), // decision weeks
+  n: z.number().int().min(1),
+});
+
+/** §8.5 over mem forecasts that have a nomem twin and an outcome. */
+export const InfluenceSummarySchema = z.object({
+  paired: count,
+  citing: count, // cited at least one lesson
+  meanShiftCiting: z.number().nullable(), // mean p_mem − p_nomem when citing
+  meanAbsShiftCiting: z.number().nullable(),
+  meanBrierGainCiting: z.number().nullable(), // mean brier_nomem − brier_mem when citing
+  meanBrierGainNotCiting: z.number().nullable(),
+});
+
+export const SummaryFileSchema = z.object({
+  generatedAt: isoDateTime,
+  runId: z.string(),
+  mode: z.enum(["official", "dev", "dry"]),
+  runCreatedAt: isoDateTime,
+  config: z.object({
+    forecastModel: z.string(),
+    reflectModel: z.string(),
+    assets: z.array(z.string()),
+    replayStart: isoDate,
+    replayEnd: isoDate,
+    devSplitEnd: isoDate,
+    horizonDays: z.number().int(),
+    lessonErrorThreshold: z.number(),
+    recallLimit: z.number().int(),
+    recallMaxDistance: z.number(),
+    seed: z.number().int(),
+  }),
+  namespaces: z.object({ lessons: z.string(), calibration: z.string() }),
+  weeks: z.object({ count, first: isoDate.nullable(), last: isoDate.nullable() }),
+  counts: z.object({
+    questions: count, // scored questions (the common set)
+    bySplit: z.partialRecord(SplitSchema, count),
+    byType: z.partialRecord(QuestionTypeSchema, count),
+    lessons: count, // written to Walrus
+    calibrations: count,
+    reflectionSkips: count,
+  }),
+  arms: z.array(ArmSchema),
+  metrics: z.partialRecord(ArmSchema, ArmSlicesSchema),
+  comparisons: z.array(ComparisonSchema),
+  headline: ComparisonSchema.nullable(), // mem vs nomem on the test split (dev for a run without test weeks)
+  influence: InfluenceSummarySchema.nullable(),
+  memories: z.object({
+    run: z.object({ lessons: count, calibrations: count }),
+    mainnet: z.object({ total: count, byKind: z.record(z.string(), count), byNamespace: z.record(z.string(), count) }),
+  }),
+  costUsd: z.record(z.string(), z.number()),
+});
+
+export const CurvePointSchema = z.object({
+  decisionDate: isoDate,
+  rolling: z.number(), // mean Brier of the last `window` scored questions
+  cumulative: z.number(),
+  n: z.number().int().min(1),
+});
+
+export const CurveFileSchema = z.object({
+  runId: z.string(),
+  window: z.number().int().min(1),
+  arms: z.partialRecord(ArmSchema, z.array(CurvePointSchema)),
+});
+
+export const ReliabilityBinSchema = z.object({
+  binMid: z.number(),
+  meanP: z.number(),
+  freqY: z.number(),
+  n: z.number().int().min(1),
+});
+
+export const ReliabilityFileSchema = z.object({
+  runId: z.string(),
+  bins: z.number().int().min(1),
+  arms: z.partialRecord(
+    ArmSchema,
+    z.partialRecord(ScoreSplitSchema, z.object({ n: z.number().int().min(1), ece: z.number(), bins: z.array(ReliabilityBinSchema) })),
+  ),
+});
+
+export const QuestionForecastSchema = z.object({
+  p: z.number().min(0).max(1),
+  rationale: z.string(),
+  model: z.string(),
+  citedBlobIds: z.array(z.string()),
+  recalled: z.array(z.object({ blobId: z.string(), distance: z.number(), kind: z.enum(["lesson", "calibration"]) })),
+  brier: z.number().min(0).max(1).optional(),
+});
+
+export const QuestionRowSchema = z.object({
+  id: z.string(),
+  symbol: z.string(), // shown after the fact; the model only ever saw assetCode
+  assetCode: z.string(),
+  type: QuestionTypeSchema,
+  decisionDate: isoDate,
+  resolveDate: isoDate,
+  threshold: z.number().positive().optional(),
+  split: SplitSchema,
+  regime: z.string(),
+  features: FeaturesSchema,
+  outcome: z.union([z.literal(0), z.literal(1)]).optional(),
+  /** Closes rebased so day 0 = 100, from day `dayFrom` (normally −59) to day +HORIZON; future highs/lows for days +1..+HORIZON. */
+  path: z.object({
+    dayFrom: z.number().int().max(0),
+    closes: z.array(z.number()),
+    futureHighs: z.array(z.number()),
+    futureLows: z.array(z.number()),
+  }),
+  forecasts: z.partialRecord(ArmSchema, QuestionForecastSchema),
+  shift: z.number().optional(), // p_mem − p_nomem
+  brierGain: z.number().optional(), // brier_nomem − brier_mem (positive = memory helped)
+});
+
+export const QuestionsFileSchema = z.object({
+  runId: z.string(),
+  horizonDays: z.number().int().min(1),
+  questions: z.array(QuestionRowSchema),
+});
+
+export const LessonRowSchema = LessonSchema.extend({
+  body: z.string(), // the memory text without its machine header
+  timesRecalled: count,
+  citedBy: z.array(z.string()), // question IDs whose mem forecast cited it
+  meanBrierGainWhenCited: z.number().nullable(),
+  meanShiftWhenCited: z.number().nullable(),
+});
+
+export const CalibrationRowSchema = z.object({
+  blobId: z.string().min(1),
+  simDate: isoDate,
+  n: count,
+  brier: z.number(),
+  body: z.string(),
+});
+
+export const LessonsFileSchema = z.object({
+  runId: z.string(),
+  namespaces: z.object({ lessons: z.string(), calibration: z.string() }),
+  lessons: z.array(LessonRowSchema),
+  calibrations: z.array(CalibrationRowSchema),
+});
+
+export type ScoreSplit = z.infer<typeof ScoreSplitSchema>;
+export type ScoreType = z.infer<typeof ScoreTypeSchema>;
+export type ArmMetricsRow = z.infer<typeof ArmMetricsSchema>;
+export type ArmSlices = z.infer<typeof ArmSlicesSchema>;
+export type Comparison = z.infer<typeof ComparisonSchema>;
+export type InfluenceSummary = z.infer<typeof InfluenceSummarySchema>;
+export type SummaryFile = z.infer<typeof SummaryFileSchema>;
+export type CurveFile = z.infer<typeof CurveFileSchema>;
+export type ReliabilityFile = z.infer<typeof ReliabilityFileSchema>;
+export type QuestionRow = z.infer<typeof QuestionRowSchema>;
+export type QuestionsFile = z.infer<typeof QuestionsFileSchema>;
+export type LessonRow = z.infer<typeof LessonRowSchema>;
+export type CalibrationRow = z.infer<typeof CalibrationRowSchema>;
+export type LessonsFile = z.infer<typeof LessonsFileSchema>;
+
 export const MemoryLedgerEntrySchema = z.object({
   key: z.string().regex(/^[0-9a-f]{64}$/),
   namespace: z.string().min(1),

@@ -49,6 +49,14 @@ const COMMANDS: Record<string, { describe: string; load: () => Promise<Command> 
     describe: "The memory ON vs OFF experiment (--arms, --limit N, --dry, --official, --resume runId)",
     load: async () => (await import("./commands/replay")).replayCommand,
   },
+  score: {
+    describe: "Score a replay run: metrics, bootstrap, influence (--run runId [--compare refRunId,…])",
+    load: async () => (await import("./commands/score")).scoreCommand,
+  },
+  export: {
+    describe: "Write the web data files for a run (--run runId [--out dir]; dev runs need --out)",
+    load: async () => (await import("./commands/export")).exportCommand,
+  },
   live: {
     describe: "Daily live forecasts committed to Walrus before the outcome (--dry: no mainnet, no LLM)",
     load: async () => (await import("./commands/live")).liveCommand,

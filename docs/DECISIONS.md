@@ -188,3 +188,25 @@ A broken credential then fails the run immediately, even on a day with nothing n
 - **Noise floor.** The range (max − min) of dev Brier across every no-memory pass so far: nomem and nomem2 of each tuning run, so four passes after T2 and six after T3.
 - **Rule.** A non-default value is adopted only if its mean paired gain exceeds the noise floor; otherwise the default stays. The same rule applies to every setting. If T3 does not clear the floor, `RECALL_MAX_DISTANCE` stays 0.8, even though that means no filtering.
 - **Expected outcome.** With 104 questions the likely result is "within noise, defaults kept". It will be reported exactly as it comes out.
+
+**D39. `score` and `export` (§8, §10, §12.1).**
+- **One question set for every arm.** Every metric is computed on the questions that every arm of the run forecast and that have resolved, so all arms are always scored on the same questions. For a complete run this is every question; for a run stopped part-way it is the overlap.
+- **Comparisons.** Paired block bootstraps (2,000 resamples, seed `SEED`) are reported per split (all/dev/test) for:
+  - mem vs nomem, the §8.3 headline
+  - mem vs nomem2
+  - nomem2 vs nomem, the A/A noise floor from D18
+  - mem vs base and nomem vs base
+
+  The headline is mem vs nomem on the test split. A run with no test weeks (a dev or tuning run) falls back to dev, and the `split` field always says which.
+- **Memory influence (§8.5).** Citations and recalls are counted over every mem forecast. Shift and Brier gain use only scored questions. Cited blob IDs that are not lessons of this run are ignored.
+- **`score --compare <ref>[,<run>…]`** implements the D38 rule: this run's mem arm against the first listed run's mem arm, question by question on the dev split. The noise floor is the Brier range of every listed run's nomem and nomem2 passes on those same questions.
+- **Export safety.** `export` writes `summary`, `curve`, `reliability`, `questions` and `lessons`.
+  - It validates all five against their shared schemas before writing any of them, then writes each atomically.
+  - Non-integer numbers are rounded to 6 decimals before validation.
+  - Only an official run goes to `web/public/data` by default. A dev or dry run needs an explicit `--out`, so tuning numbers can never replace the published results by accident.
+  - The proof.json schema is defined with `verify` (§11), not here.
+- **Additions to the §12.1 file contents.**
+  - `questions.json` carries each question's rebased price path for the question page: closes from day −59 to +7 with day 0 = 100, plus the future highs and lows. It also shows the real ticker, which is shown only after the fact; the model only ever saw the asset code.
+  - `lessons.json` also lists the run's calibration snapshots, so the question page can show every recalled memory by blob ID.
+  - The mainnet memory count in `summary.json` is taken over every ledger in `engine/state` (replay runs, live and smoke), one per blob ID.
+- **Layout additions:** `engine/src/score/report.ts` (pure), `engine/src/commands/score.ts`, `engine/src/commands/export.ts`. New tests: `report.test.ts` (hand-computed) and `export.test.ts` (a dry replay exported and read back).

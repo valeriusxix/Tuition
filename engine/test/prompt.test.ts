@@ -1,7 +1,7 @@
 import type { Question } from "@tuition/shared";
 import { describe, expect, it } from "vitest";
 import { encodeMemory, memoryBody } from "../src/memory/format";
-import { FORECAST_SYSTEM, isPromptSafe, NO_LESSONS, recallQuery, renderForecastPrompt } from "../src/prompt/render";
+import { FORECAST_SYSTEM, isPromptSafe, NO_LESSONS, recallQuery, REFLECT_SYSTEM, renderForecastPrompt, renderReflectionPrompt } from "../src/prompt/render";
 import { questionsFor } from "../src/questions/generate";
 import { alternating, candlesFromCloses } from "./helpers";
 
@@ -80,5 +80,39 @@ describe("forecast prompt anonymisation (§6.3)", () => {
   it("builds the recall query from type and regime only", () => {
     const q = recallQuery(question("BREAKOUT"));
     expect(q).toMatch(/^BREAKOUT question; trend (up|down|flat); volatility (low|normal|high) and (expanding|contracting|stable); drawdown \d+%; last day range \d+\.\d%$/);
+  });
+});
+
+describe("reflection prompt anonymisation (§7.5)", () => {
+  const args = (type: "DIRECTION" | "BREAKOUT") => ({
+    question: question(type),
+    candles,
+    horizon: 7,
+    p: 0.31,
+    rationale: "Volatility is contracting, so a large move looks unlikely.",
+    outcome: 1 as const,
+  });
+
+  it("contains no ticker, no date and no raw close, including the realised path", () => {
+    for (const type of ["DIRECTION", "BREAKOUT"] as const) {
+      const p = renderReflectionPrompt(args(type));
+      assertAnonymous(p.system + p.user);
+      expect(p.system).toBe(REFLECT_SYSTEM);
+    }
+  });
+
+  it("shows the forecast, the outcome and days +1..+7 rebased to day 0 = 100.00", () => {
+    const p = renderReflectionPrompt(args("BREAKOUT")).user;
+    expect(p).toContain("My forecast: P(YES) = 0.31. My rationale: Volatility is contracting");
+    expect(p).toContain("Outcome: YES. My Brier score on this question: 0.476");
+    expect(p).toMatch(/day \+1: close \d+\.\d\d, high \d+\.\d\d, low \d+\.\d\d/);
+    expect(p).toMatch(/day \+7: close \d+\.\d\d/);
+    expect(p).not.toMatch(/day \+8/);
+    expect(p).toMatch(/Largest move up: [+-]\d+\.\d\d%\. Largest move down: -?\d+\.\d\d%/);
+    expect(p).not.toContain(NO_LESSONS); // no memory section in a post-mortem
+  });
+
+  it("refuses to run before the resolution window has closed", () => {
+    expect(() => renderReflectionPrompt({ ...args("DIRECTION"), candles: candles.slice(0, -14) })).toThrow(/day \+7/);
   });
 });

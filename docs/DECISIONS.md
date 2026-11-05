@@ -139,3 +139,36 @@ Writing lessons and calibration snapshots for resolved live forecasts (the rest 
 - a 16-token model call, which proves the API key and model ID (about $0.000004)
 
 A broken credential then fails the run immediately, even on a day with nothing new to commit. This also makes the first Actions run (Oct 31 was already committed by the local run) a real end-to-end credential test.
+
+## 2026-11-04 (Day 4)
+
+**D32. Replay checkpoint granularity.** §7.11 asks for an atomic checkpoint after every week. `engine/state/run-<runId>.json` is rewritten atomically after every forecast and every memory write as well, so a crash loses at most one in-flight call. A lesson's text is saved to the checkpoint **before** its Walrus write. Otherwise a resumed run would re-reflect, get different text, and the ledger (keyed by question) would pair the new text with the old blob ID. A resumed run writes the saved text as-is. Each arm's progress marker only advances once every write for that week is done.
+
+**D33. Layout additions.** `engine/src/replay/checkpoint.ts` (checkpoint schema, run IDs, namespaces) and `engine/src/commands/replay.ts` (CLI glue). New tests: `reflect.test.ts`, `calibration.test.ts`, `leakage.test.ts`.
+
+**D34. Reflection output handling (§7.5).** It follows the forecast rules (D17, D29): effort `low`, `max_tokens` 2048, schema-constrained JSON plus zod, no `temperature`.
+- `lesson` and `applies_when` are cut at a word boundary to 280 / 120 characters rather than rejected.
+- `magnitude` is clamped to [0, 0.3] and forced to 0 when `adjustment` is `none`.
+- Text naming a configured ticker or a calendar date is invalid and retried once, like a schema failure.
+- After the second failure the lesson is skipped. The skip is recorded in the checkpoint (or the live state) and never retried, so a resumed run makes no extra LLM calls.
+
+**D35. Replay details.**
+- `Arm` gains `nomem2` (D18). The default arms are `base,nomem,nomem2,mem`, run in that order.
+- Outcomes reach the loop only through a date gate (`resolveDate ≤ D`). That holds even when another arm has already resolved later questions. Stored questions never carry an outcome.
+- Recall keeps a memory only if it is this run's, of the expected kind, has `sim ≤ D`, and its body is prompt-safe. A dropped future memory is logged; `leakage.test.ts` plants one and checks it is dropped.
+- The calibration snapshot is recalled once per week rather than once per question. Every question in a week would get the same snapshot anyway, so this only saves relayer calls.
+- After the last week, that week's questions are resolved for scoring only. Nothing is forecast after them, so they write no lesson.
+- Replay loads candles only through `REPLAY_END + HORIZON + 1`, so it never spends Tatum credits on recent days.
+- `--resume` uses the checkpoint's config snapshot (models, dates, tuning parameters, seed) over the current environment and prints any setting that differs.
+- `--official` refuses `--dry`, `--limit`, `MEMORY_BACKEND=memory`, a missing `base`/`nomem`/`mem` arm, and resuming a dev run as official.
+- `--dry` and in-memory runs write their checkpoint to a temp directory and cannot be resumed, because their memory was lost with the process.
+- A dev-split tuning run (§8.4) is `--limit 13`: the 13 Mondays from 2026-03-02 to 2026-05-25.
+- A calibration snapshot drops its smallest-gap groups if all 8 would exceed the 1,000-character memory cap.
+
+**D36. Live learning (completes D26, §9 step 2).** Each daily run now does the following:
+- For every resolved live forecast that missed by at least `LESSON_ERROR_THRESHOLD`, it writes a lesson to `tuition.live.lessons` (`run=live`, `sim` = resolve date).
+- Once 8 or more live forecasts have resolved, it writes one calibration snapshot per day to `tuition.live.calibration`, dated the last closed day.
+- Live prompts also include the latest live calibration snapshot, matching the replay `mem` arm. §9.4 names only lessons. Live mode *is* the mem arm, and a snapshot that no prompt ever reads would be pointless.
+- A failed reflection or snapshot write never blocks the day's commitments. It is logged, retried on the next run, and makes the CLI exit 1, so the Actions run shows red while its commit step (`if: always()`) still records everything written.
+- The live state gains `calibrations` (it defaults to empty, so the committed file still parses) and, per record, `lesson` and `reflectionSkipped`.
+- The preflight also pings the reflection model.

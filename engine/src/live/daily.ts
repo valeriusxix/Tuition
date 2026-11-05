@@ -1,7 +1,8 @@
 // §9 live mode: forecasts committed to Walrus Memory before their outcome is knowable.
-// v1 (2026-11-01): resolve due forecasts, create today's questions, recall lessons, forecast, commit each
-// forecast to tuition.live.forecasts BEFORE exporting, export live.json. Lesson writing and calibration
-// snapshots for resolved live forecasts arrive with reflect.ts before the first resolution (2026-11-08).
+// Daily: resolve due forecasts → write a lesson for each bad miss (tuition.live.lessons) → one calibration
+// snapshot (tuition.live.calibration, once ≥ 8 are resolved) → create today's questions → recall lessons and
+// the latest snapshot → forecast → commit each forecast to tuition.live.forecasts BEFORE exporting live.json.
+// A failure while learning (reflect/calibrate) is reported but never blocks the day's commitments.
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import {
@@ -17,13 +18,15 @@ import {
 } from "@tuition/shared";
 import { z } from "zod";
 import type { Forecaster } from "../agent/forecast";
+import { lessonMemoryText, ReflectionSkipped, type Reflector } from "../agent/reflect";
 import type { Config } from "../config";
 import { regimeOf } from "../features/regime";
 import { log } from "../log";
+import { buildCalibrationSnapshot } from "../memory/calibration";
 import { decodeHeader, encodeMemory, memoryBody } from "../memory/format";
 import type { MemoryStore } from "../memory/store";
 import { STATE_DIR, WEB_DATA_DIR } from "../paths";
-import { isPromptSafe, recallQuery, renderForecastPrompt, type PromptLesson } from "../prompt/render";
+import { isPromptSafe, recallQuery, renderForecastPrompt, renderReflectionPrompt, type PromptLesson } from "../prompt/render";
 import { assetCodeMap, questionsFor, type Skipped } from "../questions/generate";
 import { resolveOutcome } from "../questions/resolve";
 import { brierOne } from "../score/metrics";
@@ -50,19 +53,33 @@ export const DEFAULT_LIVE_PATHS: LivePaths = {
   liveJson: resolve(WEB_DATA_DIR, "live.json"),
 };
 
+const LiveLessonSchema = z.object({
+  text: z.string().max(1000),
+  adjustment: z.enum(["raise", "lower", "none"]),
+  magnitude: z.number().min(0).max(0.3),
+  model: z.string(),
+  blobId: z.string().min(1).optional(), // absent while the write is pending (saved before writing, D32)
+});
 const LiveRecordSchema = z.object({
   question: QuestionSchema,
   forecast: ForecastSchema,
   blobId: z.string().min(1),
   committedAt: z.iso.datetime(),
   resolvedAt: z.iso.datetime().optional(),
+  lesson: LiveLessonSchema.optional(),
+  reflectionSkipped: z.string().optional(),
 });
-const LiveStateSchema = z.object({ version: z.literal(1), records: z.array(LiveRecordSchema) });
+const LiveCalibrationSchema = z.object({ simDate: z.iso.date(), n: z.number().int(), blobId: z.string().min(1) });
+const LiveStateSchema = z.object({
+  version: z.literal(1),
+  records: z.array(LiveRecordSchema),
+  calibrations: z.array(LiveCalibrationSchema).default([]),
+});
 export type LiveRecord = z.infer<typeof LiveRecordSchema>;
 export type LiveState = z.infer<typeof LiveStateSchema>;
 
 export function readState(path: string): LiveState {
-  if (!existsSync(path)) return { version: 1, records: [] };
+  if (!existsSync(path)) return { version: 1, records: [], calibrations: [] };
   return LiveStateSchema.parse(JSON.parse(readFileSync(path, "utf8")));
 }
 
@@ -72,7 +89,7 @@ export function writeState(path: string, state: LiveState): void {
     a.question.decisionDate === b.question.decisionDate ? a.question.id.localeCompare(b.question.id) : a.question.decisionDate.localeCompare(b.question.decisionDate),
   );
   mkdirSync(dirname(path), { recursive: true });
-  writeFileSync(`${path}.tmp`, `${JSON.stringify(LiveStateSchema.parse({ version: 1, records }), null, 1)}\n`);
+  writeFileSync(`${path}.tmp`, `${JSON.stringify(LiveStateSchema.parse({ ...state, records }), null, 1)}\n`);
   renameSync(`${path}.tmp`, path);
 }
 
@@ -126,6 +143,20 @@ export async function recallLiveLessons(
   return { recalled: usable, lessons };
 }
 
+/** The latest live calibration snapshot knowable at the decision date, as a prompt-safe body. */
+export async function recallLiveCalibration(store: MemoryStore, config: Config, decisionDate: string): Promise<RecalledMemory | undefined> {
+  try {
+    const got = await store.recall({ namespace: LIVE_NAMESPACES.calibration, query: "calibration snapshot", limit: 1, sort: "recent" });
+    return got.find((m) => {
+      const h = decodeHeader(m.text);
+      return h?.kind === "calibration" && h.fields.run === LIVE_RUN && (h.fields.sim ?? "9999") <= decisionDate && isPromptSafe(memoryBody(m.text), config.ASSETS);
+    });
+  } catch (error) {
+    log.warn("calibration recall failed; forecasting without it", { error });
+    return undefined;
+  }
+}
+
 function row(r: LiveRecord): LiveForecastRow {
   const q = r.question;
   return {
@@ -170,6 +201,7 @@ export interface LiveDeps {
   config: Config;
   store: MemoryStore;
   forecaster: Forecaster;
+  reflector: Reflector;
   candles: ReadonlyMap<string, readonly Candle[]>;
   now: Date;
   paths: LivePaths;
@@ -180,12 +212,16 @@ export interface LiveSummary {
   committed: LiveRecord[];
   alreadyCommitted: number;
   resolvedNow: number;
+  lessonsWritten: number;
+  calibrationN?: number;
+  /** Learning steps that failed (logged); the commitments still went ahead. The CLI exits non-zero. */
+  problems: string[];
   skipped: Skipped[];
   file: LiveFile;
 }
 
 export async function runLive(deps: LiveDeps): Promise<LiveSummary> {
-  const { config, store, forecaster, candles, now, paths } = deps;
+  const { config, store, forecaster, reflector, candles, now, paths } = deps;
   const state = readState(paths.stateFile);
   const lastClosed = yesterdayUtc(now);
 
@@ -201,6 +237,82 @@ export async function runLive(deps: LiveDeps): Promise<LiveSummary> {
     resolvedNow++;
   }
   if (resolvedNow > 0) writeState(paths.stateFile, state);
+
+  // Step 2 (learning): a lesson for every bad miss not yet written, then one calibration snapshot per day.
+  const problems: string[] = [];
+  let lessonsWritten = 0;
+  const misses = state.records.filter(
+    (r) =>
+      r.question.outcome !== undefined &&
+      !r.lesson?.blobId &&
+      r.reflectionSkipped === undefined &&
+      Math.abs(r.forecast.p - r.question.outcome) >= config.LESSON_ERROR_THRESHOLD,
+  );
+  await mapLimit(misses, config.LLM_CONCURRENCY, async (r) => {
+    const q = r.question;
+    try {
+      if (!r.lesson) {
+        const c = candles.get(q.symbol)!;
+        const prompt = renderReflectionPrompt({ question: q, candles: c, horizon: config.HORIZON_DAYS, p: r.forecast.p, rationale: r.forecast.rationale, outcome: q.outcome! });
+        const out = await reflector.reflect(prompt);
+        r.lesson = {
+          text: lessonMemoryText({ runId: LIVE_RUN, question: q, simDate: q.resolveDate, result: out }),
+          adjustment: out.adjustment,
+          magnitude: out.magnitude,
+          model: out.model,
+        };
+        writeState(paths.stateFile, state); // before writing, so a retry writes this exact text
+      }
+      const { blobId } = await store.write({
+        namespace: LIVE_NAMESPACES.lessons,
+        text: r.lesson.text,
+        key: memoryKey(LIVE_RUN, "lesson", q.id),
+        kind: "lesson",
+        simDate: q.resolveDate,
+      });
+      r.lesson.blobId = blobId;
+      writeState(paths.stateFile, state);
+      lessonsWritten++;
+      log.info("wrote live lesson", { id: q.id, blobId });
+    } catch (error) {
+      if (error instanceof ReflectionSkipped) {
+        r.reflectionSkipped = error.message;
+        writeState(paths.stateFile, state);
+        log.warn("skipping live lesson", { id: q.id, reason: error.message });
+        return;
+      }
+      problems.push(`lesson for ${q.id}: ${error instanceof Error ? error.message : String(error)}`);
+      log.error("live lesson failed; retried on the next run", { id: q.id, error });
+    }
+  });
+
+  let calibrationN: number | undefined;
+  const resolved = state.records.filter((r) => r.question.outcome !== undefined);
+  if (!state.calibrations.some((c) => c.simDate === lastClosed)) {
+    const snap = buildCalibrationSnapshot({
+      runId: LIVE_RUN,
+      simDate: lastClosed,
+      rows: resolved.map((r) => ({ type: r.question.type, trend: r.question.features.trend, volRegime: r.question.features.volRegime, p: r.forecast.p, y: r.question.outcome! })),
+    });
+    if (snap) {
+      try {
+        const { blobId } = await store.write({
+          namespace: LIVE_NAMESPACES.calibration,
+          text: snap.text,
+          key: memoryKey(LIVE_RUN, "calibration", lastClosed),
+          kind: "calibration",
+          simDate: lastClosed,
+        });
+        state.calibrations.push({ simDate: lastClosed, n: snap.n, blobId });
+        writeState(paths.stateFile, state);
+        calibrationN = snap.n;
+        log.info("wrote live calibration snapshot", { n: snap.n, blobId });
+      } catch (error) {
+        problems.push(`calibration snapshot: ${error instanceof Error ? error.message : String(error)}`);
+        log.error("live calibration snapshot failed; retried on the next run", { error });
+      }
+    }
+  }
 
   // Step 3: today's questions; the decision uses the last closed daily candle.
   const decisionDate = lastClosed;
@@ -222,9 +334,17 @@ export async function runLive(deps: LiveDeps): Promise<LiveSummary> {
   const known = new Set(state.records.map((r) => r.question.id));
   const todo = fresh.filter((q) => !known.has(q.id));
   const committed: LiveRecord[] = [];
+  const calibration = todo.length > 0 ? await recallLiveCalibration(store, config, decisionDate) : undefined;
   await mapLimit(todo, config.LLM_CONCURRENCY, async (q) => {
-    const { recalled, lessons } = await recallLiveLessons(store, config, q);
-    const prompt = renderForecastPrompt({ question: q, candles: candles.get(q.symbol)!, horizon: config.HORIZON_DAYS, lessons });
+    const { recalled: lessonMems, lessons } = await recallLiveLessons(store, config, q);
+    const recalled = calibration ? [...lessonMems, calibration] : lessonMems;
+    const prompt = renderForecastPrompt({
+      question: q,
+      candles: candles.get(q.symbol)!,
+      horizon: config.HORIZON_DAYS,
+      lessons,
+      ...(calibration ? { calibration: memoryBody(calibration.text) } : {}),
+    });
     const out = await forecaster.forecast(prompt, lessons.map((l) => l.blobId));
     const forecast: Forecast = {
       questionId: q.id,
@@ -254,5 +374,15 @@ export async function runLive(deps: LiveDeps): Promise<LiveSummary> {
   const file = buildLiveFile(state, now);
   mkdirSync(dirname(paths.liveJson), { recursive: true });
   writeFileSync(paths.liveJson, `${JSON.stringify(file, null, 1)}\n`);
-  return { decisionDate, committed, alreadyCommitted: fresh.length - todo.length, resolvedNow, skipped, file };
+  return {
+    decisionDate,
+    committed,
+    alreadyCommitted: fresh.length - todo.length,
+    resolvedNow,
+    lessonsWritten,
+    ...(calibrationN !== undefined ? { calibrationN } : {}),
+    problems,
+    skipped,
+    file,
+  };
 }

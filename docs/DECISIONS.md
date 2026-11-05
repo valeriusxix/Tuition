@@ -172,3 +172,19 @@ A broken credential then fails the run immediately, even on a day with nothing n
 - A failed reflection or snapshot write never blocks the day's commitments. It is logged, retried on the next run, and makes the CLI exit 1, so the Actions run shows red while its commit step (`if: always()`) still records everything written.
 - The live state gains `calibrations` (it defaults to empty, so the committed file still parses) and, per record, `lesson` and `reflectionSkipped`.
 - The preflight also pings the reflection model.
+
+## 2026-11-05 (Day 4 exit, Day 5 tuning plan)
+
+**D37. The Day 4 exit run is not a tuning run.** `r-20261105-0945-7e44` (`replay --limit 4`, 2026-03-02 → 2026-03-23) was the Day 4 exit check. It is not one of the three §8.4 tuning runs, and its Brier scores were not used to choose anything. Two facts from it shaped the tuning grid in D38:
+- Lesson recall distances were 0.31–0.43 (median 0.344, n = 112). At 0.8, `RECALL_MAX_DISTANCE` filters nothing, so every question gets the full `RECALL_LIMIT` lessons.
+- At `LESSON_ERROR_THRESHOLD` 0.45, 75% of mem-arm forecasts would write a lesson; at 0.55, 34%.
+
+**D38. Tuning plan (§8.4), fixed before the first tuning run.**
+- **Runs.** Three runs, each `replay --limit 13` (the 13 dev Mondays, 2026-03-02 → 2026-05-25) with arms base, nomem, nomem2 and mem. They run one after another, and each changes one setting:
+  - **T1: defaults.** `LESSON_ERROR_THRESHOLD` 0.45, `RECALL_LIMIT` 5, `RECALL_MAX_DISTANCE` 0.8.
+  - **T2: `LESSON_ERROR_THRESHOLD` 0.55.** The reason is stated without reference to outcomes: at 0.45, a forecast anywhere in [0.45, 0.55] writes a lesson whatever happens, and a coin-flip forecast is not a mistake to learn from. Expected side effect: forecasts sit between 0.2 and 0.6, so a miss of 0.55 or more is nearly always a YES the model rated low. In the D37 run, 30 of the 31 such misses across the three LLM arms were YES outcomes. T2's lessons will therefore mostly say "raise", and a T2 gain should be read as an upward nudge more than as sharper lessons.
+  - **T3: `RECALL_MAX_DISTANCE` set to the median lesson-recall distance in T1's mem arm** (3 decimals). It is computed from distances only, before T3 runs. `RECALL_LIMIT` stays 5. The threshold is whichever of T1/T2 the rule below keeps.
+- **Metric.** Dev-split mem-arm Brier on the same 104 questions, compared question by question with the current choice (T1, or T2 if T2 is adopted): `d = brier(mem_current) − brier(mem_candidate)`. The paired block bootstrap by decision week (`blockBootstrap`, 2,000 resamples, seed 42) is reported alongside.
+- **Noise floor.** The range (max − min) of dev Brier across every no-memory pass so far: nomem and nomem2 of each tuning run, so four passes after T2 and six after T3.
+- **Rule.** A non-default value is adopted only if its mean paired gain exceeds the noise floor; otherwise the default stays. The same rule applies to every setting. If T3 does not clear the floor, `RECALL_MAX_DISTANCE` stays 0.8, even though that means no filtering.
+- **Expected outcome.** With 104 questions the likely result is "within noise, defaults kept". It will be reported exactly as it comes out.

@@ -4,7 +4,7 @@
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import type { Arm } from "@tuition/shared";
+import type { Arm, Question } from "@tuition/shared";
 import { createClaudeForecaster, StubForecaster, type Forecaster } from "../agent/forecast";
 import { createClaudeReflector, StubReflector, type Reflector } from "../agent/reflect";
 import { loadConfig, type Config } from "../config";
@@ -72,6 +72,33 @@ export function parseReplayArgs(args: readonly string[]): ReplayArgs {
   return out;
 }
 
+/** The week limit a run uses. A resumed run keeps the limit it was started with (D42). */
+export function resolveLimit(requested: number | undefined, resumed?: Pick<Checkpoint, "runId" | "limit">): number | undefined {
+  if (!resumed) return requested;
+  const saved = resumed.limit ?? undefined;
+  if (requested !== undefined && saved !== undefined && requested !== saved) {
+    throw new UsageError(`run ${resumed.runId} was started with --limit ${saved}; resume it with the same limit`);
+  }
+  return requested ?? saved;
+}
+
+/**
+ * The decision weeks a run covers. A dev run must stay inside the dev split: test weeks are only ever
+ * forecast by the official run (§8.4, D42). Dry runs use a stub LLM and show nothing about the test split.
+ */
+export function runWeeks(mode: Checkpoint["mode"], questions: readonly Question[], limit: number | undefined, devSplitEnd: string): string[] {
+  const weeks = decisionWeeks(questions, limit);
+  const testWeeks = weeks.filter((w) => w > devSplitEnd);
+  if (mode === "dev" && testWeeks.length > 0) {
+    const devWeeks = weeks.length - testWeeks.length;
+    throw new UsageError(
+      `a dev run must stay inside the dev split (decision dates through ${devSplitEnd}), but this one would forecast ${testWeeks.length} test week(s) ` +
+        `from ${testWeeks[0]}. Pass --limit ${devWeeks} or lower, or use --official for the headline run.`,
+    );
+  }
+  return weeks;
+}
+
 export async function replayCommand(rawArgs: string[]): Promise<void> {
   const args = parseReplayArgs(rawArgs);
   const envConfig = loadConfig();
@@ -125,19 +152,20 @@ export async function replayCommand(rawArgs: string[]): Promise<void> {
     });
     if (skipped.length > 0) say(`skipped ${skipped.length} question(s): ${skipped.map((s) => `${s.id} (${s.reason})`).join(", ")}`);
     const mode = args.dry ? "dry" : args.official ? "official" : "dev";
-    cp = newCheckpoint({ runId: makeRunId(now, config.SEED), mode, config, questions, now });
+    cp = newCheckpoint({ runId: makeRunId(now, config.SEED), mode, config, questions, now, limit: args.limit ?? null });
   }
+  const limit = resolveLimit(args.limit, resumed);
+  const weeks = runWeeks(cp.mode, cp.questions, limit, config.DEV_SPLIT_END); // refuses before anything is written or called
   const file = checkpointPath(cp.runId, dir);
 
   const store: MemoryStore = config.MEMORY_BACKEND === "memory" ? new InMemoryStore() : createWalrusStore(config, ledgerPath(cp.runId));
   const forecaster: Forecaster = args.dry ? new StubForecaster() : createClaudeForecaster(config);
   const reflector: Reflector = args.dry ? new StubReflector() : createClaudeReflector(config);
 
-  const weeks = decisionWeeks(cp.questions, args.limit);
   const nQuestions = cp.questions.filter((q) => weeks.includes(q.decisionDate)).length;
   say(`run      ${cp.runId}  (${cp.mode}${resumed ? ", resumed" : ""}${args.dry ? ": in-memory store, stub LLM" : ""})`);
   say(`arms     ${arms.join(", ")}`);
-  say(`weeks    ${weeks.length} (${weeks[0]} → ${weeks[weeks.length - 1]})${args.limit ? `, --limit ${args.limit}` : ""}; ${nQuestions} questions`);
+  say(`weeks    ${weeks.length} (${weeks[0]} → ${weeks[weeks.length - 1]})${limit ? `, --limit ${limit}` : ""}; ${nQuestions} questions`);
   say(`models   forecast ${config.FORECAST_MODEL}, reflect ${config.REFLECT_MODEL}`);
   say(`memory   ${config.MEMORY_BACKEND}: ${cp.namespaces.lessons}, ${cp.namespaces.calibration}`);
   say(`tuning   LESSON_ERROR_THRESHOLD=${config.LESSON_ERROR_THRESHOLD} RECALL_LIMIT=${config.RECALL_LIMIT} RECALL_MAX_DISTANCE=${config.RECALL_MAX_DISTANCE}`);
@@ -165,7 +193,7 @@ export async function replayCommand(rawArgs: string[]): Promise<void> {
     candles,
     checkpointFile: file,
     arms,
-    ...(args.limit ? { limit: args.limit } : {}),
+    ...(limit ? { limit } : {}),
   });
 
   say();

@@ -9,13 +9,13 @@ import { describe, expect, it } from "vitest";
 import type { Forecaster } from "../src/agent/forecast";
 import { StubReflector, type Reflector } from "../src/agent/reflect";
 import { parseConfig } from "../src/config";
-import { parseReplayArgs } from "../src/commands/replay";
+import { parseReplayArgs, resolveLimit, runWeeks } from "../src/commands/replay";
 import { decodeHeader, encodeMemory } from "../src/memory/format";
 import { InMemoryStore, type MemoryRecall, type MemoryWrite } from "../src/memory/store";
 import { isPromptSafe } from "../src/prompt/render";
 import { generateQuestions } from "../src/questions/generate";
 import { resolveOutcome } from "../src/questions/resolve";
-import { checkpointPath, makeRunId, newCheckpoint, readCheckpoint, type Checkpoint } from "../src/replay/checkpoint";
+import { checkpointPath, CheckpointSchema, makeRunId, newCheckpoint, readCheckpoint, type Checkpoint } from "../src/replay/checkpoint";
 import { runReplay, type ReplayDeps } from "../src/replay/run";
 import { laplaceRate } from "../src/score/metrics";
 import { mulberry32 } from "../src/util/rng";
@@ -265,6 +265,30 @@ describe("replay arguments and identity", () => {
     expect(() => parseReplayArgs(["--official", "--limit", "4"])).toThrow(/every week/);
     expect(() => parseReplayArgs(["--limit", "0"])).toThrow(/positive/);
     expect(() => parseReplayArgs(["--resume"])).toThrow(/needs a value/);
+  });
+
+  it("never lets a dev run reach the test split (D42)", () => {
+    const qs = questions();
+    const devEnd = config.DEV_SPLIT_END; // 3 dev weeks, 3 test weeks
+    expect(runWeeks("dev", qs, 3, devEnd)).toHaveLength(3);
+    expect(() => runWeeks("dev", qs, 4, devEnd)).toThrow(/1 test week/);
+    // The incident: a dev run resumed with no limit at all.
+    expect(() => runWeeks("dev", qs, undefined, devEnd)).toThrow(/3 test week.*--limit 3/s);
+    expect(runWeeks("official", qs, undefined, devEnd)).toHaveLength(6);
+    expect(runWeeks("dry", qs, undefined, devEnd)).toHaveLength(6);
+  });
+
+  it("keeps a run's week limit across a resume (D42)", () => {
+    expect(resolveLimit(5)).toBe(5);
+    expect(resolveLimit(undefined)).toBeUndefined();
+    expect(resolveLimit(undefined, { runId: "r", limit: 13 })).toBe(13);
+    expect(resolveLimit(13, { runId: "r", limit: 13 })).toBe(13);
+    expect(() => resolveLimit(4, { runId: "r", limit: 13 })).toThrow(/same limit/);
+    expect(resolveLimit(undefined, { runId: "r", limit: null })).toBeUndefined();
+    expect(resolveLimit(13, { runId: "r" })).toBe(13); // an older checkpoint that never recorded its limit
+    const cp = newCheckpoint({ runId: "r-x", mode: "dev", config, questions: questions(), now: new Date("2026-11-05T00:00:00Z"), limit: 3 });
+    expect(cp.limit).toBe(3);
+    expect(CheckpointSchema.parse(cp).limit).toBe(3);
   });
 
   it("makes §7.2 run IDs", () => {

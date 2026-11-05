@@ -224,4 +224,16 @@ A broken credential then fails the run immediately, even on a day with nothing n
 - `isNetworkError` now walks the whole cause chain.
 - Every Claude call (forecast, reflect and both pings) uses `isRetryableClaudeError`, which also accepts the SDK's connection error classes.
 
-Regression tests in `retry.test.ts` use the exact failure shape. T2 was resumed from its checkpoint (`replay --resume`) with its saved settings. Forecasts already made were not re-requested, and nothing about how forecasts are produced changed. The live job uses the same forecaster, so it is covered too.
+Regression tests in `retry.test.ts` use the exact failure shape. Nothing about how forecasts are produced changed. The live job uses the same forecaster, so it is covered too. Resuming that T2 went wrong; see D42.
+
+**D42. A dev run can no longer reach the test split.**
+- **What happened.** After D41 I resumed T2 (`r-20261105-1105-ab7a`) without repeating `--limit 13`. `--resume` did not remember the limit, and nothing stopped a dev run from continuing past the dev split, so it started on all 33 weeks. I saw that in its log about a minute later and stopped it. By then the base arm (no LLM) had reached every test week and nomem had forecast 5 test weeks (40 questions, 2026-06-01 → 2026-06-29). nomem2 and mem never left the dev weeks. The run wrote no memories, so no test-week outcome reached a lesson, a snapshot or a mem forecast.
+- **What was seen.** Progress lines showing each week's mean forecast. No test-split score was computed or viewed.
+- **What was done with it.** That run is abandoned. It produced no mem-arm result, so it is not one of the three §8.4 tuning runs, and it will never be scored. Its checkpoint is committed unchanged as the record. T2 was restarted from nothing as `r-20261105-1114-3131`.
+- **Test-split integrity.** The tuned settings act only on the mem arm, and the official run starts with a fresh run ID, fresh namespaces and its own forecasts, so nothing from the abandoned run feeds it. Test-split outcomes were already in the committed candle cache. What matters is that no setting was chosen after seeing a test score, and none was.
+- **The fix.**
+  - The checkpoint now records its `limit`, and a resume keeps it. Asking for a different limit is refused.
+  - A dev run that would cover any week after `DEV_SPLIT_END` is refused before anything is written or called. That covers new runs and resumes of older checkpoints that never recorded a limit.
+  - Only `--official` forecasts test weeks. Dry runs are exempt because their stub LLM shows nothing about the test split.
+
+  Both rules have tests in `leakage.test.ts` (including this exact case), and I confirmed both on the real CLI.

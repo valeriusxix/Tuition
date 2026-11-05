@@ -74,6 +74,7 @@ export const CheckpointSchema = z.object({
   version: z.literal(1),
   runId: z.string(),
   mode: z.enum(["official", "dev", "dry"]),
+  limit: z.number().int().positive().nullable().optional(), // --limit weeks; null = every week; absent in older checkpoints (D42)
   createdAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
   config: RunConfigSchema,
@@ -103,13 +104,14 @@ export function runNamespaces(runId: string): Checkpoint["namespaces"] {
   return { lessons: `tuition.${runId}.lessons`, calibration: `tuition.${runId}.calibration` };
 }
 
-export function newCheckpoint(args: { runId: string; mode: Checkpoint["mode"]; config: Config; questions: readonly Question[]; now: Date }): Checkpoint {
+export function newCheckpoint(args: { runId: string; mode: Checkpoint["mode"]; config: Config; questions: readonly Question[]; now: Date; limit?: number | null }): Checkpoint {
   if (args.questions.some((q) => q.outcome !== undefined)) throw new Error("checkpoint questions must not carry outcomes");
   const at = args.now.toISOString();
   return {
     version: 1,
     runId: args.runId,
     mode: args.mode,
+    limit: args.limit ?? null,
     createdAt: at,
     updatedAt: at,
     config: runConfigOf(args.config),

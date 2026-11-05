@@ -210,3 +210,12 @@ A broken credential then fails the run immediately, even on a day with nothing n
   - `lessons.json` also lists the run's calibration snapshots, so the question page can show every recalled memory by blob ID.
   - The mainnet memory count in `summary.json` is taken over every ledger in `engine/state` (replay runs, live and smoke), one per blob ID.
 - **Layout additions:** `engine/src/score/report.ts` (pure), `engine/src/commands/score.ts`, `engine/src/commands/export.ts`. New tests: `report.test.ts` (hand-computed) and `export.test.ts` (a dry replay exported and read back).
+
+**D40. Tuning log (§8.4).** All runs use `--limit 13` (104 dev questions) and the arms base, nomem, nomem2 and mem.
+- **T1, `r-20261105-1041-51d2`: defaults** (threshold 0.45, limit 5, distance 0.8).
+  - Brier: base 0.264, nomem 0.243, nomem2 0.244, mem 0.251.
+  - Paired mem vs nomem: Δ −0.0085, 95% CI [−0.0343, +0.0149], P(Δ>0) 0.25.
+  - By type, mem hurt DIRECTION (0.259 vs 0.245) and was neutral on BREAKOUT (0.243 vs 0.240).
+  - Memory activity: 66 lessons and 12 snapshots written; 48 of 104 mem forecasts cited a lesson. Cost $0.50.
+- **T3's distance cutoff is now fixed at 0.347,** the median of T1's 480 lesson-recall distances (0.294–0.478; exact median 0.3465). It was computed from distances only and recorded before T2's results.
+- **Caveat, noted before T2 and T3 report.** In T1 the two no-memory passes differ by only 0.0018, so the D38 noise floor will be small. It measures sampling noise on fixed prompts, not how much the mem arm itself varies from run to run: different lessons early can change everything after. The rule stands as registered. Any "adopt" verdict will be reported with this caveat.

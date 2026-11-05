@@ -11,6 +11,7 @@ import { log } from "../log";
 import { encodeMemory } from "../memory/format";
 import { APPLIES_WHEN_MAX_CHARS, isPromptSafe, LESSON_MAX_CHARS, MAX_MAGNITUDE } from "../prompt/render";
 import { retry } from "../util/retry";
+import { isRetryableClaudeError } from "./forecast";
 
 export const REFLECT_MAX_TOKENS = 2048;
 
@@ -118,7 +119,7 @@ export class ClaudeReflector implements Reflector {
               output_config: { effort: "low", format: zodOutputFormat(ReflectOutputSchema) },
               messages: [{ role: "user", content: user }],
             }),
-          { onRetry: ({ attempt: n, delayMs, error }) => log.warn("Claude retry (reflect)", { attempt: n, delayMs, error }) },
+          { isRetryable: isRetryableClaudeError, onRetry: ({ attempt: n, delayMs, error }) => log.warn("Claude retry (reflect)", { attempt: n, delayMs, error }) },
         );
         if (res.stop_reason === "refusal") {
           problem = "the model declined";
@@ -140,8 +141,9 @@ export class ClaudeReflector implements Reflector {
   }
 
   async ping(): Promise<string> {
-    const res = await retry(() =>
-      this.client.messages.create({ model: this.model, max_tokens: 16, messages: [{ role: "user", content: "Reply with the single word: ok" }] }),
+    const res = await retry(
+      () => this.client.messages.create({ model: this.model, max_tokens: 16, messages: [{ role: "user", content: "Reply with the single word: ok" }] }),
+      { isRetryable: isRetryableClaudeError },
     );
     return res.model;
   }

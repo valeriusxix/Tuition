@@ -43,12 +43,21 @@ export function statusOf(error: unknown): number | undefined {
 
 const NETWORK_CODES = /^(ECONNRESET|ECONNREFUSED|ECONNABORTED|ETIMEDOUT|EAI_AGAIN|ENOTFOUND|EPIPE|UND_ERR_\w+)$/;
 
+/**
+ * True for a network-level failure anywhere in the error's cause chain. SDKs wrap fetch failures
+ * (e.g. Anthropic's APIConnectionError → TypeError "fetch failed" → { code: "UND_ERR_SOCKET" }), so the
+ * socket code can sit several causes deep.
+ */
 export function isNetworkError(error: unknown): boolean {
-  if (!(error instanceof Error)) return false;
-  if (error.name === "TimeoutError") return true; // AbortSignal.timeout() and SDK request deadlines
-  if (error instanceof TypeError && /fetch failed|network/i.test(error.message)) return true;
-  const code = (error as { code?: unknown }).code ?? (error as { cause?: { code?: unknown } }).cause?.code;
-  return typeof code === "string" && NETWORK_CODES.test(code);
+  let e: unknown = error;
+  for (let depth = 0; depth < 6 && e instanceof Error; depth++) {
+    if (e.name === "TimeoutError") return true; // AbortSignal.timeout() and SDK request deadlines
+    if (e instanceof TypeError && /fetch failed|network/i.test(e.message)) return true;
+    const code = (e as { code?: unknown }).code;
+    if (typeof code === "string" && NETWORK_CODES.test(code)) return true;
+    e = (e as { cause?: unknown }).cause;
+  }
+  return false;
 }
 
 export function isRetryableError(error: unknown): boolean {

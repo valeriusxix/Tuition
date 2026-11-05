@@ -6,7 +6,14 @@ import { z } from "zod";
 import { requireEnv, type Config } from "../config";
 import { log } from "../log";
 import { clampP } from "../score/metrics";
-import { retry } from "../util/retry";
+import { isRetryableError, retry } from "../util/retry";
+
+/**
+ * Retry rule for every Claude call. The SDK runs with maxRetries 0, so util/retry is the only retry
+ * layer (D7). Its APIConnectionError ("Connection error.", and the APIConnectionTimeoutError subclass)
+ * has no status and may carry no cause, so it is recognised by class.
+ */
+export const isRetryableClaudeError = (error: unknown): boolean => error instanceof Anthropic.APIConnectionError || isRetryableError(error);
 
 export const FORECAST_MAX_TOKENS = 2048;
 export const RATIONALE_MAX_WORDS = 60;
@@ -70,7 +77,7 @@ export class ClaudeForecaster implements Forecaster {
               output_config: { effort: "low", format: zodOutputFormat(ForecastOutputSchema) },
               messages: [{ role: "user", content: user }],
             }),
-          { onRetry: ({ attempt: n, delayMs, error }) => log.warn("Claude retry", { attempt: n, delayMs, error }) },
+          { isRetryable: isRetryableClaudeError, onRetry: ({ attempt: n, delayMs, error }) => log.warn("Claude retry", { attempt: n, delayMs, error }) },
         );
         if (res.stop_reason === "refusal") {
           problem = "the model declined";
@@ -92,8 +99,9 @@ export class ClaudeForecaster implements Forecaster {
   }
 
   async ping(): Promise<string> {
-    const res = await retry(() =>
-      this.client.messages.create({ model: this.model, max_tokens: 16, messages: [{ role: "user", content: "Reply with the single word: ok" }] }),
+    const res = await retry(
+      () => this.client.messages.create({ model: this.model, max_tokens: 16, messages: [{ role: "user", content: "Reply with the single word: ok" }] }),
+      { isRetryable: isRetryableClaudeError },
     );
     return res.model;
   }

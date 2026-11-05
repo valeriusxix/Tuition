@@ -219,3 +219,9 @@ A broken credential then fails the run immediately, even on a day with nothing n
   - Memory activity: 66 lessons and 12 snapshots written; 48 of 104 mem forecasts cited a lesson. Cost $0.50.
 - **T3's distance cutoff is now fixed at 0.347,** the median of T1's 480 lesson-recall distances (0.294–0.478; exact median 0.3465). It was computed from distances only and recorded before T2's results.
 - **Caveat, noted before T2 and T3 report.** In T1 the two no-memory passes differ by only 0.0018, so the D38 noise floor will be small. It measures sampling noise on fixed prompts, not how much the mem arm itself varies from run to run: different lessons early can change everything after. The rule stands as registered. Any "adopt" verdict will be reported with this caveat.
+
+**D41. LLM connection errors are now retried.** Tuning run T2 stopped during the nomem2 arm, at its 4th week, with `Error: Connection error.`, and nothing had retried it. The Anthropic SDK wraps a network failure as `APIConnectionError`. It has no status, its name is plain `Error`, and the socket code sits two `cause` levels down (or there is no cause at all for `APIConnectionTimeoutError`). So it slipped past `isRetryableError`, contrary to D7. Two fixes:
+- `isNetworkError` now walks the whole cause chain.
+- Every Claude call (forecast, reflect and both pings) uses `isRetryableClaudeError`, which also accepts the SDK's connection error classes.
+
+Regression tests in `retry.test.ts` use the exact failure shape. T2 was resumed from its checkpoint (`replay --resume`) with its saved settings. Forecasts already made were not re-requested, and nothing about how forecasts are produced changed. The live job uses the same forecaster, so it is covered too.

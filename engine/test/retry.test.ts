@@ -1,4 +1,6 @@
+import Anthropic from "@anthropic-ai/sdk";
 import { describe, expect, it } from "vitest";
+import { isRetryableClaudeError } from "../src/agent/forecast";
 import { HttpError, isRetryableError, parseRetryAfter, retry, retryAfterMsOf } from "../src/util/retry";
 
 function recorder() {
@@ -93,6 +95,26 @@ describe("error classification", () => {
     expect(isRetryableError(Object.assign(new Error("t"), { name: "TimeoutError" }))).toBe(true);
     expect(isRetryableError(Object.assign(new Error("reset"), { code: "ECONNRESET" }))).toBe(true);
     expect(isRetryableError(new Error("plain"))).toBe(false);
+  });
+
+  it("finds a network failure several causes deep (SDK wrappers around fetch)", () => {
+    // The shape that stopped tuning run T2 (D41): SDK error → TypeError "fetch failed" → socket error.
+    const socket = Object.assign(new Error("other side closed"), { code: "UND_ERR_SOCKET" });
+    expect(isRetryableError(new Error("Connection error.", { cause: new TypeError("fetch failed", { cause: socket }) }))).toBe(true);
+    expect(isRetryableError(new Error("wrapper", { cause: new Error("inner", { cause: socket }) }))).toBe(true);
+    expect(isRetryableError(new Error("wrapper", { cause: new Error("inner, not a network problem") }))).toBe(false);
+  });
+
+  it("retries the Anthropic SDK's connection errors, which carry no status and may carry no cause", async () => {
+    expect(isRetryableClaudeError(new Anthropic.APIConnectionError({ message: undefined }))).toBe(true);
+    expect(isRetryableClaudeError(new Anthropic.APIConnectionTimeoutError())).toBe(true);
+    expect(isRetryableClaudeError(new Error("Connection error."))).toBe(false); // not the SDK class, no network cause
+    expect(isRetryableClaudeError(new HttpError(400, "bad request"))).toBe(false);
+
+    const r = recorder();
+    const f = failing(() => new Anthropic.APIConnectionError({ message: undefined }), 1);
+    await expect(retry(f.fn, { sleep: r.sleep, isRetryable: isRetryableClaudeError })).resolves.toBe("ok");
+    expect(r.waits).toEqual([1000]);
   });
 
   it("parses Retry-After seconds and HTTP dates", () => {

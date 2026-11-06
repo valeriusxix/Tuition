@@ -1,0 +1,134 @@
+name: official
+
+# The official A/B run (AGENT.md §7, §16), run here rather than on a laptop (DECISIONS D45).
+# mode=smoke is a 2-week dev replay that proves this workflow end to end first. It stays inside the
+# dev split and is not a tuning run. mode=official is the headline run.
+# After an interruption, dispatch mode=official again with `resume` set to the printed run ID.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "smoke = 2-week check; official = the headline run"
+        type: choice
+        options: [smoke, official]
+        default: smoke
+      resume:
+        description: "Run ID to resume after an interrupted official run (optional)"
+        type: string
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: official
+  cancel-in-progress: false
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      MODE: ${{ inputs.mode }}
+      RESUME: ${{ inputs.resume }}
+      STATE_BRANCH: ${{ inputs.mode == 'official' && 'official-state' || 'official-smoke-state' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - run: node -v
+      - run: npm ci
+
+      - name: Prepare
+        run: |
+          git config user.name "tuition-bot"
+          git config user.email "tuition-bot@users.noreply.github.com"
+          if [ -n "$RESUME" ]; then
+            if [ "$MODE" != official ] || ! [[ "$RESUME" =~ ^r-[0-9]{8}-[0-9]{4}-[0-9a-f]{4}$ ]]; then
+              echo "::error::resume needs mode=official and a run ID like r-20261106-1200-ab12"
+              exit 1
+            fi
+            # Restore the newest record of what this run already wrote to mainnet.
+            git fetch -q origin "$STATE_BRANCH"
+            git checkout FETCH_HEAD -- "engine/state/run-$RESUME.json"
+            git checkout FETCH_HEAD -- "engine/state/ledger-$RESUME.jsonl" || echo "no ledger yet"
+          elif [ "$MODE" = official ]; then
+            # There is one official run. Never start a second one (§1 honest reporting, §18).
+            if grep -ls '"mode": "official"' engine/state/run-*.json || git ls-remote --exit-code --heads origin "$STATE_BRANCH"; then
+              echo "::error::an official run already exists; resume it instead of starting another"
+              exit 1
+            fi
+          fi
+
+      - name: Replay
+        timeout-minutes: 330
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TATUM_API_KEY: ${{ secrets.TATUM_API_KEY }}
+          MEMWAL_PRIVATE_KEY: ${{ secrets.MEMWAL_PRIVATE_KEY }}
+          MEMWAL_ACCOUNT_ID: ${{ secrets.MEMWAL_ACCOUNT_ID }}
+          ANTHROPIC_BASE_URL: ${{ vars.ANTHROPIC_BASE_URL }}
+          FORECAST_MODEL: ${{ vars.FORECAST_MODEL }}
+          REFLECT_MODEL: ${{ vars.REFLECT_MODEL }}
+          MEMORY_BACKEND: walrus
+          # Chosen by the dev tuning in DECISIONS D44.
+          LESSON_ERROR_THRESHOLD: "0.45"
+          RECALL_LIMIT: "5"
+          RECALL_MAX_DISTANCE: "0.8"
+        run: |
+          if [ "$MODE" = official ]; then
+            args=(--official ${RESUME:+--resume "$RESUME"})
+          else
+            args=(--limit 2)
+          fi
+
+          # Snapshot every 10 minutes, without ever failing the run itself.
+          (
+            ticks=0
+            until [ -f "$RUNNER_TEMP/stop-snapshots" ]; do
+              sleep 15
+              ticks=$((ticks + 1))
+              if [ "$ticks" -ge 40 ]; then
+                ticks=0
+                bash .github/scripts/save-run-state.sh "$STATE_BRANCH" || echo "::warning::snapshot failed"
+              fi
+            done
+          ) &
+          snapshots=$!
+
+          set +e
+          npm run engine -- replay "${args[@]}"
+          code=$?
+          set -e
+          touch "$RUNNER_TEMP/stop-snapshots"
+          wait "$snapshots"
+          exit "$code"
+
+      # Runs even if the replay failed, so every memory already written is on record and never rewritten.
+      - name: Commit run state to main
+        if: always()
+        run: |
+          shopt -s nullglob
+          bash .github/scripts/save-run-state.sh "$STATE_BRANCH" || echo "::warning::final snapshot failed"
+          keep="$RUNNER_TEMP/keep"
+          mkdir -p "$keep"
+          cp engine/state/run-*.json engine/state/ledger-*.jsonl "$keep/"
+          git fetch -q origin main
+          git checkout -q -f -B out origin/main
+          cp "$keep"/* engine/state/
+          git add engine/state/run-*.json engine/state/ledger-*.jsonl
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+            exit 0
+          fi
+          git commit -q -m "$MODE: replay run state"
+          for attempt in 1 2 3 4 5; do
+            git push -q origin HEAD:main && exit 0
+            sleep $((attempt * 10))
+            git fetch -q origin main
+            git rebase -q origin/main
+          done
+          echo "::error::could not push the run state to main; it is on $STATE_BRANCH"
+          exit 1

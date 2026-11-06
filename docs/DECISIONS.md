@@ -265,3 +265,11 @@ Regression tests in `retry.test.ts` use the exact failure shape. Nothing about h
   - No recalled memory is dated after its forecast's decision date.
   - No forecast falls after the dev split.
   - No secret appears in the committed state files.
+
+## 2026-11-06 (Day 6, the official run)
+
+**D45. The official run runs in GitHub Actions.** The owner chose this after low memory on the 8 GB laptop stopped T2 and T3. §1 allows long jobs in Actions. `official.yml` is dispatched by hand.
+- **`mode=smoke`** is a 2-week dev replay with real credentials, proving the workflow first. It stays inside the dev split and is not a tuning run, so nothing is chosen from it. Its memories are real mainnet writes, so its ledger is committed like any other.
+- **`mode=official`** is `replay --official`, with the settings from D44 set explicitly.
+- **Nothing can be lost with the runner.** Checkpoint and ledger are pushed to the `official-state` branch every 10 minutes and again at the end. The final state is committed to `main` even if the run fails. `resume` restores them from that branch.
+- **One official run.** A new official run is refused if a checkpoint with mode official exists on `main` or the state branch exists, so an official run can only be resumed, never redone.

@@ -1,4 +1,4 @@
-import type { Arm, Comparison } from "@tuition/shared";
+import type { Arm } from "@tuition/shared";
 
 const MINUS = "−";
 
@@ -20,14 +20,3 @@ export const ARM_LABEL: Record<Arm, string> = {
   nomem2: "Memory OFF, second pass",
   mem: "Memory ON",
 };
-
-/** What a comparison supports, decided by its interval. All published wording comes from here. */
-export function verdict(c: Comparison): { label: string; sentence: string } {
-  const change = `Brier ${num(c.referenceBrier)} to ${num(c.candidateBrier)}`;
-  if (c.ci95[0] > 0) return { label: "Reliable improvement", sentence: `Memory improved ${change}, and the 95% interval is above zero.` };
-  if (c.ci95[1] < 0) return { label: "Reliably worse", sentence: `Memory worsened ${change}, and the 95% interval is below zero.` };
-  return {
-    label: "Not statistically significant",
-    sentence: `Memory moved ${change}, but the 95% interval spans zero, so this run does not show a reliable improvement.`,
-  };
-}

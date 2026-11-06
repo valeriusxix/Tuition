@@ -289,3 +289,12 @@ Regression tests in `retry.test.ts` use the exact failure shape. Nothing about h
 - A blob that is not 200 is rechecked once after a pause, because a recent blob can briefly 404 through the CDN (D10). Anything still failing is recorded as failed and `verify` exits non-zero.
 - The recall round-trip takes three seeded-random lessons and records whether the top hit matched. It is not retried until it matches.
 - `LIVE_LESSON_NAMESPACES` was set to the official lessons at 2026-11-06 16:01 UTC. Live forecasts made before then did not recall the official lessons; those from the next scheduled run onward do.
+
+**D48. The site, the docs and the daily refresh.**
+- **Web app.** All seven pages of §12.2 are built. Every data file is validated on load, and each page has a loading and an error state. Checked at a true 375 px in a browser: no page scrolls sideways. Chart colors passed the palette validator on the dark surface, so memory OFF carries a second hue beside the one UI accent.
+- **`vercel.json` is at the repo root**, not in `web/`, so importing the repo needs no root-directory setting. It rewrites unknown paths to `index.html` so `/questions/:id` works on a direct link.
+- **Generated docs.** `export` of the official run fills marked blocks in README.md and BLOG_DRAFT.md from summary.json and proof.json. A missing marker is an error. The verdict wording lives in `shared/src/verdict.ts` and depends only on the interval, so the site, README and blog cannot claim more than it shows.
+- **Deviation from §9.** The live job also runs `verify` and `export` after forecasting and commits README.md and docs/BLOG_DRAFT.md, so counts and proof stay current through submission. That step cannot stop the day's forecasts from being committed.
+- **Second-pass arm in the charts.** The learning curve also shows the A/A pass, which §12.2 did not ask for, because it sizes the noise behind the headline.
+
+**D49. Atomic writes retry on Windows.** The full test suite started failing locally with `EPERM` on the checkpoint's tmp-and-rename, a different number of tests each run. Renaming over a file another process has briefly open fails on Windows, and the tests rewrite one file many times quickly. Real replays use the same line, so `util/atomic.ts` now retries `EPERM`, `EACCES` and `EBUSY` for up to about half a second, and checkpoint, live, export and verify all use it. Other errors still throw at once. Linux is unaffected, and no published data changed.

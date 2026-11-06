@@ -1,7 +1,7 @@
 // `verify --run <runId>` (§11): proves a run on mainnet and writes web/public/data/proof.json. Reads the
 // account object through Tatum's Sui gateway, fetches every blob from the Walrus aggregator (the content
 // is encrypted and is never decoded), and recalls three lessons by their own text.
-import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { delegateKeyToPublicKey } from "@mysten-incubation/memwal";
 import { LessonsFileSchema, type BlobCheck, type MemoryLedgerEntry, type RecallCheck } from "@tuition/shared";
@@ -15,6 +15,7 @@ import { fetchRaw } from "../probes/http";
 import { ledgerCounts } from "../publish/export";
 import { checkpointPath, readCheckpoint } from "../replay/checkpoint";
 import { readAccountObject } from "../tatum/sui";
+import { replaceFile } from "../util/atomic";
 import { aggregatorLimiter, mapLimit } from "../util/ratelimit";
 import { retry } from "../util/retry";
 import { assertNoSecrets, blobUrl, buildProof, proofProblems, sampleLessons, uniqueBlobs } from "../verify/proof";
@@ -109,7 +110,7 @@ export async function verifyCommand(rawArgs: string[]): Promise<void> {
   mkdirSync(WEB_DATA_DIR, { recursive: true });
   const path = resolve(WEB_DATA_DIR, "proof.json");
   writeFileSync(`${path}.tmp`, text);
-  renameSync(`${path}.tmp`, path);
+  replaceFile(`${path}.tmp`, path);
 
   say(`delegate key on the account object: ${proof.account.delegateKeyFound ? `yes (${proof.account.delegateKeyEncoding})` : "NO"}`);
   say(`blobs: ${proof.blobs.ok}/${proof.blobs.checked} HTTP 200, ${proof.blobs.totalBytes} bytes`);

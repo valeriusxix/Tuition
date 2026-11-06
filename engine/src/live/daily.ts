@@ -3,7 +3,7 @@
 // snapshot (tuition.live.calibration, once ≥ 8 are resolved) → create today's questions → recall lessons and
 // the latest snapshot → forecast → commit each forecast to tuition.live.forecasts BEFORE exporting live.json.
 // A failure while learning (reflect/calibrate) is reported but never blocks the day's commitments.
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import {
   ForecastSchema,
@@ -30,6 +30,7 @@ import { isPromptSafe, recallQuery, renderForecastPrompt, renderReflectionPrompt
 import { assetCodeMap, questionsFor, type Skipped } from "../questions/generate";
 import { resolveOutcome } from "../questions/resolve";
 import { brierOne } from "../score/metrics";
+import { replaceFile } from "../util/atomic";
 import { yesterdayUtc } from "../util/dates";
 import { memoryKey } from "../util/hash";
 import { mapLimit } from "../util/ratelimit";
@@ -90,7 +91,7 @@ export function writeState(path: string, state: LiveState): void {
   );
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(`${path}.tmp`, `${JSON.stringify(LiveStateSchema.parse({ ...state, records }), null, 1)}\n`);
-  renameSync(`${path}.tmp`, path);
+  replaceFile(`${path}.tmp`, path);
 }
 
 /** §9.5 commitment text: the real symbol appears in the header only; the body names the asset code. */

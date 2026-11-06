@@ -1,10 +1,10 @@
-import type { Comparison, CurveFile, SummaryFile } from "@tuition/shared";
+import { verdict, type Comparison, type CurveFile, type SummaryFile } from "@tuition/shared";
 import { useMemo, useState } from "react";
 import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Section, SELECT, Stat, Status } from "../components/ui";
 import { AXIS_TICK, INK, Legend, SERIES, TooltipBox } from "../lib/charts";
 import { useCurve, useSummary } from "../lib/data";
-import { num, percent, shortDate, signed, verdict } from "../lib/format";
+import { num, percent, shortDate, signed } from "../lib/format";
 
 const find = (s: SummaryFile, id: string, split = "test"): Comparison | undefined => s.comparisons.find((c) => c.id === id && c.split === split);
 

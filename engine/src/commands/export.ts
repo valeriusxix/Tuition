@@ -2,15 +2,17 @@
 // lessons JSON for the web app, each validated against its shared schema first. Reads only local
 // files (checkpoint, candle cache, ledgers): no network, no keys.
 // Only the official run goes to web/public/data by default; a dev or dry run needs an explicit --out,
-// so tuning numbers can never replace the published results by accident.
-import { existsSync, readdirSync } from "node:fs";
+// so tuning numbers can never replace the published results by accident. An official export also fills
+// the generated blocks of README.md and docs/BLOG_DRAFT.md.
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import type { Candle, MemoryLedgerEntry } from "@tuition/shared";
+import { ProofFileSchema, type Candle, type MemoryLedgerEntry, type ProofFile, type SummaryFile } from "@tuition/shared";
 import { readCache } from "../data/candles";
 import { UsageError } from "../errors";
 import { say } from "../log";
 import { readLedger } from "../memory/ledger";
-import { STATE_DIR, WEB_DATA_DIR } from "../paths";
+import { REPO_ROOT, STATE_DIR, WEB_DATA_DIR } from "../paths";
+import { renderDocs } from "../publish/docs";
 import { buildWebData, writeWebData } from "../publish/export";
 import { checkpointPath, readCheckpoint } from "../replay/checkpoint";
 import { buildReport } from "../score/report";
@@ -47,6 +49,20 @@ export function allLedgers(dir: string = STATE_DIR): MemoryLedgerEntry[] {
     .flatMap((f) => readLedger(resolve(dir, f)));
 }
 
+function readProof(dir: string): ProofFile | null {
+  const path = resolve(dir, "proof.json");
+  return existsSync(path) ? ProofFileSchema.parse(JSON.parse(readFileSync(path, "utf8"))) : null;
+}
+
+function writeDocs(summary: SummaryFile, proof: ProofFile | null): string[] {
+  const readmePath = resolve(REPO_ROOT, "README.md");
+  const blogPath = resolve(REPO_ROOT, "docs", "BLOG_DRAFT.md");
+  const { readme, blog } = renderDocs({ readme: readFileSync(readmePath, "utf8"), blog: readFileSync(blogPath, "utf8"), summary, proof });
+  writeFileSync(readmePath, readme);
+  writeFileSync(blogPath, blog);
+  return [readmePath, blogPath];
+}
+
 export async function exportCommand(rawArgs: string[]): Promise<void> {
   const args = parseExportArgs(rawArgs);
   const cp = readCheckpoint(checkpointPath(args.run));
@@ -69,6 +85,7 @@ export async function exportCommand(rawArgs: string[]): Promise<void> {
   const report = buildReport(cp);
   const data = buildWebData({ cp, report, candles, ledgers: allLedgers(), generatedAt: new Date().toISOString() });
   const paths = writeWebData(out, data);
+  if (cp.mode === "official" && args.out === undefined) paths.push(...writeDocs(data.summary, readProof(out)));
 
   say(`run ${cp.runId} (${cp.mode}): ${data.summary.counts.questions} scored questions, ${data.lessons.lessons.length} lessons, ${data.lessons.calibrations.length} calibration snapshots`);
   say(`mainnet memories across all ledgers: ${data.summary.memories.mainnet.total}`);

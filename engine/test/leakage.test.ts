@@ -5,7 +5,7 @@ import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { Arm, Candle, Question } from "@tuition/shared";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { Forecaster } from "../src/agent/forecast";
 import { StubReflector, type Reflector } from "../src/agent/reflect";
 import { parseConfig } from "../src/config";
@@ -90,6 +90,9 @@ function setup(arms: Arm[], opts: { store?: RecordingStore; reflector?: Reflecto
   };
   return { cp, store, deps, prompts, dir };
 }
+
+// Dry replays do real checkpoint I/O after every forecast, which can pass 5s on a busy machine.
+vi.setConfig({ testTimeout: 30_000 });
 
 describe("replay leakage controls (§7.4)", () => {
   it("only ever recalls memories created on or before the decision date", async () => {

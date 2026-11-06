@@ -2,13 +2,14 @@
 // every forecast per arm, resolved outcomes, lessons and calibration snapshots, and per-arm progress.
 // Written atomically (tmp + rename) after every forecast and memory write, so `replay --resume` never
 // re-calls the LLM for a saved forecast and never writes a memory twice.
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { ArmSchema, ForecastSchema, QuestionSchema, QuestionTypeSchema, type Arm, type Question } from "@tuition/shared";
 import { z } from "zod";
 import type { Config } from "../config";
 import { UsageError } from "../errors";
 import { STATE_DIR } from "../paths";
+import { replaceFile } from "../util/atomic";
 import { formatDate } from "../util/dates";
 import { mulberry32, randomHex, seedFromString } from "../util/rng";
 
@@ -137,5 +138,5 @@ export function writeCheckpoint(path: string, cp: Checkpoint): void {
   cp.updatedAt = new Date().toISOString();
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(`${path}.tmp`, `${JSON.stringify(cp, null, 1)}\n`);
-  renameSync(`${path}.tmp`, path);
+  replaceFile(`${path}.tmp`, path);
 }

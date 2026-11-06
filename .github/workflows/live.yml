@@ -18,6 +18,8 @@ jobs:
   live:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      OFFICIAL_RUN: r-20261106-1001-f2a8
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -39,6 +41,21 @@ jobs:
           LIVE_LESSON_NAMESPACES: ${{ vars.LIVE_LESSON_NAMESPACES }}
         run: npm run engine -- live
 
+      # Refresh the proof and the published counts with the day's new memories. A failed check is recorded
+      # in proof.json and must never stop the day's forecasts from being committed below.
+      - name: Refresh proof and site data
+        if: always()
+        continue-on-error: true
+        env:
+          TATUM_API_KEY: ${{ secrets.TATUM_API_KEY }}
+          MEMWAL_PRIVATE_KEY: ${{ secrets.MEMWAL_PRIVATE_KEY }}
+          MEMWAL_ACCOUNT_ID: ${{ secrets.MEMWAL_ACCOUNT_ID }}
+        run: |
+          code=0
+          npm run engine -- verify --run "$OFFICIAL_RUN" || code=$?
+          npm run engine -- export --run "$OFFICIAL_RUN"
+          exit "$code"
+
       # Runs even if the step above failed part-way, so every memory already written to Walrus is
       # recorded in the committed ledger and never written twice.
       - name: Commit live data
@@ -47,7 +64,7 @@ jobs:
           shopt -s nullglob
           git config user.name "tuition-bot"
           git config user.email "tuition-bot@users.noreply.github.com"
-          git add web/public/data engine/data/candles engine/state/live-*
+          git add web/public/data engine/data/candles engine/state/live-* README.md docs/BLOG_DRAFT.md
           if git diff --cached --quiet; then
             echo "Nothing new to commit."
             exit 0

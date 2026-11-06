@@ -2,7 +2,7 @@
 // buildWebData() is pure; writeWebData() validates every file against its shared schema before
 // writing any of them (all or nothing), then writes each atomically (tmp + rename).
 // live.json is written by `live` (§9) and proof.json by `verify` (§11).
-import { mkdirSync, renameSync, writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
   CurveFileSchema,
@@ -27,6 +27,7 @@ import { indexOfDate } from "../questions/generate";
 import { ARM_ORDER, type Checkpoint } from "../replay/checkpoint";
 import { brierOne } from "../score/metrics";
 import { CURVE_WINDOW, RELIABILITY_BINS, type RunReport } from "../score/report";
+import { replaceFile } from "../util/atomic";
 
 export interface WebData {
   summary: SummaryFile;
@@ -227,7 +228,7 @@ export function writeWebData(dir: string, data: WebData): string[] {
   return checked.map(([file, value]) => {
     const path = resolve(dir, file);
     writeFileSync(`${path}.tmp`, `${JSON.stringify(value, null, 1)}\n`);
-    renameSync(`${path}.tmp`, path);
+    replaceFile(`${path}.tmp`, path);
     return path;
   });
 }

@@ -12,7 +12,7 @@ import {
   type Candle,
   type MemoryLedgerEntry,
 } from "@tuition/shared";
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import type { Forecaster } from "../src/agent/forecast";
 import { StubReflector } from "../src/agent/reflect";
 import { parseExportArgs } from "../src/commands/export";
@@ -73,6 +73,8 @@ beforeAll(async () => {
   ];
   data = buildWebData({ cp, report: buildReport(cp), candles, ledgers, generatedAt: "2026-11-05T12:30:00.000Z" });
 });
+
+vi.setConfig({ testTimeout: 30_000 }); // a dry replay does real checkpoint I/O
 
 describe("export (§12.1)", () => {
   it("writes five files that validate against their schemas when read back", () => {

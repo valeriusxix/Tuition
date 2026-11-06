@@ -1,13 +1,66 @@
-// Placeholder until the pages in AGENT.md §12.2 are built (Days 7–9).
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Link, NavLink, Route, Routes } from "react-router";
+
+const Overview = lazy(() => import("./pages/Overview"));
+const Calibration = lazy(() => import("./pages/Calibration"));
+const Lessons = lazy(() => import("./pages/Lessons"));
+const Questions = lazy(() => import("./pages/Questions"));
+const QuestionDetail = lazy(() => import("./pages/QuestionDetail"));
+const Live = lazy(() => import("./pages/Live"));
+const Verify = lazy(() => import("./pages/Verify"));
+const Method = lazy(() => import("./pages/Method"));
+
+const NAV: [string, string][] = [
+  ["/", "Overview"],
+  ["/calibration", "Calibration"],
+  ["/lessons", "Lessons"],
+  ["/questions", "Questions"],
+  ["/live", "Live"],
+  ["/verify", "Verify"],
+  ["/method", "Method"],
+];
+
+function NotFound() {
+  return (
+    <p className="text-neutral-300">
+      No such page.{" "}
+      <Link className="text-accent underline" to="/">
+        Back to the overview
+      </Link>
+    </p>
+  );
+}
+
 export default function App() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16">
-      <p className="font-mono text-sm text-accent">Tuition</p>
-      <h1 className="mt-2 text-3xl font-semibold text-neutral-50">Same model. Same questions. One remembers.</h1>
-      <p className="mt-4 text-neutral-400">
-        An AI forecaster that writes lessons from its own mistakes to Walrus Memory, and a controlled experiment that
-        measures whether those lessons help. Results appear here after the official run.
-      </p>
-    </main>
+    <BrowserRouter>
+      <div className="mx-auto max-w-5xl px-4 pb-16">
+        <nav aria-label="Main" className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-neutral-800 py-3 text-sm">
+          <Link to="/" className="mr-2 font-mono text-accent">
+            Tuition
+          </Link>
+          {NAV.map(([to, label]) => (
+            <NavLink key={to} to={to} end={to === "/"} className={({ isActive }) => (isActive ? "text-neutral-50" : "text-neutral-400 hover:text-neutral-200")}>
+              {label}
+            </NavLink>
+          ))}
+        </nav>
+        <main className="pt-8">
+          <Suspense fallback={<p className="text-neutral-400">Loading…</p>}>
+            <Routes>
+              <Route path="/" element={<Overview />} />
+              <Route path="/calibration" element={<Calibration />} />
+              <Route path="/lessons" element={<Lessons />} />
+              <Route path="/questions" element={<Questions />} />
+              <Route path="/questions/:id" element={<QuestionDetail />} />
+              <Route path="/live" element={<Live />} />
+              <Route path="/verify" element={<Verify />} />
+              <Route path="/method" element={<Method />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }

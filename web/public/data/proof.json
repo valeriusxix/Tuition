@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-11-06T16:14:01.831Z",
+ "generatedAt": "2026-11-06T16:41:13.667Z",
  "runId": "r-20261106-1001-f2a8",
  "agentId": "084487542e2bd6ec8eaf71edd877904d72858e4385b590514b993d40bc7c5907",
  "accountId": "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea",
  "relayer": {
   "url": "https://relayer.memory.walrus.xyz",
-  "checkedAt": "2026-11-06T16:08:31.446Z",
+  "checkedAt": "2026-11-06T16:39:15.578Z",
   "health": {
    "status": "ok",
    "version": "0.1.0",
@@ -2429,21 +2429,21 @@
     "blobId": "OEr0hbE2As-5-DPI_OYtd2Dv1LPimRt6DaVSMjJ_Ock",
     "questionId": "DIRECTION-SOL-2026-04-27",
     "topBlobId": "OEr0hbE2As-5-DPI_OYtd2Dv1LPimRt6DaVSMjJ_Ock",
-    "distance": 0.11203018047582214,
+    "distance": 0.11205659287892378,
     "matched": true
    },
    {
     "blobId": "euUd8KH4u2yetVOmC6UjzfkE0Q71K9eugVmVzNh6VtE",
     "questionId": "DIRECTION-ETH-2026-06-22",
     "topBlobId": "euUd8KH4u2yetVOmC6UjzfkE0Q71K9eugVmVzNh6VtE",
-    "distance": 0.13199829087636195,
+    "distance": 0.13195456485423485,
     "matched": true
    },
    {
     "blobId": "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
     "questionId": "DIRECTION-SOL-2026-08-03",
     "topBlobId": "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
-    "distance": 0.1086664533961863,
+    "distance": 0.10871918330639674,
     "matched": true
    }
   ]

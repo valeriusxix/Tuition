@@ -259,3 +259,9 @@ Regression tests in `retry.test.ts` use the exact failure shape. Nothing about h
 - **Settings for the official run:** `LESSON_ERROR_THRESHOLD` 0.45, `RECALL_LIMIT` 5, `RECALL_MAX_DISTANCE` 0.8. This is the "within noise, defaults kept" outcome D38 expected. With 0.8 no recalled lesson is filtered out by distance.
 - **Reported as it came out.** In all three runs the mem arm scored worse than the same run's no-memory passes on the dev split (mem 0.251, 0.255, 0.256; mean of the six no-memory passes 0.247). Every paired confidence interval for mem vs nomem includes zero. Dev is not the headline (§8.4), memory built up in dev carries into test, and the design is unchanged. If the test split shows the same, the README says so (§18).
 - **Tuning runs used:** 3 of 3. The abandoned attempt in D42 is not counted.
+- **Tuning runs verified.** Across T1, T2 and T3:
+  - Every ledger matches its checkpoint, with no duplicate writes.
+  - All 194 blobs return HTTP 200 from the Walrus mainnet aggregator.
+  - No recalled memory is dated after its forecast's decision date.
+  - No forecast falls after the dev split.
+  - No secret appears in the committed state files.

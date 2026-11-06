@@ -249,3 +249,13 @@ Regression tests in `retry.test.ts` use the exact failure shape. Nothing about h
 - **The noise floor came out larger than D40 expected.** The D40 caveat was written when only T1's two passes existed, and they happened to agree closely. Forecast disagreement is about the same within and between runs: the mean |Δp| is 0.029–0.034 for all six pairs of passes. So there is no sign of a run-level effect, and the 0.0018 gaps within each run were chance.
 - **Run comparability checked.** All tuning runs have the same 264 questions in every field and in the same order.
 - **T3, `r-20261106-0910-5942`:** threshold 0.45, limit 5, distance 0.347, as fixed in D40.
+
+**D44. Tuning result (§8.4): the defaults stay.**
+- **T3, `r-20261106-0910-5942`: distance cutoff 0.347** (threshold 0.45, limit 5). The system stopped it after 8 mem weeks when the machine ran low on memory, and it was resumed in the foreground from its checkpoint.
+  - Brier: base 0.264, nomem 0.248, nomem2 0.252, mem 0.256.
+  - Paired mem vs nomem: Δ −0.0081, 95% CI [−0.0305, +0.0086].
+  - Memory activity: 67 lessons and 12 snapshots; 340 lessons recalled against T1's 480, so the cutoff did filter; 30 of 104 mem forecasts cited a lesson. Cost $0.50.
+- **Rule applied (D38): T3 is not adopted.** Against T1, the paired gain is −0.0047, 95% CI [−0.0178, +0.0091]. That does not exceed the noise floor of 0.0098, the range of six no-memory passes (0.243, 0.244, 0.252, 0.251, 0.248, 0.252).
+- **Settings for the official run:** `LESSON_ERROR_THRESHOLD` 0.45, `RECALL_LIMIT` 5, `RECALL_MAX_DISTANCE` 0.8. This is the "within noise, defaults kept" outcome D38 expected. With 0.8 no recalled lesson is filtered out by distance.
+- **Reported as it came out.** In all three runs the mem arm scored worse than the same run's no-memory passes on the dev split (mem 0.251, 0.255, 0.256; mean of the six no-memory passes 0.247). Every paired confidence interval for mem vs nomem includes zero. Dev is not the headline (§8.4), memory built up in dev carries into test, and the design is unchanged. If the test split shows the same, the README says so (§18).
+- **Tuning runs used:** 3 of 3. The abandoned attempt in D42 is not counted.

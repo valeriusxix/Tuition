@@ -1,0 +1,806 @@
+{
+ "runId": "r-20261106-1001-f2a8",
+ "window": 24,
+ "arms": {
+  "base": [
+   {
+    "decisionDate": "2026-03-02",
+    "rolling": 0.25,
+    "cumulative": 0.25,
+    "n": 8
+   },
+   {
+    "decisionDate": "2026-03-09",
+    "rolling": 0.305556,
+    "cumulative": 0.305556,
+    "n": 16
+   },
+   {
+    "decisionDate": "2026-03-16",
+    "rolling": 0.292245,
+    "cumulative": 0.292245,
+    "n": 24
+   },
+   {
+    "decisionDate": "2026-03-23",
+    "rolling": 0.290579,
+    "cumulative": 0.280434,
+    "n": 32
+   },
+   {
+    "decisionDate": "2026-03-30",
+    "rolling": 0.282477,
+    "cumulative": 0.291708,
+    "n": 40
+   },
+   {
+    "decisionDate": "2026-04-06",
+    "rolling": 0.282371,
+    "cumulative": 0.287308,
+    "n": 48
+   },
+   {
+    "decisionDate": "2026-04-13",
+    "rolling": 0.289246,
+    "cumulative": 0.28421,
+    "n": 56
+   },
+   {
+    "decisionDate": "2026-04-20",
+    "rolling": 0.246936,
+    "cumulative": 0.274919,
+    "n": 64
+   },
+   {
+    "decisionDate": "2026-04-27",
+    "rolling": 0.223501,
+    "cumulative": 0.266039,
+    "n": 72
+   },
+   {
+    "decisionDate": "2026-05-04",
+    "rolling": 0.245496,
+    "cumulative": 0.272596,
+    "n": 80
+   },
+   {
+    "decisionDate": "2026-05-11",
+    "rolling": 0.282308,
+    "cumulative": 0.276934,
+    "n": 88
+   },
+   {
+    "decisionDate": "2026-05-18",
+    "rolling": 0.269823,
+    "cumulative": 0.266985,
+    "n": 96
+   },
+   {
+    "decisionDate": "2026-05-25",
+    "rolling": 0.234328,
+    "cumulative": 0.263765,
+    "n": 104
+   },
+   {
+    "decisionDate": "2026-06-01",
+    "rolling": 0.220705,
+    "cumulative": 0.264885,
+    "n": 112
+   },
+   {
+    "decisionDate": "2026-06-08",
+    "rolling": 0.286517,
+    "cumulative": 0.270891,
+    "n": 120
+   },
+   {
+    "decisionDate": "2026-06-15",
+    "rolling": 0.279526,
+    "cumulative": 0.26672,
+    "n": 128
+   },
+   {
+    "decisionDate": "2026-06-22",
+    "rolling": 0.284114,
+    "cumulative": 0.268278,
+    "n": 136
+   },
+   {
+    "decisionDate": "2026-06-29",
+    "rolling": 0.277629,
+    "cumulative": 0.272014,
+    "n": 144
+   },
+   {
+    "decisionDate": "2026-07-06",
+    "rolling": 0.273016,
+    "cumulative": 0.267714,
+    "n": 152
+   },
+   {
+    "decisionDate": "2026-07-13",
+    "rolling": 0.268534,
+    "cumulative": 0.268317,
+    "n": 160
+   },
+   {
+    "decisionDate": "2026-07-20",
+    "rolling": 0.215145,
+    "cumulative": 0.26389,
+    "n": 168
+   },
+   {
+    "decisionDate": "2026-07-27",
+    "rolling": 0.214247,
+    "cumulative": 0.260423,
+    "n": 176
+   },
+   {
+    "decisionDate": "2026-08-03",
+    "rolling": 0.199263,
+    "cumulative": 0.25931,
+    "n": 184
+   },
+   {
+    "decisionDate": "2026-08-10",
+    "rolling": 0.212942,
+    "cumulative": 0.257522,
+    "n": 192
+   },
+   {
+    "decisionDate": "2026-08-17",
+    "rolling": 0.277992,
+    "cumulative": 0.262532,
+    "n": 200
+   },
+   {
+    "decisionDate": "2026-08-24",
+    "rolling": 0.288714,
+    "cumulative": 0.262702,
+    "n": 208
+   },
+   {
+    "decisionDate": "2026-08-31",
+    "rolling": 0.305282,
+    "cumulative": 0.262828,
+    "n": 216
+   },
+   {
+    "decisionDate": "2026-09-07",
+    "rolling": 0.253198,
+    "cumulative": 0.261532,
+    "n": 224
+   },
+   {
+    "decisionDate": "2026-09-14",
+    "rolling": 0.281984,
+    "cumulative": 0.264697,
+    "n": 232
+   },
+   {
+    "decisionDate": "2026-09-21",
+    "rolling": 0.268639,
+    "cumulative": 0.263409,
+    "n": 240
+   },
+   {
+    "decisionDate": "2026-09-28",
+    "rolling": 0.266457,
+    "cumulative": 0.262008,
+    "n": 248
+   },
+   {
+    "decisionDate": "2026-10-05",
+    "rolling": 0.25298,
+    "cumulative": 0.263599,
+    "n": 256
+   },
+   {
+    "decisionDate": "2026-10-12",
+    "rolling": 0.236664,
+    "cumulative": 0.260978,
+    "n": 264
+   }
+  ],
+  "nomem": [
+   {
+    "decisionDate": "2026-03-02",
+    "rolling": 0.226163,
+    "cumulative": 0.226163,
+    "n": 8
+   },
+   {
+    "decisionDate": "2026-03-09",
+    "rolling": 0.285412,
+    "cumulative": 0.285412,
+    "n": 16
+   },
+   {
+    "decisionDate": "2026-03-16",
+    "rolling": 0.309321,
+    "cumulative": 0.309321,
+    "n": 24
+   },
+   {
+    "decisionDate": "2026-03-23",
+    "rolling": 0.325288,
+    "cumulative": 0.300506,
+    "n": 32
+   },
+   {
+    "decisionDate": "2026-03-30",
+    "rolling": 0.268042,
+    "cumulative": 0.27499,
+    "n": 40
+   },
+   {
+    "decisionDate": "2026-04-06",
+    "rolling": 0.250613,
+    "cumulative": 0.279967,
+    "n": 48
+   },
+   {
+    "decisionDate": "2026-04-13",
+    "rolling": 0.230333,
+    "cumulative": 0.270432,
+    "n": 56
+   },
+   {
+    "decisionDate": "2026-04-20",
+    "rolling": 0.23235,
+    "cumulative": 0.259,
+    "n": 64
+   },
+   {
+    "decisionDate": "2026-04-27",
+    "rolling": 0.174308,
+    "cumulative": 0.244747,
+    "n": 72
+   },
+   {
+    "decisionDate": "2026-05-04",
+    "rolling": 0.212596,
+    "cumulative": 0.253081,
+    "n": 80
+   },
+   {
+    "decisionDate": "2026-05-11",
+    "rolling": 0.276617,
+    "cumulative": 0.263805,
+    "n": 88
+   },
+   {
+    "decisionDate": "2026-05-18",
+    "rolling": 0.279483,
+    "cumulative": 0.253431,
+    "n": 96
+   },
+   {
+    "decisionDate": "2026-05-25",
+    "rolling": 0.268213,
+    "cumulative": 0.256573,
+    "n": 104
+   },
+   {
+    "decisionDate": "2026-06-01",
+    "rolling": 0.309129,
+    "cumulative": 0.273517,
+    "n": 112
+   },
+   {
+    "decisionDate": "2026-06-08",
+    "rolling": 0.360975,
+    "cumulative": 0.27494,
+    "n": 120
+   },
+   {
+    "decisionDate": "2026-06-15",
+    "rolling": 0.338254,
+    "cumulative": 0.271888,
+    "n": 128
+   },
+   {
+    "decisionDate": "2026-06-22",
+    "rolling": 0.288971,
+    "cumulative": 0.276244,
+    "n": 136
+   },
+   {
+    "decisionDate": "2026-06-29",
+    "rolling": 0.302038,
+    "cumulative": 0.279456,
+    "n": 144
+   },
+   {
+    "decisionDate": "2026-07-06",
+    "rolling": 0.285017,
+    "cumulative": 0.273961,
+    "n": 152
+   },
+   {
+    "decisionDate": "2026-07-13",
+    "rolling": 0.216358,
+    "cumulative": 0.267261,
+    "n": 160
+   },
+   {
+    "decisionDate": "2026-07-20",
+    "rolling": 0.156558,
+    "cumulative": 0.261899,
+    "n": 168
+   },
+   {
+    "decisionDate": "2026-07-27",
+    "rolling": 0.149579,
+    "cumulative": 0.257,
+    "n": 176
+   },
+   {
+    "decisionDate": "2026-08-03",
+    "rolling": 0.14885,
+    "cumulative": 0.251816,
+    "n": 184
+   },
+   {
+    "decisionDate": "2026-08-10",
+    "rolling": 0.142096,
+    "cumulative": 0.246924,
+    "n": 192
+   },
+   {
+    "decisionDate": "2026-08-17",
+    "rolling": 0.263267,
+    "cumulative": 0.257752,
+    "n": 200
+   },
+   {
+    "decisionDate": "2026-08-24",
+    "rolling": 0.299529,
+    "cumulative": 0.257322,
+    "n": 208
+   },
+   {
+    "decisionDate": "2026-08-31",
+    "rolling": 0.336304,
+    "cumulative": 0.256855,
+    "n": 216
+   },
+   {
+    "decisionDate": "2026-09-07",
+    "rolling": 0.233554,
+    "cumulative": 0.255159,
+    "n": 224
+   },
+   {
+    "decisionDate": "2026-09-14",
+    "rolling": 0.274425,
+    "cumulative": 0.259091,
+    "n": 232
+   },
+   {
+    "decisionDate": "2026-09-21",
+    "rolling": 0.285404,
+    "cumulative": 0.25971,
+    "n": 240
+   },
+   {
+    "decisionDate": "2026-09-28",
+    "rolling": 0.293271,
+    "cumulative": 0.258848,
+    "n": 248
+   },
+   {
+    "decisionDate": "2026-10-05",
+    "rolling": 0.303963,
+    "cumulative": 0.263298,
+    "n": 256
+   },
+   {
+    "decisionDate": "2026-10-12",
+    "rolling": 0.295592,
+    "cumulative": 0.262972,
+    "n": 264
+   }
+  ],
+  "nomem2": [
+   {
+    "decisionDate": "2026-03-02",
+    "rolling": 0.269525,
+    "cumulative": 0.269525,
+    "n": 8
+   },
+   {
+    "decisionDate": "2026-03-09",
+    "rolling": 0.301481,
+    "cumulative": 0.301481,
+    "n": 16
+   },
+   {
+    "decisionDate": "2026-03-16",
+    "rolling": 0.321188,
+    "cumulative": 0.321188,
+    "n": 24
+   },
+   {
+    "decisionDate": "2026-03-23",
+    "rolling": 0.31555,
+    "cumulative": 0.304044,
+    "n": 32
+   },
+   {
+    "decisionDate": "2026-03-30",
+    "rolling": 0.254583,
+    "cumulative": 0.273343,
+    "n": 40
+   },
+   {
+    "decisionDate": "2026-04-06",
+    "rolling": 0.237058,
+    "cumulative": 0.279123,
+    "n": 48
+   },
+   {
+    "decisionDate": "2026-04-13",
+    "rolling": 0.219625,
+    "cumulative": 0.267864,
+    "n": 56
+   },
+   {
+    "decisionDate": "2026-04-20",
+    "rolling": 0.222804,
+    "cumulative": 0.254391,
+    "n": 64
+   },
+   {
+    "decisionDate": "2026-04-27",
+    "rolling": 0.1647,
+    "cumulative": 0.240982,
+    "n": 72
+   },
+   {
+    "decisionDate": "2026-05-04",
+    "rolling": 0.206838,
+    "cumulative": 0.249556,
+    "n": 80
+   },
+   {
+    "decisionDate": "2026-05-11",
+    "rolling": 0.277017,
+    "cumulative": 0.260561,
+    "n": 88
+   },
+   {
+    "decisionDate": "2026-05-18",
+    "rolling": 0.279496,
+    "cumulative": 0.25061,
+    "n": 96
+   },
+   {
+    "decisionDate": "2026-05-25",
+    "rolling": 0.274388,
+    "cumulative": 0.255287,
+    "n": 104
+   },
+   {
+    "decisionDate": "2026-06-01",
+    "rolling": 0.313317,
+    "cumulative": 0.271866,
+    "n": 112
+   },
+   {
+    "decisionDate": "2026-06-08",
+    "rolling": 0.351996,
+    "cumulative": 0.270887,
+    "n": 120
+   },
+   {
+    "decisionDate": "2026-06-15",
+    "rolling": 0.322233,
+    "cumulative": 0.267839,
+    "n": 128
+   },
+   {
+    "decisionDate": "2026-06-22",
+    "rolling": 0.272721,
+    "cumulative": 0.272017,
+    "n": 136
+   },
+   {
+    "decisionDate": "2026-06-29",
+    "rolling": 0.286263,
+    "cumulative": 0.27345,
+    "n": 144
+   },
+   {
+    "decisionDate": "2026-07-06",
+    "rolling": 0.2674,
+    "cumulative": 0.26777,
+    "n": 152
+   },
+   {
+    "decisionDate": "2026-07-13",
+    "rolling": 0.200983,
+    "cumulative": 0.261362,
+    "n": 160
+   },
+   {
+    "decisionDate": "2026-07-20",
+    "rolling": 0.152354,
+    "cumulative": 0.256151,
+    "n": 168
+   },
+   {
+    "decisionDate": "2026-07-27",
+    "rolling": 0.150842,
+    "cumulative": 0.251825,
+    "n": 176
+   },
+   {
+    "decisionDate": "2026-08-03",
+    "rolling": 0.152229,
+    "cumulative": 0.247127,
+    "n": 184
+   },
+   {
+    "decisionDate": "2026-08-10",
+    "rolling": 0.147604,
+    "cumulative": 0.242582,
+    "n": 192
+   },
+   {
+    "decisionDate": "2026-08-17",
+    "rolling": 0.266625,
+    "cumulative": 0.253601,
+    "n": 200
+   },
+   {
+    "decisionDate": "2026-08-24",
+    "rolling": 0.298388,
+    "cumulative": 0.253042,
+    "n": 208
+   },
+   {
+    "decisionDate": "2026-08-31",
+    "rolling": 0.330346,
+    "cumulative": 0.252334,
+    "n": 216
+   },
+   {
+    "decisionDate": "2026-09-07",
+    "rolling": 0.234538,
+    "cumulative": 0.251558,
+    "n": 224
+   },
+   {
+    "decisionDate": "2026-09-14",
+    "rolling": 0.275788,
+    "cumulative": 0.255395,
+    "n": 232
+   },
+   {
+    "decisionDate": "2026-09-21",
+    "rolling": 0.286154,
+    "cumulative": 0.255716,
+    "n": 240
+   },
+   {
+    "decisionDate": "2026-09-28",
+    "rolling": 0.2855,
+    "cumulative": 0.254843,
+    "n": 248
+   },
+   {
+    "decisionDate": "2026-10-05",
+    "rolling": 0.303329,
+    "cumulative": 0.259889,
+    "n": 256
+   },
+   {
+    "decisionDate": "2026-10-12",
+    "rolling": 0.295063,
+    "cumulative": 0.259293,
+    "n": 264
+   }
+  ],
+  "mem": [
+   {
+    "decisionDate": "2026-03-02",
+    "rolling": 0.207925,
+    "cumulative": 0.207925,
+    "n": 8
+   },
+   {
+    "decisionDate": "2026-03-09",
+    "rolling": 0.273881,
+    "cumulative": 0.273881,
+    "n": 16
+   },
+   {
+    "decisionDate": "2026-03-16",
+    "rolling": 0.295263,
+    "cumulative": 0.295263,
+    "n": 24
+   },
+   {
+    "decisionDate": "2026-03-23",
+    "rolling": 0.315813,
+    "cumulative": 0.288841,
+    "n": 32
+   },
+   {
+    "decisionDate": "2026-03-30",
+    "rolling": 0.264654,
+    "cumulative": 0.268345,
+    "n": 40
+   },
+   {
+    "decisionDate": "2026-04-06",
+    "rolling": 0.234842,
+    "cumulative": 0.265052,
+    "n": 48
+   },
+   {
+    "decisionDate": "2026-04-13",
+    "rolling": 0.225996,
+    "cumulative": 0.261907,
+    "n": 56
+   },
+   {
+    "decisionDate": "2026-04-20",
+    "rolling": 0.236879,
+    "cumulative": 0.256545,
+    "n": 64
+   },
+   {
+    "decisionDate": "2026-04-27",
+    "rolling": 0.202475,
+    "cumulative": 0.244193,
+    "n": 72
+   },
+   {
+    "decisionDate": "2026-05-04",
+    "rolling": 0.222267,
+    "cumulative": 0.250015,
+    "n": 80
+   },
+   {
+    "decisionDate": "2026-05-11",
+    "rolling": 0.248175,
+    "cumulative": 0.254263,
+    "n": 88
+   },
+   {
+    "decisionDate": "2026-05-18",
+    "rolling": 0.252654,
+    "cumulative": 0.246308,
+    "n": 96
+   },
+   {
+    "decisionDate": "2026-05-25",
+    "rolling": 0.239175,
+    "cumulative": 0.247513,
+    "n": 104
+   },
+   {
+    "decisionDate": "2026-06-01",
+    "rolling": 0.278371,
+    "cumulative": 0.259429,
+    "n": 112
+   },
+   {
+    "decisionDate": "2026-06-08",
+    "rolling": 0.323258,
+    "cumulative": 0.261698,
+    "n": 120
+   },
+   {
+    "decisionDate": "2026-06-15",
+    "rolling": 0.325217,
+    "cumulative": 0.262083,
+    "n": 128
+   },
+   {
+    "decisionDate": "2026-06-22",
+    "rolling": 0.27955,
+    "cumulative": 0.262979,
+    "n": 136
+   },
+   {
+    "decisionDate": "2026-06-29",
+    "rolling": 0.263563,
+    "cumulative": 0.262009,
+    "n": 144
+   },
+   {
+    "decisionDate": "2026-07-06",
+    "rolling": 0.243192,
+    "cumulative": 0.2591,
+    "n": 152
+   },
+   {
+    "decisionDate": "2026-07-13",
+    "rolling": 0.203571,
+    "cumulative": 0.254068,
+    "n": 160
+   },
+   {
+    "decisionDate": "2026-07-20",
+    "rolling": 0.180475,
+    "cumulative": 0.250361,
+    "n": 168
+   },
+   {
+    "decisionDate": "2026-07-27",
+    "rolling": 0.176683,
+    "cumulative": 0.247861,
+    "n": 176
+   },
+   {
+    "decisionDate": "2026-08-03",
+    "rolling": 0.172146,
+    "cumulative": 0.243383,
+    "n": 184
+   },
+   {
+    "decisionDate": "2026-08-10",
+    "rolling": 0.16375,
+    "cumulative": 0.239535,
+    "n": 192
+   },
+   {
+    "decisionDate": "2026-08-17",
+    "rolling": 0.249088,
+    "cumulative": 0.248009,
+    "n": 200
+   },
+   {
+    "decisionDate": "2026-08-24",
+    "rolling": 0.284975,
+    "cumulative": 0.248182,
+    "n": 208
+   },
+   {
+    "decisionDate": "2026-08-31",
+    "rolling": 0.3115,
+    "cumulative": 0.247531,
+    "n": 216
+   },
+   {
+    "decisionDate": "2026-09-07",
+    "rolling": 0.252413,
+    "cumulative": 0.24848,
+    "n": 224
+   },
+   {
+    "decisionDate": "2026-09-14",
+    "rolling": 0.249283,
+    "cumulative": 0.248296,
+    "n": 232
+   },
+   {
+    "decisionDate": "2026-09-21",
+    "rolling": 0.271158,
+    "cumulative": 0.249894,
+    "n": 240
+   },
+   {
+    "decisionDate": "2026-09-28",
+    "rolling": 0.276296,
+    "cumulative": 0.251172,
+    "n": 248
+   },
+   {
+    "decisionDate": "2026-10-05",
+    "rolling": 0.304413,
+    "cumulative": 0.253557,
+    "n": 256
+   },
+   {
+    "decisionDate": "2026-10-12",
+    "rolling": 0.295033,
+    "cumulative": 0.253997,
+    "n": 264
+   }
+  ]
+ }
+}

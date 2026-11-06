@@ -1,0 +1,694 @@
+{
+ "generatedAt": "2026-11-06T16:01:33.264Z",
+ "runId": "r-20261106-1001-f2a8",
+ "mode": "official",
+ "runCreatedAt": "2026-11-06T10:01:37.084Z",
+ "config": {
+  "forecastModel": "anthropic/claude-haiku-5.5",
+  "reflectModel": "anthropic/claude-sonnet-5.5",
+  "assets": [
+   "BTC",
+   "ETH",
+   "SOL",
+   "SUI"
+  ],
+  "replayStart": "2026-03-02",
+  "replayEnd": "2026-10-12",
+  "devSplitEnd": "2026-05-25",
+  "horizonDays": 7,
+  "lessonErrorThreshold": 0.45,
+  "recallLimit": 5,
+  "recallMaxDistance": 0.8,
+  "seed": 42
+ },
+ "namespaces": {
+  "lessons": "tuition.r-20261106-1001-f2a8.lessons",
+  "calibration": "tuition.r-20261106-1001-f2a8.calibration"
+ },
+ "weeks": {
+  "count": 33,
+  "first": "2026-03-02",
+  "last": "2026-10-12"
+ },
+ "counts": {
+  "questions": 264,
+  "bySplit": {
+   "dev": 104,
+   "test": 160
+  },
+  "byType": {
+   "DIRECTION": 132,
+   "BREAKOUT": 132
+  },
+  "lessons": 181,
+  "calibrations": 32,
+  "reflectionSkips": 0
+ },
+ "arms": [
+  "base",
+  "nomem",
+  "nomem2",
+  "mem"
+ ],
+ "metrics": {
+  "base": {
+   "all": {
+    "all": {
+     "n": 264,
+     "brier": 0.260978,
+     "logLoss": 0.717876,
+     "accuracy": 0.547348,
+     "ece": 0.133059,
+     "skillVsBase": null
+    },
+    "DIRECTION": {
+     "n": 132,
+     "brier": 0.267369,
+     "logLoss": 0.73057,
+     "accuracy": 0.518939,
+     "ece": 0.14478,
+     "skillVsBase": null
+    },
+    "BREAKOUT": {
+     "n": 132,
+     "brier": 0.254587,
+     "logLoss": 0.705182,
+     "accuracy": 0.575758,
+     "ece": 0.121338,
+     "skillVsBase": null
+    }
+   },
+   "dev": {
+    "all": {
+     "n": 104,
+     "brier": 0.263765,
+     "logLoss": 0.725127,
+     "accuracy": 0.538462,
+     "ece": 0.155416,
+     "skillVsBase": null
+    },
+    "DIRECTION": {
+     "n": 52,
+     "brier": 0.258732,
+     "logLoss": 0.713551,
+     "accuracy": 0.557692,
+     "ece": 0.141686,
+     "skillVsBase": null
+    },
+    "BREAKOUT": {
+     "n": 52,
+     "brier": 0.268798,
+     "logLoss": 0.736704,
+     "accuracy": 0.519231,
+     "ece": 0.169147,
+     "skillVsBase": null
+    }
+   },
+   "test": {
+    "all": {
+     "n": 160,
+     "brier": 0.259166,
+     "logLoss": 0.713163,
+     "accuracy": 0.553125,
+     "ece": 0.118527,
+     "skillVsBase": null
+    },
+    "DIRECTION": {
+     "n": 80,
+     "brier": 0.272982,
+     "logLoss": 0.741633,
+     "accuracy": 0.49375,
+     "ece": 0.146792,
+     "skillVsBase": null
+    },
+    "BREAKOUT": {
+     "n": 80,
+     "brier": 0.245351,
+     "logLoss": 0.684692,
+     "accuracy": 0.6125,
+     "ece": 0.090263,
+     "skillVsBase": null
+    }
+   }
+  },
+  "nomem": {
+   "all": {
+    "all": {
+     "n": 264,
+     "brier": 0.262972,
+     "logLoss": 0.74158,
+     "accuracy": 0.549242,
+     "ece": 0.110682,
+     "skillVsBase": -0.00764
+    },
+    "DIRECTION": {
+     "n": 132,
+     "brier": 0.2516,
+     "logLoss": 0.696385,
+     "accuracy": 0.496212,
+     "ece": 0.059242,
+     "skillVsBase": 0.058977
+    },
+    "BREAKOUT": {
+     "n": 132,
+     "brier": 0.274344,
+     "logLoss": 0.786775,
+     "accuracy": 0.602273,
+     "ece": 0.194545,
+     "skillVsBase": -0.077602
+    }
+   },
+   "dev": {
+    "all": {
+     "n": 104,
+     "brier": 0.256573,
+     "logLoss": 0.730767,
+     "accuracy": 0.596154,
+     "ece": 0.1425,
+     "skillVsBase": 0.027266
+    },
+    "DIRECTION": {
+     "n": 52,
+     "brier": 0.247502,
+     "logLoss": 0.688135,
+     "accuracy": 0.528846,
+     "ece": 0.115192,
+     "skillVsBase": 0.043405
+    },
+    "BREAKOUT": {
+     "n": 52,
+     "brier": 0.265644,
+     "logLoss": 0.773399,
+     "accuracy": 0.663462,
+     "ece": 0.186346,
+     "skillVsBase": 0.011732
+    }
+   },
+   "test": {
+    "all": {
+     "n": 160,
+     "brier": 0.267131,
+     "logLoss": 0.748608,
+     "accuracy": 0.51875,
+     "ece": 0.097125,
+     "skillVsBase": -0.030732
+    },
+    "DIRECTION": {
+     "n": 80,
+     "brier": 0.254264,
+     "logLoss": 0.701748,
+     "accuracy": 0.475,
+     "ece": 0.042125,
+     "skillVsBase": 0.06857
+    },
+    "BREAKOUT": {
+     "n": 80,
+     "brier": 0.279999,
+     "logLoss": 0.795469,
+     "accuracy": 0.5625,
+     "ece": 0.199875,
+     "skillVsBase": -0.141219
+    }
+   }
+  },
+  "nomem2": {
+   "all": {
+    "all": {
+     "n": 264,
+     "brier": 0.259293,
+     "logLoss": 0.734196,
+     "accuracy": 0.545455,
+     "ece": 0.096477,
+     "skillVsBase": 0.006457
+    },
+    "DIRECTION": {
+     "n": 132,
+     "brier": 0.25103,
+     "logLoss": 0.695227,
+     "accuracy": 0.503788,
+     "ece": 0.052424,
+     "skillVsBase": 0.061108
+    },
+    "BREAKOUT": {
+     "n": 132,
+     "brier": 0.267555,
+     "logLoss": 0.773165,
+     "accuracy": 0.587121,
+     "ece": 0.144773,
+     "skillVsBase": -0.050937
+    }
+   },
+   "dev": {
+    "all": {
+     "n": 104,
+     "brier": 0.255287,
+     "logLoss": 0.730672,
+     "accuracy": 0.567308,
+     "ece": 0.123269,
+     "skillVsBase": 0.032144
+    },
+    "DIRECTION": {
+     "n": 52,
+     "brier": 0.247198,
+     "logLoss": 0.687523,
+     "accuracy": 0.528846,
+     "ece": 0.111731,
+     "skillVsBase": 0.04458
+    },
+    "BREAKOUT": {
+     "n": 52,
+     "brier": 0.263375,
+     "logLoss": 0.773821,
+     "accuracy": 0.605769,
+     "ece": 0.158654,
+     "skillVsBase": 0.020174
+    }
+   },
+   "test": {
+    "all": {
+     "n": 160,
+     "brier": 0.261897,
+     "logLoss": 0.736487,
+     "accuracy": 0.53125,
+     "ece": 0.079188,
+     "skillVsBase": -0.010535
+    },
+    "DIRECTION": {
+     "n": 80,
+     "brier": 0.253521,
+     "logLoss": 0.700235,
+     "accuracy": 0.4875,
+     "ece": 0.029375,
+     "skillVsBase": 0.07129
+    },
+    "BREAKOUT": {
+     "n": 80,
+     "brier": 0.270273,
+     "logLoss": 0.772739,
+     "accuracy": 0.575,
+     "ece": 0.1555,
+     "skillVsBase": -0.101576
+    }
+   }
+  },
+  "mem": {
+   "all": {
+    "all": {
+     "n": 264,
+     "brier": 0.253997,
+     "logLoss": 0.70563,
+     "accuracy": 0.522727,
+     "ece": 0.101023,
+     "skillVsBase": 0.026748
+    },
+    "DIRECTION": {
+     "n": 132,
+     "brier": 0.255362,
+     "logLoss": 0.703943,
+     "accuracy": 0.458333,
+     "ece": 0.11197,
+     "skillVsBase": 0.044906
+    },
+    "BREAKOUT": {
+     "n": 132,
+     "brier": 0.252633,
+     "logLoss": 0.707318,
+     "accuracy": 0.587121,
+     "ece": 0.140682,
+     "skillVsBase": 0.007679
+    }
+   },
+   "dev": {
+    "all": {
+     "n": 104,
+     "brier": 0.247513,
+     "logLoss": 0.692417,
+     "accuracy": 0.533654,
+     "ece": 0.144038,
+     "skillVsBase": 0.061614
+    },
+    "DIRECTION": {
+     "n": 52,
+     "brier": 0.257167,
+     "logLoss": 0.707577,
+     "accuracy": 0.442308,
+     "ece": 0.194038,
+     "skillVsBase": 0.006048
+    },
+    "BREAKOUT": {
+     "n": 52,
+     "brier": 0.23786,
+     "logLoss": 0.677257,
+     "accuracy": 0.625,
+     "ece": 0.141346,
+     "skillVsBase": 0.115098
+    }
+   },
+   "test": {
+    "all": {
+     "n": 160,
+     "brier": 0.258212,
+     "logLoss": 0.714219,
+     "accuracy": 0.515625,
+     "ece": 0.082063,
+     "skillVsBase": 0.003683
+    },
+    "DIRECTION": {
+     "n": 80,
+     "brier": 0.254189,
+     "logLoss": 0.70158,
+     "accuracy": 0.46875,
+     "ece": 0.058625,
+     "skillVsBase": 0.068845
+    },
+    "BREAKOUT": {
+     "n": 80,
+     "brier": 0.262235,
+     "logLoss": 0.726857,
+     "accuracy": 0.5625,
+     "ece": 0.17175,
+     "skillVsBase": -0.068817
+    }
+   }
+  }
+ },
+ "comparisons": [
+  {
+   "id": "mem_vs_nomem",
+   "candidate": "mem",
+   "reference": "nomem",
+   "split": "all",
+   "candidateBrier": 0.253997,
+   "referenceBrier": 0.262972,
+   "meanDelta": 0.008975,
+   "ci95": [
+    -0.00682,
+    0.025825
+   ],
+   "shareAboveZero": 0.871,
+   "resamples": 2000,
+   "blocks": 33,
+   "n": 264
+  },
+  {
+   "id": "mem_vs_nomem",
+   "candidate": "mem",
+   "reference": "nomem",
+   "split": "dev",
+   "candidateBrier": 0.247513,
+   "referenceBrier": 0.256573,
+   "meanDelta": 0.00906,
+   "ci95": [
+    -0.008646,
+    0.026146
+   ],
+   "shareAboveZero": 0.836,
+   "resamples": 2000,
+   "blocks": 13,
+   "n": 104
+  },
+  {
+   "id": "mem_vs_nomem",
+   "candidate": "mem",
+   "reference": "nomem",
+   "split": "test",
+   "candidateBrier": 0.258212,
+   "referenceBrier": 0.267131,
+   "meanDelta": 0.008919,
+   "ci95": [
+    -0.01344,
+    0.032505
+   ],
+   "shareAboveZero": 0.77,
+   "resamples": 2000,
+   "blocks": 20,
+   "n": 160
+  },
+  {
+   "id": "mem_vs_nomem2",
+   "candidate": "mem",
+   "reference": "nomem2",
+   "split": "all",
+   "candidateBrier": 0.253997,
+   "referenceBrier": 0.259293,
+   "meanDelta": 0.005295,
+   "ci95": [
+    -0.011001,
+    0.021835
+   ],
+   "shareAboveZero": 0.728,
+   "resamples": 2000,
+   "blocks": 33,
+   "n": 264
+  },
+  {
+   "id": "mem_vs_nomem2",
+   "candidate": "mem",
+   "reference": "nomem2",
+   "split": "dev",
+   "candidateBrier": 0.247513,
+   "referenceBrier": 0.255287,
+   "meanDelta": 0.007773,
+   "ci95": [
+    -0.01538,
+    0.03025
+   ],
+   "shareAboveZero": 0.7335,
+   "resamples": 2000,
+   "blocks": 13,
+   "n": 104
+  },
+  {
+   "id": "mem_vs_nomem2",
+   "candidate": "mem",
+   "reference": "nomem2",
+   "split": "test",
+   "candidateBrier": 0.258212,
+   "referenceBrier": 0.261897,
+   "meanDelta": 0.003685,
+   "ci95": [
+    -0.017416,
+    0.026086
+   ],
+   "shareAboveZero": 0.6105,
+   "resamples": 2000,
+   "blocks": 20,
+   "n": 160
+  },
+  {
+   "id": "nomem2_vs_nomem",
+   "candidate": "nomem2",
+   "reference": "nomem",
+   "split": "all",
+   "candidateBrier": 0.259293,
+   "referenceBrier": 0.262972,
+   "meanDelta": 0.003679,
+   "ci95": [
+    -0.0015,
+    0.008802
+   ],
+   "shareAboveZero": 0.918,
+   "resamples": 2000,
+   "blocks": 33,
+   "n": 264
+  },
+  {
+   "id": "nomem2_vs_nomem",
+   "candidate": "nomem2",
+   "reference": "nomem",
+   "split": "dev",
+   "candidateBrier": 0.255287,
+   "referenceBrier": 0.256573,
+   "meanDelta": 0.001287,
+   "ci95": [
+    -0.009349,
+    0.009718
+   ],
+   "shareAboveZero": 0.6215,
+   "resamples": 2000,
+   "blocks": 13,
+   "n": 104
+  },
+  {
+   "id": "nomem2_vs_nomem",
+   "candidate": "nomem2",
+   "reference": "nomem",
+   "split": "test",
+   "candidateBrier": 0.261897,
+   "referenceBrier": 0.267131,
+   "meanDelta": 0.005234,
+   "ci95": [
+    -0.000493,
+    0.011627
+   ],
+   "shareAboveZero": 0.9595,
+   "resamples": 2000,
+   "blocks": 20,
+   "n": 160
+  },
+  {
+   "id": "mem_vs_base",
+   "candidate": "mem",
+   "reference": "base",
+   "split": "all",
+   "candidateBrier": 0.253997,
+   "referenceBrier": 0.260978,
+   "meanDelta": 0.006981,
+   "ci95": [
+    -0.014834,
+    0.029657
+   ],
+   "shareAboveZero": 0.7385,
+   "resamples": 2000,
+   "blocks": 33,
+   "n": 264
+  },
+  {
+   "id": "mem_vs_base",
+   "candidate": "mem",
+   "reference": "base",
+   "split": "dev",
+   "candidateBrier": 0.247513,
+   "referenceBrier": 0.263765,
+   "meanDelta": 0.016252,
+   "ci95": [
+    -0.009904,
+    0.046257
+   ],
+   "shareAboveZero": 0.879,
+   "resamples": 2000,
+   "blocks": 13,
+   "n": 104
+  },
+  {
+   "id": "mem_vs_base",
+   "candidate": "mem",
+   "reference": "base",
+   "split": "test",
+   "candidateBrier": 0.258212,
+   "referenceBrier": 0.259166,
+   "meanDelta": 0.000955,
+   "ci95": [
+    -0.030648,
+    0.0321
+   ],
+   "shareAboveZero": 0.519,
+   "resamples": 2000,
+   "blocks": 20,
+   "n": 160
+  },
+  {
+   "id": "nomem_vs_base",
+   "candidate": "nomem",
+   "reference": "base",
+   "split": "all",
+   "candidateBrier": 0.262972,
+   "referenceBrier": 0.260978,
+   "meanDelta": -0.001994,
+   "ci95": [
+    -0.027822,
+    0.023369
+   ],
+   "shareAboveZero": 0.455,
+   "resamples": 2000,
+   "blocks": 33,
+   "n": 264
+  },
+  {
+   "id": "nomem_vs_base",
+   "candidate": "nomem",
+   "reference": "base",
+   "split": "dev",
+   "candidateBrier": 0.256573,
+   "referenceBrier": 0.263765,
+   "meanDelta": 0.007192,
+   "ci95": [
+    -0.025802,
+    0.044807
+   ],
+   "shareAboveZero": 0.6625,
+   "resamples": 2000,
+   "blocks": 13,
+   "n": 104
+  },
+  {
+   "id": "nomem_vs_base",
+   "candidate": "nomem",
+   "reference": "base",
+   "split": "test",
+   "candidateBrier": 0.267131,
+   "referenceBrier": 0.259166,
+   "meanDelta": -0.007965,
+   "ci95": [
+    -0.043641,
+    0.024941
+   ],
+   "shareAboveZero": 0.3355,
+   "resamples": 2000,
+   "blocks": 20,
+   "n": 160
+  }
+ ],
+ "headline": {
+  "id": "mem_vs_nomem",
+  "candidate": "mem",
+  "reference": "nomem",
+  "split": "test",
+  "candidateBrier": 0.258212,
+  "referenceBrier": 0.267131,
+  "meanDelta": 0.008919,
+  "ci95": [
+   -0.01344,
+   0.032505
+  ],
+  "shareAboveZero": 0.77,
+  "resamples": 2000,
+  "blocks": 20,
+  "n": 160
+ },
+ "influence": {
+  "paired": 264,
+  "citing": 100,
+  "meanShiftCiting": 0.0256,
+  "meanAbsShiftCiting": 0.0408,
+  "meanBrierGainCiting": -0.00614,
+  "meanBrierGainNotCiting": 0.018191
+ },
+ "memories": {
+  "run": {
+   "lessons": 181,
+   "calibrations": 32
+  },
+  "mainnet": {
+   "total": 485,
+   "byKind": {
+    "lesson": 364,
+    "calibration": 72,
+    "smoke": 1,
+    "forecast": 48
+   },
+   "byNamespace": {
+    "tuition.r-20261105-0945-7e44.lessons": 19,
+    "tuition.r-20261105-0945-7e44.calibration": 3,
+    "tuition.r-20261105-1041-51d2.lessons": 66,
+    "tuition.r-20261105-1041-51d2.calibration": 12,
+    "tuition.r-20261105-1114-3131.calibration": 12,
+    "tuition.r-20261105-1114-3131.lessons": 25,
+    "tuition.r-20261106-0910-5942.lessons": 67,
+    "tuition.r-20261106-0910-5942.calibration": 12,
+    "tuition.r-20261106-0958-8944.lessons": 6,
+    "tuition.r-20261106-0958-8944.calibration": 1,
+    "tuition.r-20261106-1001-f2a8.lessons": 181,
+    "tuition.r-20261106-1001-f2a8.calibration": 32,
+    "tuition.smoke": 1,
+    "tuition.live.forecasts": 48
+   }
+  }
+ },
+ "costUsd": {
+  "nomem": 0.066961,
+  "nomem2": 0.068617,
+  "mem": 0.140003,
+  "reflect": 1.066356
+ }
+}

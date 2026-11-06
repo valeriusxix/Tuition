@@ -320,6 +320,63 @@ export type LessonRow = z.infer<typeof LessonRowSchema>;
 export type CalibrationRow = z.infer<typeof CalibrationRowSchema>;
 export type LessonsFile = z.infer<typeof LessonsFileSchema>;
 
+// ── web/public/data/proof.json (§11) ──────────────────────────────────────
+// Written by "verify --run <runId>". Never holds a secret: verify refuses to write the file if any
+// configured secret appears in it.
+
+export const BlobCheckSchema = z.object({
+  blobId: z.string().min(1),
+  kind: z.enum(["lesson", "calibration", "forecast", "smoke"]),
+  namespace: z.string(),
+  status: z.number().int().nullable(), // null: the request itself failed
+  bytes: z.number().int().min(0).nullable(),
+  sha256: z.string().regex(/^[0-9a-f]{64}$/).nullable(),
+  url: z.url(),
+});
+
+export const RecallCheckSchema = z.object({
+  blobId: z.string().min(1), // the lesson recalled by its own body text
+  questionId: z.string(),
+  topBlobId: z.string().nullable(), // what came back first
+  distance: z.number().nullable(),
+  matched: z.boolean(),
+});
+
+export const ProofFileSchema = z.object({
+  generatedAt: isoDateTime,
+  runId: z.string(),
+  agentId: z.string().regex(/^[0-9a-f]{64}$/), // MEMWAL_AGENT_ID: the delegate public key
+  accountId: z.string().regex(/^0x[0-9a-f]{64}$/), // MEMWAL_ACCOUNT_ID: the account object
+  relayer: z.object({ url: z.url(), checkedAt: isoDateTime, health: z.record(z.string(), z.unknown()) }),
+  account: z.object({
+    source: z.string(), // how it was read: Tatum's Sui gateway
+    endpoint: z.url(),
+    objectId: z.string(),
+    version: z.string(),
+    digest: z.string(),
+    type: z.string(),
+    owner: z.string(),
+    accountOwner: z.string().nullable(), // the owner field inside the Move object
+    delegateKeyFound: z.boolean(),
+    delegateKeyEncoding: z.string().nullable(),
+    explorerUrl: z.url(),
+  }),
+  blobs: z.object({
+    aggregator: z.url(),
+    checked: count,
+    ok: count,
+    failed: count,
+    totalBytes: count,
+    rows: z.array(BlobCheckSchema),
+  }),
+  recall: z.object({ checked: count, matched: count, rows: z.array(RecallCheckSchema) }),
+  counts: z.object({ total: count, byKind: z.record(z.string(), count), byNamespace: z.record(z.string(), count) }),
+});
+
+export type BlobCheck = z.infer<typeof BlobCheckSchema>;
+export type RecallCheck = z.infer<typeof RecallCheckSchema>;
+export type ProofFile = z.infer<typeof ProofFileSchema>;
+
 export const MemoryLedgerEntrySchema = z.object({
   key: z.string().regex(/^[0-9a-f]{64}$/),
   namespace: z.string().min(1),

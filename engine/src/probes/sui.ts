@@ -4,22 +4,13 @@
 import { delegateKeyToPublicKey } from "@mysten-incubation/memwal";
 import { loadConfig, requireEnv } from "../config";
 import { say } from "../log";
+import { ACCOUNT_OBJECT_QUERY } from "../tatum/sui";
 import { tatumLimiter } from "../util/ratelimit";
 import { findDelegateKey } from "../verify/proof";
 import { saveFixture } from "./fixture";
 import { fetchRaw } from "./http";
 
 const PROBE = "probe:sui";
-
-export const ACCOUNT_OBJECT_QUERY = `query ($id: SuiAddress!) {
-  object(address: $id) {
-    address
-    version
-    digest
-    owner { __typename }
-    asMoveObject { contents { type { repr } json } }
-  }
-}`;
 
 interface DelegateKeyJson {
   public_key?: string;

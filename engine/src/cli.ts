@@ -57,6 +57,14 @@ const COMMANDS: Record<string, { describe: string; load: () => Promise<Command> 
     describe: "Write the web data files for a run (--run runId [--out dir]; dev runs need --out)",
     load: async () => (await import("./commands/export")).exportCommand,
   },
+  verify: {
+    describe: "Prove a run on mainnet: account via Tatum, every blob, recall round-trip (--run runId)",
+    load: async () => (await import("./commands/verify")).verifyCommand,
+  },
+  memories: {
+    describe: "Ledger counts per namespace and kind, plus the agent public key (--run runId)",
+    load: async () => (await import("./commands/memories")).memoriesCommand,
+  },
   live: {
     describe: "Daily live forecasts committed to Walrus before the outcome (--dry: no mainnet, no LLM)",
     load: async () => (await import("./commands/live")).liveCommand,

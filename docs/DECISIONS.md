@@ -273,3 +273,19 @@ Regression tests in `retry.test.ts` use the exact failure shape. Nothing about h
 - **`mode=official`** is `replay --official`, with the settings from D44 set explicitly.
 - **Nothing can be lost with the runner.** Checkpoint and ledger are pushed to the `official-state` branch every 10 minutes and again at the end. The final state is committed to `main` even if the run fails. `resume` restores them from that branch.
 - **One official run.** A new official run is refused if a checkpoint with mode official exists on `main` or the state branch exists, so an official run can only be resumed, never redone.
+
+**D46. The official run: result and what it does and does not show.** Run `r-20261106-1001-f2a8`, GitHub Actions run 42199428492, settings from D44 (0.45 / 5 / 0.8), started once and never resumed. 264 questions in every arm, 181 lessons and 32 calibration snapshots on mainnet, no reflection skipped, LLM cost about $1.34.
+- **Headline (test split, 160 questions, 20 weeks).** Brier memory OFF 0.267, ON 0.258. Δ = +0.0089, 95% CI [−0.0134, +0.0325], P(Δ>0) = 0.77. **The interval spans zero: memory did not show a statistically significant improvement.**
+- **Noise scale.** The two identical no-memory passes differ by +0.0052 on the test split (nomem2 vs nomem), about 60% of the headline effect. Against the other pass, memory gains only +0.0037 (CI [−0.0174, +0.0261]).
+- **Versus base.** Memory ties the no-LLM trailing base rate on the test split (0.258 vs 0.259, Δ = +0.0010). Both no-memory passes lose to it (0.267, 0.262). Every LLM arm loses to base on BREAKOUT (base 0.245; nomem 0.280, nomem2 0.270, mem 0.262) and beats it on DIRECTION (0.254 each vs 0.273). Memory's BREAKOUT score is the best of the LLM arms.
+- **Lessons do not explain the gain.** Over all weeks, 100 of 264 memory forecasts cited a lesson. Those had a mean Brier gain of −0.0061; forecasts citing none had +0.0182. The published text must not claim that cited lessons drove the difference.
+- **Dev tuning did not predict this.** In T1–T3 memory scored worse than no memory on dev; in this run it scored better on dev (0.248 vs 0.257). The swing is within the noise found in D44.
+- **Verified.** Ledger and checkpoint agree (213 entries, no duplicate key or blob), and 0 of 1,536 recalled memories are dated after their decision date. Blob availability is covered by `verify` (D47).
+
+**D47. `verify`, `memories` and the rest of §11.**
+- `tatum/sui.ts` holds the GraphQL account read (D14), now shared by `probe:sui` and `verify`.
+- `verify --run <id>` covers the run ledger and the live ledger, not the smaller tuning and smoke ledgers. Those are in the mainnet counts and were checked in D44.
+- **Blob explorer link (closes D10).** walruscan.com returns the same empty HTML shell for every path, so no blob URL pattern could be confirmed. Blob links use the aggregator URL `{WALRUS_AGGREGATOR_URL}/v1/blobs/{blobId}`, the same URL the check fetches, rather than a guessed pattern.
+- A blob that is not 200 is rechecked once after a pause, because a recent blob can briefly 404 through the CDN (D10). Anything still failing is recorded as failed and `verify` exits non-zero.
+- The recall round-trip takes three seeded-random lessons and records whether the top hit matched. It is not retried until it matches.
+- `LIVE_LESSON_NAMESPACES` was set to the official lessons at 2026-11-06 16:01 UTC. Live forecasts made before then did not recall the official lessons; those from the next scheduled run onward do.

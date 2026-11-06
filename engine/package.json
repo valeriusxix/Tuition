@@ -17,6 +17,8 @@
     "replay": "tsx src/cli.ts replay",
     "score": "tsx src/cli.ts score",
     "export": "tsx src/cli.ts export",
+    "verify": "tsx src/cli.ts verify",
+    "memories": "tsx src/cli.ts memories",
     "typecheck": "tsc --noEmit -p .",
     "test": "vitest run"
   },

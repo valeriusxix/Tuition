@@ -18,11 +18,12 @@ import { readAccountObject } from "../tatum/sui";
 import { replaceFile } from "../util/atomic";
 import { aggregatorLimiter, mapLimit } from "../util/ratelimit";
 import { retry } from "../util/retry";
-import { assertNoSecrets, blobUrl, buildProof, proofProblems, sampleLessons, uniqueBlobs } from "../verify/proof";
+import { assertNoSecrets, blobUrl, buildProof, matureBlobs, proofProblems, sampleLessons, uniqueBlobs } from "../verify/proof";
 import { allLedgers } from "./export";
 
 const RECALL_SAMPLE = 3;
 const RECHECK_DELAY_MS = 30_000;
+const MIN_BLOB_AGE_MS = 30 * 60_000;
 
 export function parseVerifyArgs(args: readonly string[]): { run: string } {
   if (args[0] !== "--run" || !args[1] || args[1].startsWith("--") || args.length > 2) {
@@ -61,8 +62,9 @@ export async function verifyCommand(rawArgs: string[]): Promise<void> {
   const account = await readAccountObject(config.TATUM_SUI_RPC_URL, env.TATUM_API_KEY, env.MEMWAL_ACCOUNT_ID);
   say(`account: ${account.objectId} v${account.version}, ${account.type}`);
 
-  const entries = uniqueBlobs([...readLedger(ledgerPath(run)), ...readLedger(resolve(STATE_DIR, "live-ledger.jsonl"))]);
-  say(`aggregator: checking ${entries.length} blobs`);
+  const everything = uniqueBlobs([...readLedger(ledgerPath(run)), ...readLedger(resolve(STATE_DIR, "live-ledger.jsonl"))]);
+  const entries = matureBlobs(everything, new Date(), MIN_BLOB_AGE_MS);
+  say(`aggregator: checking ${entries.length} blobs (${everything.length - entries.length} newer than 30 minutes wait for the next run)`);
   const aggregator = config.WALRUS_AGGREGATOR_URL;
   let blobs = await mapLimit(entries, 3, (e) => checkBlob(aggregator, e));
   const failedIds = new Set(blobs.filter((b) => b.status !== 200).map((b) => b.blobId));

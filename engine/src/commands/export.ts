@@ -1,9 +1,10 @@
-// `export --run <runId> [--out <dir>]` (§10, §12.1): writes summary, curve, reliability, questions and
+// `export --run <runId> [--out <dir>] [--docs]` (§10, §12.1): writes summary, curve, reliability, questions and
 // lessons JSON for the web app, each validated against its shared schema first. Reads only local
 // files (checkpoint, candle cache, ledgers): no network, no keys.
 // Only the official run goes to web/public/data by default; a dev or dry run needs an explicit --out,
-// so tuning numbers can never replace the published results by accident. An official export also fills
-// the generated blocks of README.md and docs/BLOG_DRAFT.md.
+// so tuning numbers can never replace the published results by accident. --docs also fills the generated
+// blocks of README.md and docs/BLOG_DRAFT.md. It is run by hand: the daily job never touches files people
+// edit, because a conflict there could stop the day's ledger reaching main (DECISIONS D50).
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { ProofFileSchema, type Candle, type MemoryLedgerEntry, type ProofFile, type SummaryFile } from "@tuition/shared";
@@ -12,7 +13,7 @@ import { UsageError } from "../errors";
 import { say } from "../log";
 import { readLedger } from "../memory/ledger";
 import { REPO_ROOT, STATE_DIR, WEB_DATA_DIR } from "../paths";
-import { renderDocs } from "../publish/docs";
+import { LinksSchema, renderDocs } from "../publish/docs";
 import { buildWebData, writeWebData } from "../publish/export";
 import { checkpointPath, readCheckpoint } from "../replay/checkpoint";
 import { buildReport } from "../score/report";
@@ -20,11 +21,13 @@ import { buildReport } from "../score/report";
 export interface ExportArgs {
   run: string;
   out?: string;
+  docs: boolean;
 }
 
 export function parseExportArgs(args: readonly string[]): ExportArgs {
   let run: string | undefined;
   let out: string | undefined;
+  let docs = false;
   for (let i = 0; i < args.length; i++) {
     const a = args[i]!;
     const value = (): string => {
@@ -34,10 +37,12 @@ export function parseExportArgs(args: readonly string[]): ExportArgs {
     };
     if (a === "--run") run = value();
     else if (a === "--out") out = value();
+    else if (a === "--docs") docs = true;
     else throw new UsageError(`Unknown export option "${a}"`);
   }
   if (!run) throw new UsageError("export needs --run <runId> (see engine/state/run-<runId>.json)");
-  return { run, ...(out !== undefined ? { out } : {}) };
+  if (docs && out !== undefined) throw new UsageError("--docs and --out cannot be combined: --docs is for the published results");
+  return { run, docs, ...(out !== undefined ? { out } : {}) };
 }
 
 /** Every memory ledger in the state directory: replay runs, live and smoke. */
@@ -57,7 +62,8 @@ function readProof(dir: string): ProofFile | null {
 function writeDocs(summary: SummaryFile, proof: ProofFile | null): string[] {
   const readmePath = resolve(REPO_ROOT, "README.md");
   const blogPath = resolve(REPO_ROOT, "docs", "BLOG_DRAFT.md");
-  const { readme, blog } = renderDocs({ readme: readFileSync(readmePath, "utf8"), blog: readFileSync(blogPath, "utf8"), summary, proof });
+  const links = LinksSchema.parse(JSON.parse(readFileSync(resolve(REPO_ROOT, "docs", "links.json"), "utf8")));
+  const { readme, blog } = renderDocs({ readme: readFileSync(readmePath, "utf8"), blog: readFileSync(blogPath, "utf8"), summary, proof, links });
   writeFileSync(readmePath, readme);
   writeFileSync(blogPath, blog);
   return [readmePath, blogPath];
@@ -85,7 +91,7 @@ export async function exportCommand(rawArgs: string[]): Promise<void> {
   const report = buildReport(cp);
   const data = buildWebData({ cp, report, candles, ledgers: allLedgers(), generatedAt: new Date().toISOString() });
   const paths = writeWebData(out, data);
-  if (cp.mode === "official" && args.out === undefined) paths.push(...writeDocs(data.summary, readProof(out)));
+  if (args.docs) paths.push(...writeDocs(data.summary, readProof(out)));
 
   say(`run ${cp.runId} (${cp.mode}): ${data.summary.counts.questions} scored questions, ${data.lessons.lessons.length} lessons, ${data.lessons.calibrations.length} calibration snapshots`);
   say(`mainnet memories across all ledgers: ${data.summary.memories.mainnet.total}`);

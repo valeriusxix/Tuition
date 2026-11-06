@@ -16,9 +16,11 @@ Against a plain trailing base rate with no LLM, memory is +0.0010 (0.258 vs 0.25
 
 ## Links
 
-- Demo: _to be added after deployment_
+<!-- GENERATED:links -->
+- Demo: _to be added_
 - Video: _to be added_
 - Blog post: _to be added_
+<!-- /GENERATED:links -->
 
 ## How memory is used
 
@@ -46,8 +48,8 @@ Walrus Memory is the system of record: the agent reads lessons back through `rec
 The official run does not show a reliable improvement. The data points to these reasons, none of which the experiment can prove on its own:
 
 - **There is little to learn at this horizon.** Every arm scores close to a coin flip (0.25). On direction questions, all LLM arms score the same with or without memory.
-- **Lessons barely moved forecasts.** When a forecast cited a lesson, it moved by about 0.04 on average.
-- **Cited lessons do not explain the gain.** Forecasts that cited a lesson scored slightly worse than without memory, while those citing none scored better. The gap sits in breakout questions. Every memory forecast also sees the calibration snapshot, so calibration may be doing more than the lessons, but this run cannot separate the two.
+- **Lessons barely moved forecasts.** Across all 33 weeks, a forecast that cited a lesson moved by about 0.04 on average.
+- **Cited lessons do not explain the gain.** Across all 33 weeks, forecasts that cited a lesson scored slightly worse than without memory, while those citing none scored better. On the test split, the gap sits in breakout questions. Every memory forecast also sees the calibration snapshot, so calibration may be doing more than the lessons, but this run cannot separate the two.
 
 ## Hackathon requirements
 
@@ -121,7 +123,7 @@ npm run probe:llm
 # The experiment
 npm run engine -- replay --official
 npm run engine -- score --run <runId>
-npm run engine -- export --run <runId>
+npm run engine -- export --run <runId>          # add --docs to refill this README and the blog table
 npm run engine -- verify --run <runId>
 npm run engine -- memories --run <runId>
 

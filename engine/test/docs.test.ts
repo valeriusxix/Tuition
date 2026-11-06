@@ -1,6 +1,6 @@
 import type { Comparison, ProofFile, SummaryFile } from "@tuition/shared";
 import { describe, expect, it } from "vitest";
-import { evidenceBlock, fillBlock, headlineBlock, renderDocs, requirementsBlock, resultsTable } from "../src/publish/docs";
+import { evidenceBlock, fillBlock, headlineBlock, linksBlock, LinksSchema, renderDocs, requirementsBlock, resultsTable } from "../src/publish/docs";
 
 const compare = (over: Partial<Comparison> = {}): Comparison => ({
   id: "mem_vs_nomem",
@@ -49,6 +49,8 @@ const proof = {
   recall: { matched: 3, checked: 3 },
   counts: { total: 485, byKind: { lesson: 364 }, byNamespace: {} },
 } as unknown as ProofFile;
+
+const noLinks = { demo: null, video: null, blog: null };
 
 const block = (name: string) => `<!-- GENERATED:${name} -->\nold\n<!-- /GENERATED:${name} -->`;
 
@@ -99,9 +101,20 @@ describe("tables and checklists", () => {
   });
 
   it("ticks the Tatum item only when the proof found the key", () => {
-    expect(requirementsBlock(summary(), proof)).toContain("[x] Tatum RPC");
-    expect(requirementsBlock(summary(), null)).toContain("[ ] Tatum RPC");
-    expect(requirementsBlock(summary(), proof)).toContain("[ ] Blog post");
+    expect(requirementsBlock(summary(), proof, noLinks)).toContain("[x] Tatum RPC");
+    expect(requirementsBlock(summary(), null, noLinks)).toContain("[ ] Tatum RPC");
+  });
+
+  it("ticks the blog item only when its link exists", () => {
+    expect(requirementsBlock(summary(), proof, noLinks)).toContain("[ ] Blog post");
+    expect(requirementsBlock(summary(), proof, { ...noLinks, blog: "https://blog.example/post" })).toContain("[x] Blog post: https://blog.example/post");
+  });
+
+  it("lists each link, or says it is still to come", () => {
+    const text = linksBlock({ ...noLinks, demo: "https://demo.example/" });
+    expect(text).toContain("- Demo: https://demo.example/");
+    expect(text).toContain("- Video: _to be added_");
+    expect(LinksSchema.safeParse({ ...noLinks, demo: "not a url" }).success).toBe(false);
   });
 
   it("the evidence table carries both IDs and blob links", () => {
@@ -112,9 +125,9 @@ describe("tables and checklists", () => {
     expect(evidenceBlock(summary(), null)).toMatch(/verify/);
   });
 
-  it("renderDocs fills all four blocks", () => {
-    const readme = ["headline", "requirements", "evidence"].map(block).join("\n");
-    const out = renderDocs({ readme, blog: block("results"), summary: summary(), proof });
+  it("renderDocs fills all five blocks", () => {
+    const readme = ["headline", "links", "requirements", "evidence"].map(block).join("\n");
+    const out = renderDocs({ readme, blog: block("results"), summary: summary(), proof, links: noLinks });
     expect(out.readme).not.toContain("old");
     expect(out.blog).not.toContain("old");
   });

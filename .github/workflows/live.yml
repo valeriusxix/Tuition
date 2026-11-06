@@ -64,7 +64,7 @@ jobs:
           shopt -s nullglob
           git config user.name "tuition-bot"
           git config user.email "tuition-bot@users.noreply.github.com"
-          git add web/public/data engine/data/candles engine/state/live-* README.md docs/BLOG_DRAFT.md
+          git add web/public/data engine/data/candles engine/state/live-*
           if git diff --cached --quiet; then
             echo "Nothing new to commit."
             exit 0

@@ -1,6 +1,6 @@
 # I gave an AI forecaster a memory on Walrus. Here's what it learned from being wrong.
 
-> Draft for the author (AGENT.md §14). The facts and quoted lessons below are from the official run; rewrite the prose in your own voice. The results table is filled by `export` and should not be typed by hand. Screenshots and links are marked in brackets. Delete this note before publishing.
+> Draft for the author (AGENT.md §14). The facts and quoted lessons below are from the official run; rewrite the prose in your own voice. The results table is filled by `export --docs` and should not be typed by hand, so keep its GENERATED markers until the last time you run it. Screenshots and links are marked in brackets. Delete this note before publishing.
 
 ## The problem: agents repeat their mistakes
 
@@ -58,7 +58,7 @@ One with an actual opinion, used 16 times:
 
 > In a persistent downtrend with price below a falling 20-day mean and a deep drawdown, a flat 7-day return after a bounce doesn't mean the slide is over. Trend persistence was under-weighted; I should lean bearish a bit more, though one outcome is weak evidence.
 
-That one sounds sensible. Forecasts citing it scored worse than the same forecasts without memory, by 0.015 on average.
+That one sounds sensible. Across the run, forecasts citing it scored worse than the same forecasts without memory, by 0.015 on average.
 
 And an early one, written after only two weeks:
 
@@ -75,9 +75,9 @@ One honest wrinkle: the job is scheduled for just after midnight UTC, but GitHub
 ## What did not work
 
 - **Tuning found nothing.** Neither change beat the noise floor, and on the dev weeks memory scored worse than no memory in all three tuning runs.
-- **Cited lessons did not earn the gain.** Forecasts that cited a lesson did slightly worse than without memory; forecasts that cited none did better. Every memory forecast also sees a calibration snapshot, so that may be the real source, but this design cannot separate them.
-- **Lessons barely moved anything.** A citing forecast shifted by about 0.04 on average.
-- **The LLM lost to arithmetic on breakouts.** Every LLM arm scored worse than the base rate on breakout questions, though memory was the closest.
+- **Cited lessons did not earn the gain.** Across all 33 weeks, forecasts that cited a lesson did slightly worse than without memory; forecasts that cited none did better. Every memory forecast also sees a calibration snapshot, so that may be the real source, but this design cannot separate them.
+- **Lessons barely moved anything.** Across all 33 weeks, a citing forecast shifted by about 0.04 on average.
+- **The LLM lost to arithmetic on breakouts.** On the test split, every LLM arm scored worse than the base rate on breakout questions, though memory was the closest.
 - **I made a mistake.** I resumed a tuning run without its week limit, and it forecast test weeks in the no-memory arms before I caught it. I stopped it, never scored it, and added guards. It is logged as decision D42.
 
 The likely bottom line: 7-day crypto direction has very little signal to remember. A memory layer can only amplify what is learnable.

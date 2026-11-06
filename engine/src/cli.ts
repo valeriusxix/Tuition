@@ -54,7 +54,7 @@ const COMMANDS: Record<string, { describe: string; load: () => Promise<Command> 
     load: async () => (await import("./commands/score")).scoreCommand,
   },
   export: {
-    describe: "Write the web data files for a run (--run runId [--out dir]; dev runs need --out)",
+    describe: "Write the web data files for a run (--run runId [--out dir] [--docs]; dev runs need --out)",
     load: async () => (await import("./commands/export")).exportCommand,
   },
   verify: {

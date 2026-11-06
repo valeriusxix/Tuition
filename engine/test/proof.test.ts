@@ -9,6 +9,7 @@ import {
   blobUrl,
   buildProof,
   findDelegateKey,
+  matureBlobs,
   proofProblems,
   sampleLessons,
   uniqueBlobs,
@@ -168,6 +169,13 @@ describe("the proof helpers", () => {
     expect(one).toEqual(sampleLessons(lessons, 3, "r-1"));
     expect(new Set(one.map((l) => l.blobId)).size).toBe(3);
     expect(sampleLessons(lessons, 9, "r-1")).toHaveLength(5);
+  });
+
+  it("matureBlobs holds back only blobs younger than the limit", () => {
+    const at = (createdAt: string) => ({ createdAt });
+    const now = new Date("2026-11-07T07:00:00.000Z");
+    const entries = [at("2026-11-06T07:00:00.000Z"), at("2026-11-07T06:30:00.000Z"), at("2026-11-07T06:50:00.000Z")];
+    expect(matureBlobs(entries, now, 30 * 60_000)).toEqual(entries.slice(0, 2));
   });
 
   it("blobUrl trims the trailing slash", () => {

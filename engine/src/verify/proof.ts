@@ -37,6 +37,11 @@ export function uniqueBlobs(entries: readonly MemoryLedgerEntry[]): MemoryLedger
   return [...new Map(entries.map((e) => [e.blobId, e])).values()];
 }
 
+/** Blobs old enough to check. A just-written blob can return a CDN-cached 404 for a while (DECISIONS D10), so it waits for the next run. */
+export function matureBlobs<T extends Pick<MemoryLedgerEntry, "createdAt">>(entries: readonly T[], now: Date, minAgeMs: number): T[] {
+  return entries.filter((e) => now.getTime() - Date.parse(e.createdAt) >= minAgeMs);
+}
+
 /** A repeatable random sample of lessons for the recall round-trip (§11.4). */
 export function sampleLessons<T extends Pick<LessonRow, "blobId">>(lessons: readonly T[], n: number, runId: string): T[] {
   return shuffle(lessons, mulberry32(seedFromString(runId))).slice(0, n);

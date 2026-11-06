@@ -1,6 +1,11 @@
 // README and blog numbers (§13, §14): "filled from summary.json, never typed by hand". Each generated part
 // sits between <!-- GENERATED:name --> and <!-- /GENERATED:name --> markers. Everything here is pure.
 import { verdict, type Comparison, type ProofFile, type SummaryFile } from "@tuition/shared";
+import { z } from "zod";
+
+/** docs/links.json: fill in each URL as it exists, then run `export --run <runId> --docs`. */
+export const LinksSchema = z.object({ demo: z.url().nullable(), video: z.url().nullable(), blog: z.url().nullable() });
+export type Links = z.infer<typeof LinksSchema>;
 
 const b = (x: number): string => x.toFixed(3);
 const signed = (x: number, digits = 4): string => `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(digits)}`;
@@ -50,7 +55,12 @@ export function resultsTable(s: SummaryFile): string {
   ].join("\n");
 }
 
-export function requirementsBlock(s: SummaryFile, proof: ProofFile | null): string {
+export function linksBlock(links: Links): string {
+  const line = (label: string, url: string | null): string => `- ${label}: ${url ?? "_to be added_"}`;
+  return [line("Demo", links.demo), line("Video", links.video), line("Blog post", links.blog)].join("\n");
+}
+
+export function requirementsBlock(s: SummaryFile, proof: ProofFile | null, links: Links): string {
   const m = s.memories.mainnet;
   const tick = (ok: boolean): string => (ok ? "x" : " ");
   return [
@@ -58,7 +68,7 @@ export function requirementsBlock(s: SummaryFile, proof: ProofFile | null): stri
     `- [${tick(m.total >= 10)}] At least 10 memories: **${m.total}**`,
     `- [${tick(proof?.account.delegateKeyFound === true)}] Tatum RPC: the account object is read through Tatum's Sui gateway (\`verify\`, see \`/verify\`)`,
     `- [x] Tatum Data API: daily OHLCV candles for ${s.config.assets.join(", ")}`,
-    "- [ ] Blog post: link to be added on publication",
+    links.blog ? `- [x] Blog post: ${links.blog}` : "- [ ] Blog post: link to be added on publication",
   ].join("\n");
 }
 
@@ -91,11 +101,13 @@ export interface DocsInput {
   blog: string;
   summary: SummaryFile;
   proof: ProofFile | null;
+  links: Links;
 }
 
-export function renderDocs({ readme, blog, summary, proof }: DocsInput): { readme: string; blog: string } {
+export function renderDocs({ readme, blog, summary, proof, links }: DocsInput): { readme: string; blog: string } {
   let r = fillBlock(readme, "headline", headlineBlock(summary));
-  r = fillBlock(r, "requirements", requirementsBlock(summary, proof));
+  r = fillBlock(r, "links", linksBlock(links));
+  r = fillBlock(r, "requirements", requirementsBlock(summary, proof, links));
   r = fillBlock(r, "evidence", evidenceBlock(summary, proof));
   return { readme: r, blog: fillBlock(blog, "results", resultsTable(summary)) };
 }

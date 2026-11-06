@@ -147,7 +147,9 @@ describe("export helpers", () => {
   });
 
   it("parses export arguments and requires a run", () => {
-    expect(parseExportArgs(["--run", "r-1", "--out", "x"])).toEqual({ run: "r-1", out: "x" });
+    expect(parseExportArgs(["--run", "r-1", "--out", "x"])).toEqual({ run: "r-1", out: "x", docs: false });
+    expect(parseExportArgs(["--run", "r-1", "--docs"])).toEqual({ run: "r-1", docs: true });
+    expect(() => parseExportArgs(["--run", "r-1", "--out", "x", "--docs"])).toThrow(/cannot be combined/);
     expect(() => parseExportArgs([])).toThrow(/--run/);
     expect(() => parseExportArgs(["--run"])).toThrow(/needs a value/);
   });

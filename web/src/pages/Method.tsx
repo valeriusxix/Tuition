@@ -66,7 +66,7 @@ export default function Method() {
         <List>
           <li>The sample is small: {s.counts.bySplit.test ?? 0} test questions in {s.headline?.blocks ?? 0} weeks, on four correlated crypto assets.</li>
           <li>The LLM is not deterministic even at temperature 0, which is why the second no-memory pass exists.</li>
-          <li>Forecasts that cited a lesson did not improve on average, while those citing none did. The score difference cannot be credited to cited lessons.</li>
+          <li>Across all 33 weeks, forecasts that cited a lesson did not improve on average, while those citing none did. The score difference cannot be credited to cited lessons.</li>
           <li>The model may still recognise a market from its shape, despite the anonymisation.</li>
           <li>The managed relayer sees memory text in plaintext when it embeds it. The stored blobs are encrypted.</li>
           <li>Live forecasts usually commit several hours into their first day (see the Live page).</li>

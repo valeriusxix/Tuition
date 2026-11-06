@@ -237,3 +237,15 @@ Regression tests in `retry.test.ts` use the exact failure shape. Nothing about h
   - Only `--official` forecasts test weeks. Dry runs are exempt because their stub LLM shows nothing about the test split.
 
   Both rules have tests in `leakage.test.ts` (including this exact case), and I confirmed both on the real CLI.
+
+## 2026-11-06 (Day 5 tuning, continued)
+
+**D43. Tuning log, continued from D40.**
+- **T2, `r-20261105-1114-3131`: threshold 0.55** (limit 5, distance 0.8). It replaces the abandoned attempt in D42. The system stopped it after two mem weeks when the machine ran low on memory, and it was resumed from its checkpoint with its saved limit and threshold.
+  - Brier: base 0.264, nomem 0.252, nomem2 0.251, mem 0.255.
+  - Paired mem vs nomem: Δ −0.0022, 95% CI [−0.0247, +0.0208].
+  - Memory activity: 25 lessons (19 raise, 3 lower, 3 none, as D38 predicted) and 12 snapshots; 36 of 104 mem forecasts cited a lesson. Cost $0.25.
+- **Rule applied (D38): T2 is not adopted, and the threshold stays 0.45.** Against T1, the paired gain is −0.0036, 95% CI [−0.0147, +0.0077]. That does not exceed the noise floor of 0.0098, the range of four no-memory passes (0.243, 0.244, 0.252, 0.251).
+- **The noise floor came out larger than D40 expected.** The D40 caveat was written when only T1's two passes existed, and they happened to agree closely. Forecast disagreement is about the same within and between runs: the mean |Δp| is 0.029–0.034 for all six pairs of passes. So there is no sign of a run-level effect, and the 0.0018 gaps within each run were chance.
+- **Run comparability checked.** All tuning runs have the same 264 questions in every field and in the same order.
+- **T3, `r-20261106-0910-5942`:** threshold 0.45, limit 5, distance 0.347, as fixed in D40.

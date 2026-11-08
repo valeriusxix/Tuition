@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-11-07T06:07:27.990Z",
+ "generatedAt": "2026-11-08T06:10:17.074Z",
  "runId": "r-20261106-1001-f2a8",
  "agentId": "084487542e2bd6ec8eaf71edd877904d72858e4385b590514b993d40bc7c5907",
  "accountId": "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea",
  "relayer": {
   "url": "https://relayer.memory.walrus.xyz",
-  "checkedAt": "2026-11-07T06:05:31.781Z",
+  "checkedAt": "2026-11-08T06:08:36.820Z",
   "health": {
    "status": "ok",
    "version": "0.1.0",
@@ -65,10 +65,10 @@
  },
  "blobs": {
   "aggregator": "https://aggregator.walrus-mainnet.walrus.space",
-  "checked": 261,
-  "ok": 261,
+  "checked": 269,
+  "ok": 269,
   "failed": 0,
-  "totalBytes": 244572,
+  "totalBytes": 251249,
   "rows": [
    {
     "blobId": "ACiAz83QGKbHdy3LfsTv9QgiSm_bUfINuy8kpuI8QUo",
@@ -2418,6 +2418,78 @@
     "bytes": 875,
     "sha256": "9e916abc97309b1e05ef6559ee992b36f249af097ae3c3b34435df74aa3bf12d",
     "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/9bPqHIxzsd_UaSMlWjTs-6TeAVXSJ_zG-b-SMhbKvgc"
+   },
+   {
+    "blobId": "4Uc8yv6iYfnybddmWkCKNgfE4rCgcT5tbhxzDOcQ4hs",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 809,
+    "sha256": "d8da80acca821b4df4d49ec8ed10e6c659a74daaa0a6c1b49ce8e7e3b35d1d36",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/4Uc8yv6iYfnybddmWkCKNgfE4rCgcT5tbhxzDOcQ4hs"
+   },
+   {
+    "blobId": "hnCZXz2k405osYqM40fehosA7mxactHB2-6DvEa2Yaw",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 827,
+    "sha256": "071f9d8a8988db68993b052eeed7d5a3b3e44306ce371cb6fee8b8c92dffc4f5",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/hnCZXz2k405osYqM40fehosA7mxactHB2-6DvEa2Yaw"
+   },
+   {
+    "blobId": "p2BzDDHkQYVRRjgkfI2yUQmmhTY3UVD5VOjRjJL_WlE",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 839,
+    "sha256": "de6ae7c34ad7444cdd63c6dcc55b2c533767d5e1aaed73fbe96540e0948e1fc0",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/p2BzDDHkQYVRRjgkfI2yUQmmhTY3UVD5VOjRjJL_WlE"
+   },
+   {
+    "blobId": "Q_lcU7U-q3zSkZW1eRtoCGJAes5qdnUsjolZ4fxcGYo",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 850,
+    "sha256": "7129bed2c46c45d6556ad6dfcb85fe568350c6281d10bc88b4978a37da48fcb1",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/Q_lcU7U-q3zSkZW1eRtoCGJAes5qdnUsjolZ4fxcGYo"
+   },
+   {
+    "blobId": "yCR2P-x15pNfDzNBVptF7UPsVnkMoHC-bwZsmWMTZJw",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 827,
+    "sha256": "2af522aee22a14eb9dd3a7f18d1284ae453dafea07c76caa54d851eff261a3ee",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/yCR2P-x15pNfDzNBVptF7UPsVnkMoHC-bwZsmWMTZJw"
+   },
+   {
+    "blobId": "28e8cwztzoQ3k1yUX4bg0CggpsVC0vtDeM3tNqlKgg4",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 832,
+    "sha256": "3e905f4844a8105fdeeaf3b2f16ad776fca699a234b1403bcd9294cae17e6960",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/28e8cwztzoQ3k1yUX4bg0CggpsVC0vtDeM3tNqlKgg4"
+   },
+   {
+    "blobId": "XRiWtdmBlkwgdcvd_Hda5u8fZYhB57QQO7gKyi-P4ZE",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 891,
+    "sha256": "7f9fb64608ba3bc6a1e40742017907350a4f24f6080cbd66aed3d3bfc42a33db",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/XRiWtdmBlkwgdcvd_Hda5u8fZYhB57QQO7gKyi-P4ZE"
+   },
+   {
+    "blobId": "syN5OHOXjQo7mS1zizQpSMxg_F_sxY_FSmpy5tQI6Tw",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 802,
+    "sha256": "ef2780f8e6d20e898bb0330751bbfec6d74a64fb255883eb570757e668f18307",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/syN5OHOXjQo7mS1zizQpSMxg_F_sxY_FSmpy5tQI6Tw"
    }
   ]
  },

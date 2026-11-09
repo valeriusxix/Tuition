@@ -24,6 +24,32 @@ import { ARM_ORDER, writeCheckpoint, type Checkpoint, type LessonRecord } from "
 
 export const CALIBRATION_QUERY = "calibration snapshot";
 export const BASE_MODEL = "base-rate";
+/**
+ * How many calibration snapshots one recall asks for (D51). More than a full run ever writes (one per
+ * decision week, 33 in the default window), so the whole namespace comes back and the newest is chosen
+ * here by its header date. `limit: 1, sort: "recent"` only reorders the relayer's nearest few candidates,
+ * which froze the snapshot in r-20261106-1001-f2a8 (AUDIT B3).
+ */
+export const CALIBRATION_RECALL_LIMIT = 100;
+
+/** The snapshot with the latest header `sim` date (ties: the larger n), or undefined. */
+export function newestSnapshot(memories: readonly RecalledMemory[]): RecalledMemory | undefined {
+  const key = (m: RecalledMemory) => {
+    const f = decodeHeader(m.text)?.fields;
+    return { sim: f?.sim ?? "", n: Number(f?.n ?? 0) };
+  };
+  let best: RecalledMemory | undefined;
+  for (const m of memories) {
+    if (!best) {
+      best = m;
+      continue;
+    }
+    const a = key(m);
+    const b = key(best);
+    if (a.sim > b.sim || (a.sim === b.sim && a.n > b.n)) best = m;
+  }
+  return best;
+}
 
 export class LeakageError extends Error {
   override name = "LeakageError";
@@ -38,6 +64,7 @@ export interface ReplayDeps {
   checkpointFile: string;
   arms: readonly Arm[];
   limit?: number; // first N decision weeks only
+  calibrationRetryMs?: number; // pause before re-asking for a missing newest snapshot (tests: 0)
 }
 
 export interface WeekReport {
@@ -183,9 +210,28 @@ export async function runReplay(cp: Checkpoint, deps: ReplayDeps): Promise<Repla
     return isPromptSafe(memoryBody(m.text), config.ASSETS);
   };
 
+  /**
+   * The newest calibration snapshot knowable at D, read back from memory (D51). The checkpoint only says
+   * which snapshot should come back; the prompt always uses what recall returned. A mismatch is retried
+   * once, then logged and recorded in cp.calibrationMisses, never silently ignored.
+   */
   async function recallCalibration(D: string): Promise<RecalledMemory | undefined> {
-    const got = await store.recall({ namespace: cp.namespaces.calibration, query: CALIBRATION_QUERY, limit: 1, sort: "recent" });
-    return got.find((m) => usableAt(m, "calibration", D));
+    const expected = cp.calibrations.filter((c) => c.simDate <= D).reduce<string | undefined>((a, c) => (a && a > c.simDate ? a : c.simDate), undefined);
+    let found: RecalledMemory | undefined;
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      const got = await store.recall({ namespace: cp.namespaces.calibration, query: CALIBRATION_QUERY, limit: CALIBRATION_RECALL_LIMIT });
+      if (got.length >= CALIBRATION_RECALL_LIMIT) log.warn("calibration recall hit its limit; older snapshots may be cut", { decisionDate: D, n: got.length });
+      found = newestSnapshot(got.filter((m) => usableAt(m, "calibration", D)));
+      const sim = found ? decodeHeader(found.text)?.fields.sim : undefined;
+      if (sim === expected) return found;
+      if (attempt === 1) await new Promise((r) => setTimeout(r, deps.calibrationRetryMs ?? 5000));
+      else {
+        log.warn("calibration recall did not return the newest snapshot", { decisionDate: D, expected, got: sim ?? null });
+        (cp.calibrationMisses ??= []).push({ decisionDate: D, expected: expected ?? null, got: sim ?? null });
+        save();
+      }
+    }
+    return found;
   }
 
   async function recallLessons(q: Question, D: string): Promise<RecalledMemory[]> {

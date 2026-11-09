@@ -4,6 +4,8 @@ name: official
 # mode=smoke is a 2-week dev replay that proves this workflow end to end first. It stays inside the
 # dev split and is not a tuning run. mode=official is the headline run.
 # After an interruption, dispatch mode=official again with `resume` set to the printed run ID.
+# rerun_of: the single pre-registered corrected rerun of the official run (DECISIONS D51). It runs on its
+# own state branch; to resume it, dispatch mode=official with both rerun_of and resume set.
 on:
   workflow_dispatch:
     inputs:
@@ -14,6 +16,10 @@ on:
         default: smoke
       resume:
         description: "Run ID to resume after an interrupted official run (optional)"
+        type: string
+        required: false
+      rerun_of:
+        description: "Official run ID to re-run once with the pre-registered fix (D51; optional)"
         type: string
         required: false
 
@@ -31,7 +37,8 @@ jobs:
     env:
       MODE: ${{ inputs.mode }}
       RESUME: ${{ inputs.resume }}
-      STATE_BRANCH: ${{ inputs.mode == 'official' && 'official-state' || 'official-smoke-state' }}
+      RERUN_OF: ${{ inputs.rerun_of }}
+      STATE_BRANCH: ${{ inputs.mode != 'official' && 'official-smoke-state' || (inputs.rerun_of != '' && 'official-rerun-state' || 'official-state') }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -54,6 +61,12 @@ jobs:
             git fetch -q origin "$STATE_BRANCH"
             git checkout FETCH_HEAD -- "engine/state/run-$RESUME.json"
             git checkout FETCH_HEAD -- "engine/state/ledger-$RESUME.jsonl" || echo "no ledger yet"
+          elif [ "$MODE" = official ] && [ -n "$RERUN_OF" ]; then
+            # One corrected rerun, pre-registered in D51. The CLI refuses a second one and checks settings.
+            if ! [[ "$RERUN_OF" =~ ^r-[0-9]{8}-[0-9]{4}-[0-9a-f]{4}$ ]] || git ls-remote --exit-code --heads origin "$STATE_BRANCH"; then
+              echo "::error::rerun_of needs an official run ID, and a rerun may only be started once"
+              exit 1
+            fi
           elif [ "$MODE" = official ]; then
             # There is one official run. Never start a second one (§1 honest reporting, §18).
             if grep -ls '"mode": "official"' engine/state/run-*.json || git ls-remote --exit-code --heads origin "$STATE_BRANCH"; then
@@ -78,8 +91,10 @@ jobs:
           RECALL_LIMIT: "5"
           RECALL_MAX_DISTANCE: "0.8"
         run: |
-          if [ "$MODE" = official ]; then
-            args=(--official ${RESUME:+--resume "$RESUME"})
+          if [ "$MODE" = official ] && [ -n "$RESUME" ]; then
+            args=(--official --resume "$RESUME")
+          elif [ "$MODE" = official ]; then
+            args=(--official ${RERUN_OF:+--rerun-of "$RERUN_OF"})
           else
             args=(--limit 2)
           fi
@@ -123,7 +138,7 @@ jobs:
             echo "Nothing new to commit."
             exit 0
           fi
-          git commit -q -m "$MODE: replay run state"
+          git commit -q -m "$MODE${RERUN_OF:+ rerun}: replay run state"
           for attempt in 1 2 3 4 5; do
             git push -q origin HEAD:main && exit 0
             sleep $((attempt * 10))

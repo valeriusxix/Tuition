@@ -174,6 +174,9 @@ export function createWalrusStore(config: Config, ledgerFile: string): WalrusMem
   });
 }
 
+/** How many semantic candidates the relayer reorders for `sort: "recent"` (mirrors the SDK's mock). */
+export const recentCandidateLimit = (limit: number): number => Math.max(Math.min(limit * 5, 50), limit);
+
 const tokens = (s: string): Set<string> => new Set(s.toLowerCase().match(/[a-z0-9.]+/g) ?? []);
 
 /** Tests and --dry only: per-namespace arrays, token-overlap recall, fake blob IDs mem-<n>. */
@@ -189,19 +192,25 @@ export class InMemoryStore implements MemoryStore {
     return { blobId: `mem-${order}`, jobId: `job-${order}` };
   }
 
+  /** Token-overlap distance in [0, 1]. Tests override it to mimic the relayer's embedding distances. */
+  protected distance(query: string, text: string, _order: number): number {
+    const q = tokens(query);
+    const t = tokens(text);
+    const overlap = [...q].filter((x) => t.has(x)).length;
+    return q.size === 0 ? 1 : 1 - overlap / q.size;
+  }
+
   async recall(input: MemoryRecall): Promise<RecalledMemory[]> {
     this.recalls.push(input);
-    const q = tokens(input.query);
     const scored = this.writes
       .filter((w) => w.namespace === input.namespace)
-      .map((w) => {
-        const t = tokens(w.text);
-        const overlap = [...q].filter((x) => t.has(x)).length;
-        return { w, distance: q.size === 0 ? 1 : 1 - overlap / q.size };
-      })
+      .map((w) => ({ w, distance: this.distance(input.query, w.text, w.order) }))
       .filter((s) => input.maxDistance === undefined || s.distance < input.maxDistance);
-    scored.sort((a, b) => (input.sort === "recent" ? b.w.order - a.w.order : a.distance - b.distance || b.w.order - a.w.order));
-    return recalledFrom(scored.slice(0, input.limit).map((s) => ({ blob_id: s.w.blobId, text: s.w.text, distance: s.distance })));
+    scored.sort((a, b) => a.distance - b.distance || b.w.order - a.w.order);
+    // Like the relayer: "recent" reorders only the nearest few candidates by write time; it is not a
+    // newest-in-namespace query (SDK RecallSort::candidate_limit, D51).
+    const picked = input.sort === "recent" ? scored.slice(0, recentCandidateLimit(input.limit)).sort((a, b) => b.w.order - a.w.order) : scored;
+    return recalledFrom(picked.slice(0, input.limit).map((s) => ({ blob_id: s.w.blobId, text: s.w.text, distance: s.distance })));
   }
 
   async health(): Promise<unknown> {

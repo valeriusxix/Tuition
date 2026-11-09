@@ -87,6 +87,10 @@ export const CheckpointSchema = z.object({
   lessons: z.array(LessonRecordSchema),
   reflectionSkips: z.array(z.object({ questionId: z.string(), reason: z.string() })),
   calibrations: z.array(CalibrationRecordSchema),
+  // Weeks where recall did not return the newest snapshot the run had written (D51). Absent before D51.
+  calibrationMisses: z.array(z.object({ decisionDate: isoDate, expected: isoDate.nullable(), got: isoDate.nullable() })).optional(),
+  // The run this one re-runs with one pre-registered change (D51). Absent or null for a first run.
+  rerunOf: z.string().nullable().optional(),
   costUsd: z.record(z.string(), z.number()), // per arm, plus "reflect" (when the gateway reports cost)
 });
 export type Checkpoint = z.infer<typeof CheckpointSchema>;

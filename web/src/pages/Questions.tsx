@@ -1,17 +1,39 @@
+import type { QuestionRow } from "@tuition/shared";
 import { useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { PageTitle, SELECT, Status, TableWrap, TD, TDN, TH, THN } from "../components/ui";
+import { Link } from "react-router";
+import { LINK, PageTitle, SELECT, StackTable, Status, type Column } from "../components/ui";
 import { useQuestions } from "../lib/data";
-import { signed } from "../lib/format";
+import { shortDate, signed } from "../lib/format";
+
+const PAGE = 40;
+
+const COLUMNS: Column<QuestionRow>[] = [
+  {
+    key: "q",
+    label: "Question",
+    title: true,
+    render: (q) => (
+      <Link className={LINK} to={`/questions/${q.id}`}>
+        {q.assetCode} {q.type}, {shortDate(q.decisionDate)}
+      </Link>
+    ),
+  },
+  { key: "split", label: "Split", render: (q) => q.split },
+  { key: "result", label: "Result", render: (q) => (q.outcome === undefined ? "–" : q.outcome === 1 ? "Yes" : "No") },
+  { key: "off", label: "P, OFF", align: "right", render: (q) => q.forecasts.nomem?.p.toFixed(2) ?? "–" },
+  { key: "on", label: "P, ON", align: "right", render: (q) => q.forecasts.mem?.p.toFixed(2) ?? "–" },
+  { key: "shift", label: "Shift", align: "right", render: (q) => (q.shift === undefined ? "–" : signed(q.shift, 2)) },
+  { key: "gain", label: "Gain", align: "right", render: (q) => (q.brierGain === undefined ? "–" : signed(q.brierGain, 3)) },
+];
 
 export default function Questions() {
   const questions = useQuestions();
-  const navigate = useNavigate();
   const [type, setType] = useState("all");
   const [split, setSplit] = useState("all");
   const [asset, setAsset] = useState("all");
   const [outcome, setOutcome] = useState("all");
   const [minShift, setMinShift] = useState("0");
+  const [limit, setLimit] = useState(PAGE);
 
   const all = questions.state === "ready" ? questions.data.questions : [];
   const assets = useMemo(() => [...new Set(all.map((q) => q.assetCode))].sort(), [all]);
@@ -29,73 +51,64 @@ export default function Questions() {
   );
 
   if (questions.state !== "ready") return <Status results={[questions]} />;
+  if (all.length === 0) {
+    return (
+      <>
+        <PageTitle title="Questions" />
+        <p className="text-paper-2">The question file is empty, so there is nothing to list.</p>
+      </>
+    );
+  }
+  const set = (f: (v: string) => void) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+    f(e.target.value);
+    setLimit(PAGE);
+  };
   return (
     <>
-      <PageTitle title="Questions">Every question in the headline run (the rerun), with what each arm said. Shift is memory ON minus memory OFF.</PageTitle>
-      <div className="mb-4 flex flex-wrap gap-2">
-        <select aria-label="Type" className={SELECT} value={type} onChange={(e) => setType(e.target.value)}>
+      <PageTitle title="Questions">
+        Every one of the {all.length} questions in the headline run, with what each arm said. Shift is the memory-ON probability minus memory-OFF; gain is the Brier
+        improvement from memory, positive when memory helped. Open a question to see the chart, the rationales and what was recalled.
+      </PageTitle>
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+        <select aria-label="Type" className={SELECT} value={type} onChange={set(setType)}>
           <option value="all">All types</option>
           <option value="DIRECTION">DIRECTION</option>
           <option value="BREAKOUT">BREAKOUT</option>
         </select>
-        <select aria-label="Split" className={SELECT} value={split} onChange={(e) => setSplit(e.target.value)}>
+        <select aria-label="Split" className={SELECT} value={split} onChange={set(setSplit)}>
           <option value="all">Dev and test</option>
-          <option value="dev">Dev</option>
-          <option value="test">Test</option>
+          <option value="dev">Dev only</option>
+          <option value="test">Test only</option>
         </select>
-        <select aria-label="Asset" className={SELECT} value={asset} onChange={(e) => setAsset(e.target.value)}>
+        <select aria-label="Asset" className={SELECT} value={asset} onChange={set(setAsset)}>
           <option value="all">All assets</option>
           {assets.map((a) => (
             <option key={a}>{a}</option>
           ))}
         </select>
-        <select aria-label="Outcome" className={SELECT} value={outcome} onChange={(e) => setOutcome(e.target.value)}>
+        <select aria-label="Outcome" className={SELECT} value={outcome} onChange={set(setOutcome)}>
           <option value="all">Any outcome</option>
-          <option value="1">Yes</option>
-          <option value="0">No</option>
+          <option value="1">Resolved yes</option>
+          <option value="0">Resolved no</option>
         </select>
-        <select aria-label="Minimum shift" className={SELECT} value={minShift} onChange={(e) => setMinShift(e.target.value)}>
+        <select aria-label="Minimum shift" className={`${SELECT} col-span-2`} value={minShift} onChange={set(setMinShift)}>
           <option value="0">Any shift</option>
-          <option value="0.05">|shift| ≥ 0.05</option>
-          <option value="0.1">|shift| ≥ 0.10</option>
-          <option value="0.2">|shift| ≥ 0.20</option>
+          <option value="0.05">Memory moved P by ≥ 0.05</option>
+          <option value="0.1">Memory moved P by ≥ 0.10</option>
+          <option value="0.2">Memory moved P by ≥ 0.20</option>
         </select>
       </div>
-      <p className="mb-3 text-sm text-neutral-400">
-        {shown.length} of {all.length} questions
+      <p className="mt-4 text-sm text-paper-2" aria-live="polite">
+        {shown.length === all.length ? `All ${all.length} questions` : `${shown.length} of ${all.length} questions`}
       </p>
-      <TableWrap>
-        <table className="w-full text-sm">
-          <thead className="bg-neutral-900">
-            <tr>
-              <th className={TH}>Decision</th>
-              <th className={TH}>Question</th>
-              <th className={TH}>Result</th>
-              <th className={THN}>OFF</th>
-              <th className={THN}>ON</th>
-              <th className={THN}>Shift</th>
-              <th className={THN}>Gain</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shown.map((q) => (
-              <tr key={q.id} onClick={() => void navigate(`/questions/${q.id}`)} className="cursor-pointer border-t border-neutral-800 hover:bg-neutral-900">
-                <td className={`${TD} font-mono`}>{q.decisionDate}</td>
-                <td className={TD}>
-                  <Link className="text-accent underline-offset-2 hover:underline" to={`/questions/${q.id}`}>
-                    {q.assetCode} {q.type}
-                  </Link>
-                </td>
-                <td className={TD}>{q.outcome === undefined ? "-" : q.outcome === 1 ? "Yes" : "No"}</td>
-                <td className={TDN}>{q.forecasts.nomem?.p.toFixed(2) ?? "-"}</td>
-                <td className={TDN}>{q.forecasts.mem?.p.toFixed(2) ?? "-"}</td>
-                <td className={TDN}>{q.shift === undefined ? "-" : signed(q.shift, 2)}</td>
-                <td className={TDN}>{q.brierGain === undefined ? "-" : signed(q.brierGain, 3)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </TableWrap>
+      <div className="mt-2">
+        <StackTable columns={COLUMNS} rows={shown.slice(0, limit)} rowKey={(q) => q.id} href={(q) => `/questions/${q.id}`} empty="No question matches these filters." />
+      </div>
+      {shown.length > limit && (
+        <button type="button" onClick={() => setLimit(limit + PAGE)} className="mt-6 h-11 rounded-sm border border-rule-2 px-4 text-sm text-paper hover:border-paper-2">
+          Show {Math.min(PAGE, shown.length - limit)} more
+        </button>
+      )}
     </>
   );
 }

@@ -1,9 +1,9 @@
 import type { LessonRow } from "@tuition/shared";
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
-import { BlobLink, Chip, PageTitle, SELECT, Status } from "../components/ui";
+import { BlobLink, Chip, INPUT, LINK, PageTitle, SELECT, Status } from "../components/ui";
 import { useLessons } from "../lib/data";
-import { signed } from "../lib/format";
+import { shortDate, signed } from "../lib/format";
 
 type Sort = "helpful" | "cited" | "newest";
 
@@ -14,48 +14,42 @@ const SORTS: Record<Sort, (a: LessonRow, b: LessonRow) => number> = {
   newest: (a, b) => b.createdSimDate.localeCompare(a.createdSimDate),
 };
 
+/** The body repeats the regime in words ("LESSON (DIRECTION, no clear trend, …): "); the chips already say it. */
+const prose = (body: string): string => body.replace(/^LESSON \([^)]*\):\s*/, "");
+
+const PAGE = 24;
+
 function LessonCard({ l }: { l: LessonRow }) {
+  const g = l.meanBrierGainWhenCited;
   return (
-    <li className="rounded border border-neutral-800 p-4">
-      <div className="flex flex-wrap gap-2">
+    <li className="rule-b py-5">
+      <div className="flex flex-wrap items-center gap-2">
         <Chip>{l.type}</Chip>
         {l.regime.split("/").map((part, i) => (
           <Chip key={`${i}-${part}`}>{part}</Chip>
         ))}
         {l.adjustment !== "none" && (
-          <Chip>
-            {l.adjustment} {l.magnitude.toFixed(2)}
+          <Chip tone="pen">
+            {l.adjustment} by {l.magnitude.toFixed(2)}
           </Chip>
         )}
+        <span className="ml-auto font-mono text-xs text-paper-2">written {shortDate(l.createdSimDate)}</span>
       </div>
-      <p className="mt-3 whitespace-pre-line text-neutral-200">{l.body}</p>
-      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-sm sm:grid-cols-4">
-        <div>
-          <dt className="text-neutral-400">Written (simulated)</dt>
-          <dd className="font-mono text-neutral-200">{l.createdSimDate}</dd>
-        </div>
-        <div>
-          <dt className="text-neutral-400">Cited / recalled</dt>
-          <dd className="font-mono text-neutral-200">
-            {l.timesCited} / {l.timesRecalled}
-          </dd>
-        </div>
-        <div>
-          <dt className="text-neutral-400">Mean gain when cited</dt>
-          <dd className="font-mono text-neutral-200">{l.meanBrierGainWhenCited === null ? "-" : signed(l.meanBrierGainWhenCited)}</dd>
-        </div>
-        <div>
-          <dt className="text-neutral-400">From question</dt>
-          <dd>
-            <Link className="text-accent underline-offset-2 hover:underline" to={`/questions/${l.questionId}`}>
-              Open
-            </Link>
-          </dd>
-        </div>
-      </dl>
-      <p className="mt-3">
-        <BlobLink id={l.blobId} />
-      </p>
+      <p className="mt-3 max-w-3xl text-paper">{prose(l.body)}</p>
+      <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-paper-2">
+        <span>
+          Cited <span className="font-mono text-paper">{l.timesCited}</span> of <span className="font-mono text-paper">{l.timesRecalled}</span> recalls
+        </span>
+        <span>
+          Gain when cited <span className="font-mono text-paper">{g === null ? "–" : signed(g)}</span>
+        </span>
+        <Link className={LINK} to={`/questions/${l.questionId}`}>
+          The question that taught it
+        </Link>
+        <span className="ml-auto">
+          <BlobLink id={l.blobId} />
+        </span>
+      </div>
     </li>
   );
 }
@@ -65,6 +59,7 @@ export default function Lessons() {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<Sort>("helpful");
   const [type, setType] = useState("all");
+  const [limit, setLimit] = useState(PAGE);
   const shown = useMemo(() => {
     if (lessons.state !== "ready") return [];
     const q = query.trim().toLowerCase();
@@ -74,40 +69,64 @@ export default function Lessons() {
   }, [lessons, query, sort, type]);
 
   if (lessons.state !== "ready") return <Status results={[lessons]} />;
+  const total = lessons.data.lessons.length;
+  if (total === 0) {
+    return (
+      <>
+        <PageTitle title="Lessons" />
+        <p className="text-paper-2">The headline run wrote no lessons, so there is nothing to list.</p>
+      </>
+    );
+  }
+  const cited = lessons.data.lessons.filter((l) => l.timesCited > 0).length;
   return (
     <>
       <PageTitle title="Lessons">
-        Every lesson the agent wrote in the headline run (the rerun), each stored as a blob on Walrus. The blob link returns encrypted bytes. A lesson's gain is measured on
-        a handful of forecasts at most, so read it as a clue, not a finding.
+        {total} lessons the agent wrote to itself in the headline run, each one a blob on Walrus. {cited} were cited by at least one later forecast. A lesson's gain is
+        measured on a handful of forecasts at most, so read it as a clue, not a finding.
       </PageTitle>
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row">
         <input
           type="search"
           aria-label="Search lessons"
           placeholder="Search lessons"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="min-w-0 flex-1 rounded border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 placeholder:text-neutral-500"
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setLimit(PAGE);
+          }}
+          className={`${INPUT} flex-1`}
         />
-        <select aria-label="Question type" className={SELECT} value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="all">All types</option>
-          <option value="DIRECTION">DIRECTION</option>
-          <option value="BREAKOUT">BREAKOUT</option>
-        </select>
-        <select aria-label="Sort" className={SELECT} value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
-          <option value="helpful">Most helpful</option>
-          <option value="cited">Most cited</option>
-          <option value="newest">Newest</option>
-        </select>
+        <div className="flex gap-2">
+          <select aria-label="Question type" className={`${SELECT} flex-1`} value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="all">All types</option>
+            <option value="DIRECTION">DIRECTION</option>
+            <option value="BREAKOUT">BREAKOUT</option>
+          </select>
+          <select aria-label="Sort" className={`${SELECT} flex-1`} value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+            <option value="helpful">Most helpful first</option>
+            <option value="cited">Most cited first</option>
+            <option value="newest">Newest first</option>
+          </select>
+        </div>
       </div>
-      <p className="mb-3 text-sm text-neutral-400">
-        {shown.length} of {lessons.data.lessons.length} lessons
+      <p className="mt-4 text-sm text-paper-2" aria-live="polite">
+        {shown.length === total ? `All ${total} lessons` : `${shown.length} of ${total} lessons`}
       </p>
-      <ul className="space-y-3">
-        {shown.map((l) => (
-          <LessonCard key={l.blobId} l={l} />
-        ))}
-      </ul>
+      {shown.length === 0 ? (
+        <p className="mt-6 text-paper-2">No lesson matches that search.</p>
+      ) : (
+        <ul className="rule-t mt-2">
+          {shown.slice(0, limit).map((l) => (
+            <LessonCard key={l.blobId} l={l} />
+          ))}
+        </ul>
+      )}
+      {shown.length > limit && (
+        <button type="button" onClick={() => setLimit(limit + PAGE)} className="mt-6 h-11 rounded-sm border border-rule-2 px-4 text-sm text-paper hover:border-paper-2">
+          Show {Math.min(PAGE, shown.length - limit)} more
+        </button>
+      )}
     </>
   );
 }

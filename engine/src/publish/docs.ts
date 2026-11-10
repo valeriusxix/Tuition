@@ -35,7 +35,30 @@ export function headlineBlock(s: SummaryFile): string {
   ];
   if (aa) lines.push("", `Two identical no-memory passes differ by ${signed(aa.meanDelta)} on the same questions, so a gap of this size can come from model noise alone.`);
   if (base) lines.push("", `Against a plain trailing base rate with no LLM, memory is ${signed(base.meanDelta)} (${b(base.candidateBrier)} vs ${b(base.referenceBrier)}).`);
+  const pair = runPairBlock(s);
+  if (pair) lines.push("", pair);
   return lines.join("\n");
+}
+
+/** D51: the two official runs side by side, with what differed. Empty for a run without a pair. */
+export function runPairBlock(s: SummaryFile): string {
+  const o = s.otherRun;
+  if (!o || !s.headline) return "";
+  const cu = s.calibrationUse;
+  const ou = o.calibrationUse;
+  const row = (label: string, h: Comparison | null) =>
+    h ? `| ${label} | ${b(h.referenceBrier)} | ${b(h.candidateBrier)} | ${signed(h.meanDelta)} | [${signed(h.ci95[0])}, ${signed(h.ci95[1])}] | ${h.shareAboveZero.toFixed(2)} |` : `| ${label} | - | - | - | - | - |`;
+  return [
+    `**Two official runs.** The first official run (\`${o.runId}\`) had a bug: its memory arm asked for the newest calibration snapshot in a way that only searched the few closest matches, so ` +
+      `${ou.frozenFrom ? `from ${ou.frozenFrom} on ` : ""}it kept getting an old one (${ou.staleWeeks} of ${ou.weeks} weeks stale; ${ou.used} of ${ou.written} snapshots ever reached a prompt). ` +
+      `This run (\`${s.runId}\`) is the single rerun, pre-registered before it started, with only that fixed (DECISIONS D51)` +
+      `${cu ? `: ${cu.weeks - cu.staleWeeks} of ${cu.weeks} weeks got the newest snapshot` : ""}. Both are published.`,
+    "",
+    "| Test split | Memory OFF | Memory ON | Δ | 95% CI | P(Δ>0) |",
+    "|---|---:|---:|---:|---:|---:|",
+    row(`Rerun, calibration fixed (\`${s.runId}\`, headline)`, s.headline),
+    row(`First run, calibration frozen (\`${o.runId}\`)`, o.headline),
+  ].join("\n");
 }
 
 export function resultsTable(s: SummaryFile): string {
@@ -52,6 +75,7 @@ export function resultsTable(s: SummaryFile): string {
     ...rows,
     "",
     h ? `Memory ON vs OFF: ${signed(h.meanDelta)}, 95% CI [${signed(h.ci95[0])}, ${signed(h.ci95[1])}], ${h.resamples} block-bootstrap resamples. ${verdict(h).label}.` : "",
+    ...(s.otherRun ? ["", runPairBlock(s)] : []),
   ].join("\n");
 }
 

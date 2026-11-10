@@ -77,7 +77,7 @@ export default function Lessons() {
   return (
     <>
       <PageTitle title="Lessons">
-        Every lesson the agent wrote in the official run, each stored as a blob on Walrus. The blob link returns encrypted bytes. A lesson's gain is measured on
+        Every lesson the agent wrote in the headline run (the rerun), each stored as a blob on Walrus. The blob link returns encrypted bytes. A lesson's gain is measured on
         a handful of forecasts at most, so read it as a clue, not a finding.
       </PageTitle>
       <div className="mb-4 flex flex-wrap gap-2">

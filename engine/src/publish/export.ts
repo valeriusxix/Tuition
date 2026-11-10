@@ -17,11 +17,13 @@ import {
   type QuestionRow,
   type QuestionsFile,
   type ReliabilityFile,
+  type CalibrationUse,
+  type RunRef,
   type SummaryFile,
 } from "@tuition/shared";
 import type { z } from "zod";
 import { regimeOf } from "../features/regime";
-import { memoryBody } from "../memory/format";
+import { decodeHeader, memoryBody } from "../memory/format";
 import { CLOSE_DAYS } from "../prompt/render";
 import { indexOfDate } from "../questions/generate";
 import { ARM_ORDER, type Checkpoint } from "../replay/checkpoint";
@@ -82,15 +84,68 @@ export function ledgerCounts(entries: readonly MemoryLedgerEntry[]): SummaryFile
   return { total: byBlob.size, byKind, byNamespace };
 }
 
+/**
+ * D51: did each week's memory prompts get the newest calibration snapshot already written? Read from what
+ * the forecasts actually recalled, compared with the snapshots the run had written by that week.
+ */
+export function calibrationUse(cp: Checkpoint): CalibrationUse {
+  const mem = cp.forecasts.mem ?? {};
+  const sims = [...cp.calibrations.map((c) => c.simDate)].sort();
+  const weeks = [...new Set(cp.questions.filter((q) => mem[q.id]).map((q) => q.decisionDate))].sort();
+  const used = new Set<string>();
+  let counted = 0;
+  let stale = 0;
+  let streak: { from: string; len: number } | undefined;
+  let longest: { from: string; len: number } | undefined;
+  for (const D of weeks) {
+    const expected = sims.filter((s) => s <= D).at(-1);
+    if (!expected) continue;
+    counted++;
+    const got = cp.questions
+      .filter((q) => q.decisionDate === D && mem[q.id])
+      .map((q) => mem[q.id]!.recalled.find((m) => m.kind === "calibration"))
+      .map((m) => (m ? decodeHeader(m.text)?.fields.sim : undefined))[0];
+    if (got) used.add(got);
+    if (got === expected) {
+      streak = undefined;
+      continue;
+    }
+    stale++;
+    streak = streak ? { from: streak.from, len: streak.len + 1 } : { from: D, len: 1 };
+    if (!longest || streak.len > longest.len) longest = { ...streak };
+  }
+  return { written: cp.calibrations.length, used: used.size, weeks: counted, staleWeeks: stale, frozenFrom: longest && longest.len > 1 ? longest.from : null };
+}
+
+/** The other run of the D51 pair, summarised for the primary run's summary.json. */
+export function runRef(cp: Checkpoint, report: RunReport, role: RunRef["role"]): RunRef {
+  const testBrier: RunRef["testBrier"] = {};
+  for (const arm of report.arms) {
+    const b = report.metrics[arm]?.test?.all?.brier;
+    if (b !== undefined) testBrier[arm] = b;
+  }
+  return {
+    runId: cp.runId,
+    role,
+    createdAt: cp.createdAt,
+    headline: report.headline,
+    comparisons: report.comparisons.filter((c) => c.split === "test"),
+    testBrier,
+    lessons: cp.lessons.filter((l) => l.blobId).length,
+    calibrationUse: calibrationUse(cp),
+  };
+}
+
 export interface WebDataInput {
   cp: Checkpoint;
   report: RunReport;
   candles: ReadonlyMap<string, readonly Candle[]>;
   ledgers: readonly MemoryLedgerEntry[]; // every ledger in engine/state (run, live, smoke)
   generatedAt: string;
+  otherRun?: RunRef | null; // D51: the original run when exporting its rerun
 }
 
-export function buildWebData({ cp, report, candles, ledgers, generatedAt }: WebDataInput): WebData {
+export function buildWebData({ cp, report, candles, ledgers, generatedAt, otherRun }: WebDataInput): WebData {
   const c = cp.config;
   const scored = report.rows;
   const written = cp.lessons.filter((l) => l.blobId);
@@ -135,6 +190,9 @@ export function buildWebData({ cp, report, candles, ledgers, generatedAt }: WebD
     influence: report.influence,
     memories: { run: { lessons: written.length, calibrations: cp.calibrations.length }, mainnet: ledgerCounts(ledgers) },
     costUsd: cp.costUsd,
+    rerunOf: cp.rerunOf ?? null,
+    calibrationUse: calibrationUse(cp),
+    otherRun: otherRun ?? null,
   };
 
   // Every question the run forecast in any arm, resolved or not, in question order.

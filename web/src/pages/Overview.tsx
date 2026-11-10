@@ -1,6 +1,7 @@
 import { verdict, type Comparison, type CurveFile, type SummaryFile } from "@tuition/shared";
 import { useMemo, useState } from "react";
 import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { RunPair } from "../components/RunPair";
 import { Section, SELECT, Stat, Status } from "../components/ui";
 import { AXIS_TICK, INK, Legend, SERIES, TooltipBox } from "../lib/charts";
 import { useCurve, useSummary } from "../lib/data";
@@ -159,6 +160,12 @@ export default function Overview() {
         </ul>
       </div>
 
+      {s.otherRun && (
+        <div className="mt-4">
+          <RunPair summary={s} />
+        </div>
+      )}
+
       <Section title="Learning curve">
         <LearningCurve curve={curve.data} summary={s} />
       </Section>
@@ -180,7 +187,7 @@ export default function Overview() {
       <Section title="In numbers">
         <div className="grid gap-3 sm:grid-cols-3">
           <Stat label="Questions in the experiment" value={String(s.counts.questions)} />
-          <Stat label="Lessons written in the official run" value={String(s.counts.lessons)} />
+          <Stat label="Lessons written in the headline run" value={String(s.counts.lessons)} />
           <Stat label="Memories on mainnet, all runs" value={String(s.memories.mainnet.total)} />
         </div>
       </Section>

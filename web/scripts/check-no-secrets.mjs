@@ -24,7 +24,9 @@ function* walk(dir) {
 
 const problems = [];
 let checked = 0;
-for (const file of walk(srcDir)) {
+// The blog post is bundled into the site (/blog), so it is held to the same rules.
+const blog = join(webRoot, "..", "docs", "BLOG_DRAFT.md");
+for (const file of [...walk(srcDir), blog]) {
   checked++;
   const lines = readFileSync(file, "utf8").split(/\r?\n/);
   lines.forEach((line, i) => {
@@ -38,4 +40,4 @@ if (problems.length > 0) {
   console.error(`guard: FAIL, web/src must never touch secrets or engine code:\n  ${problems.join("\n  ")}`);
   process.exit(1);
 }
-console.log(`guard: OK (${checked} files under web/src checked)`);
+console.log(`guard: OK (${checked} files under web/src and the blog post checked)`);

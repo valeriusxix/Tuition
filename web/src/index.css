@@ -12,3 +12,58 @@
 body {
   @apply bg-neutral-950 text-neutral-200 antialiased;
 }
+
+/* The blog post (/blog), rendered from Markdown. */
+.blog {
+  @apply max-w-2xl text-neutral-300 leading-relaxed;
+}
+.blog h1 {
+  @apply text-3xl font-semibold text-neutral-50 sm:text-4xl;
+}
+.blog h2 {
+  @apply mt-10 mb-3 text-xl font-medium text-neutral-100;
+}
+.blog h3 {
+  @apply mt-6 mb-2 font-medium text-neutral-100;
+}
+.blog p {
+  @apply mt-4;
+}
+.blog ul,
+.blog ol {
+  @apply mt-4 space-y-2 pl-5;
+}
+.blog ul {
+  @apply list-disc;
+}
+.blog ol {
+  @apply list-decimal;
+}
+.blog a {
+  @apply text-accent underline-offset-2 hover:underline;
+}
+.blog strong {
+  @apply text-neutral-100;
+}
+.blog code {
+  @apply font-mono text-sm break-all text-neutral-200;
+}
+.blog blockquote {
+  @apply mt-4 border-l-2 border-accent/60 pl-4 text-neutral-200 italic;
+}
+.blog table {
+  @apply mt-4 block w-full overflow-x-auto text-sm;
+}
+.blog th,
+.blog td {
+  @apply border-b border-neutral-800 px-2 py-1 whitespace-nowrap;
+}
+.blog th {
+  @apply font-normal text-neutral-400;
+}
+.blog td {
+  @apply font-mono;
+}
+.blog img {
+  @apply mt-4 rounded border border-neutral-800;
+}

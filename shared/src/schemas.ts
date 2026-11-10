@@ -174,6 +174,27 @@ export const InfluenceSummarySchema = z.object({
   meanBrierGainNotCiting: z.number().nullable(),
 });
 
+/** How the memory arm's calibration snapshots reached its prompts (D51). */
+export const CalibrationUseSchema = z.object({
+  written: count, // snapshots written to Walrus
+  used: count, // distinct snapshots that reached at least one prompt
+  weeks: count, // decision weeks with at least one snapshot already written
+  staleWeeks: count, // of those, weeks whose prompts did not get the newest snapshot
+  frozenFrom: isoDate.nullable(), // first decision week of the longest stale streak, if any
+});
+
+/** The other run of the pair (D51): shown beside the primary run, never in its place. */
+export const RunRefSchema = z.object({
+  runId: z.string(),
+  role: z.enum(["original", "rerun"]),
+  createdAt: isoDateTime,
+  headline: ComparisonSchema.nullable(),
+  comparisons: z.array(ComparisonSchema),
+  testBrier: z.partialRecord(ArmSchema, z.number()),
+  lessons: count,
+  calibrationUse: CalibrationUseSchema,
+});
+
 export const SummaryFileSchema = z.object({
   generatedAt: isoDateTime,
   runId: z.string(),
@@ -212,6 +233,9 @@ export const SummaryFileSchema = z.object({
     mainnet: z.object({ total: count, byKind: z.record(z.string(), count), byNamespace: z.record(z.string(), count) }),
   }),
   costUsd: z.record(z.string(), z.number()),
+  rerunOf: z.string().nullable().optional(), // this run re-runs that one with the D51 fix
+  calibrationUse: CalibrationUseSchema.optional(),
+  otherRun: RunRefSchema.nullable().optional(),
 });
 
 export const CurvePointSchema = z.object({
@@ -312,6 +336,8 @@ export type ArmSlices = z.infer<typeof ArmSlicesSchema>;
 export type Comparison = z.infer<typeof ComparisonSchema>;
 export type InfluenceSummary = z.infer<typeof InfluenceSummarySchema>;
 export type SummaryFile = z.infer<typeof SummaryFileSchema>;
+export type CalibrationUse = z.infer<typeof CalibrationUseSchema>;
+export type RunRef = z.infer<typeof RunRefSchema>;
 export type CurveFile = z.infer<typeof CurveFileSchema>;
 export type ReliabilityFile = z.infer<typeof ReliabilityFileSchema>;
 export type QuestionRow = z.infer<typeof QuestionRowSchema>;

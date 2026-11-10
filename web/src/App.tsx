@@ -9,6 +9,7 @@ const QuestionDetail = lazy(() => import("./pages/QuestionDetail"));
 const Live = lazy(() => import("./pages/Live"));
 const Verify = lazy(() => import("./pages/Verify"));
 const Method = lazy(() => import("./pages/Method"));
+const Blog = lazy(() => import("./pages/Blog"));
 
 const NAV: [string, string][] = [
   ["/", "Overview"],
@@ -18,6 +19,7 @@ const NAV: [string, string][] = [
   ["/live", "Live"],
   ["/verify", "Verify"],
   ["/method", "Method"],
+  ["/blog", "Blog"],
 ];
 
 function NotFound() {
@@ -56,6 +58,7 @@ export default function App() {
               <Route path="/live" element={<Live />} />
               <Route path="/verify" element={<Verify />} />
               <Route path="/method" element={<Method />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

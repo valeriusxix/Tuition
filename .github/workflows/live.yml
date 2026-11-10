@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      OFFICIAL_RUN: r-20261106-1001-f2a8
+      OFFICIAL_RUN: r-20261109-1519-27da
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7

@@ -31,7 +31,7 @@ export default function Questions() {
   if (questions.state !== "ready") return <Status results={[questions]} />;
   return (
     <>
-      <PageTitle title="Questions">Every question in the official run, with what each arm said. Shift is memory ON minus memory OFF.</PageTitle>
+      <PageTitle title="Questions">Every question in the headline run (the rerun), with what each arm said. Shift is memory ON minus memory OFF.</PageTitle>
       <div className="mb-4 flex flex-wrap gap-2">
         <select aria-label="Type" className={SELECT} value={type} onChange={(e) => setType(e.target.value)}>
           <option value="all">All types</option>

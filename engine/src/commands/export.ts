@@ -14,7 +14,7 @@ import { say } from "../log";
 import { readLedger } from "../memory/ledger";
 import { REPO_ROOT, STATE_DIR, WEB_DATA_DIR } from "../paths";
 import { LinksSchema, renderDocs } from "../publish/docs";
-import { buildWebData, writeWebData } from "../publish/export";
+import { buildWebData, runRef, writeWebData } from "../publish/export";
 import { checkpointPath, readCheckpoint } from "../replay/checkpoint";
 import { buildReport } from "../score/report";
 
@@ -89,7 +89,10 @@ export async function exportCommand(rawArgs: string[]): Promise<void> {
   }
 
   const report = buildReport(cp);
-  const data = buildWebData({ cp, report, candles, ledgers: allLedgers(), generatedAt: new Date().toISOString() });
+  // D51: a rerun is published with its original beside it.
+  const original = cp.rerunOf ? readCheckpoint(checkpointPath(cp.rerunOf)) : undefined;
+  const otherRun = original ? runRef(original, buildReport(original), "original") : null;
+  const data = buildWebData({ cp, report, candles, ledgers: allLedgers(), generatedAt: new Date().toISOString(), otherRun });
   const paths = writeWebData(out, data);
   if (args.docs) paths.push(...writeDocs(data.summary, readProof(out)));
 

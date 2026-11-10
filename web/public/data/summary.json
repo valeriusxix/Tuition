@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-11-10T07:29:54.501Z",
- "runId": "r-20261106-1001-f2a8",
+ "generatedAt": "2026-11-10T11:38:45.523Z",
+ "runId": "r-20261109-1519-27da",
  "mode": "official",
- "runCreatedAt": "2026-11-06T10:01:37.084Z",
+ "runCreatedAt": "2026-11-09T15:19:21.163Z",
  "config": {
   "forecastModel": "anthropic/claude-haiku-5.5",
   "reflectModel": "anthropic/claude-sonnet-5.5",
@@ -22,8 +22,8 @@
   "seed": 42
  },
  "namespaces": {
-  "lessons": "tuition.r-20261106-1001-f2a8.lessons",
-  "calibration": "tuition.r-20261106-1001-f2a8.calibration"
+  "lessons": "tuition.r-20261109-1519-27da.lessons",
+  "calibration": "tuition.r-20261109-1519-27da.calibration"
  },
  "weeks": {
   "count": 33,
@@ -40,7 +40,7 @@
    "DIRECTION": 132,
    "BREAKOUT": 132
   },
-  "lessons": 181,
+  "lessons": 175,
   "calibrations": 32,
   "reflectionSkips": 0
  },
@@ -135,79 +135,79 @@
    "all": {
     "all": {
      "n": 264,
-     "brier": 0.262972,
-     "logLoss": 0.74158,
-     "accuracy": 0.549242,
-     "ece": 0.110682,
-     "skillVsBase": -0.00764
+     "brier": 0.263569,
+     "logLoss": 0.744812,
+     "accuracy": 0.545455,
+     "ece": 0.112235,
+     "skillVsBase": -0.009929
     },
     "DIRECTION": {
      "n": 132,
-     "brier": 0.2516,
-     "logLoss": 0.696385,
-     "accuracy": 0.496212,
-     "ece": 0.059242,
-     "skillVsBase": 0.058977
+     "brier": 0.250773,
+     "logLoss": 0.694705,
+     "accuracy": 0.503788,
+     "ece": 0.059773,
+     "skillVsBase": 0.062068
     },
     "BREAKOUT": {
      "n": 132,
-     "brier": 0.274344,
-     "logLoss": 0.786775,
-     "accuracy": 0.602273,
-     "ece": 0.194545,
-     "skillVsBase": -0.077602
+     "brier": 0.276365,
+     "logLoss": 0.79492,
+     "accuracy": 0.587121,
+     "ece": 0.191061,
+     "skillVsBase": -0.085541
     }
    },
    "dev": {
     "all": {
      "n": 104,
-     "brier": 0.256573,
-     "logLoss": 0.730767,
-     "accuracy": 0.596154,
-     "ece": 0.1425,
-     "skillVsBase": 0.027266
+     "brier": 0.252376,
+     "logLoss": 0.716842,
+     "accuracy": 0.581731,
+     "ece": 0.135481,
+     "skillVsBase": 0.043179
     },
     "DIRECTION": {
      "n": 52,
-     "brier": 0.247502,
-     "logLoss": 0.688135,
-     "accuracy": 0.528846,
-     "ece": 0.115192,
-     "skillVsBase": 0.043405
+     "brier": 0.247323,
+     "logLoss": 0.687778,
+     "accuracy": 0.538462,
+     "ece": 0.112308,
+     "skillVsBase": 0.044096
     },
     "BREAKOUT": {
      "n": 52,
-     "brier": 0.265644,
-     "logLoss": 0.773399,
-     "accuracy": 0.663462,
-     "ece": 0.186346,
-     "skillVsBase": 0.011732
+     "brier": 0.257429,
+     "logLoss": 0.745905,
+     "accuracy": 0.625,
+     "ece": 0.158654,
+     "skillVsBase": 0.042296
     }
    },
    "test": {
     "all": {
      "n": 160,
-     "brier": 0.267131,
-     "logLoss": 0.748608,
-     "accuracy": 0.51875,
-     "ece": 0.097125,
-     "skillVsBase": -0.030732
+     "brier": 0.270845,
+     "logLoss": 0.762993,
+     "accuracy": 0.521875,
+     "ece": 0.09925,
+     "skillVsBase": -0.045062
     },
     "DIRECTION": {
      "n": 80,
-     "brier": 0.254264,
-     "logLoss": 0.701748,
-     "accuracy": 0.475,
-     "ece": 0.042125,
-     "skillVsBase": 0.06857
+     "brier": 0.253016,
+     "logLoss": 0.699207,
+     "accuracy": 0.48125,
+     "ece": 0.042375,
+     "skillVsBase": 0.07314
     },
     "BREAKOUT": {
      "n": 80,
-     "brier": 0.279999,
-     "logLoss": 0.795469,
+     "brier": 0.288674,
+     "logLoss": 0.82678,
      "accuracy": 0.5625,
-     "ece": 0.199875,
-     "skillVsBase": -0.141219
+     "ece": 0.213375,
+     "skillVsBase": -0.176576
     }
    }
   },
@@ -215,79 +215,79 @@
    "all": {
     "all": {
      "n": 264,
-     "brier": 0.259293,
-     "logLoss": 0.734196,
+     "brier": 0.258727,
+     "logLoss": 0.726214,
      "accuracy": 0.545455,
-     "ece": 0.096477,
-     "skillVsBase": 0.006457
+     "ece": 0.099962,
+     "skillVsBase": 0.008626
     },
     "DIRECTION": {
      "n": 132,
-     "brier": 0.25103,
-     "logLoss": 0.695227,
-     "accuracy": 0.503788,
-     "ece": 0.052424,
-     "skillVsBase": 0.061108
+     "brier": 0.251479,
+     "logLoss": 0.696127,
+     "accuracy": 0.496212,
+     "ece": 0.06,
+     "skillVsBase": 0.05943
     },
     "BREAKOUT": {
      "n": 132,
-     "brier": 0.267555,
-     "logLoss": 0.773165,
-     "accuracy": 0.587121,
-     "ece": 0.144773,
-     "skillVsBase": -0.050937
+     "brier": 0.265975,
+     "logLoss": 0.756302,
+     "accuracy": 0.594697,
+     "ece": 0.164167,
+     "skillVsBase": -0.044729
     }
    },
    "dev": {
     "all": {
      "n": 104,
-     "brier": 0.255287,
-     "logLoss": 0.730672,
-     "accuracy": 0.567308,
-     "ece": 0.123269,
-     "skillVsBase": 0.032144
+     "brier": 0.245357,
+     "logLoss": 0.697188,
+     "accuracy": 0.581731,
+     "ece": 0.105481,
+     "skillVsBase": 0.069791
     },
     "DIRECTION": {
      "n": 52,
-     "brier": 0.247198,
-     "logLoss": 0.687523,
+     "brier": 0.248429,
+     "logLoss": 0.689999,
      "accuracy": 0.528846,
-     "ece": 0.111731,
-     "skillVsBase": 0.04458
+     "ece": 0.111346,
+     "skillVsBase": 0.039823
     },
     "BREAKOUT": {
      "n": 52,
-     "brier": 0.263375,
-     "logLoss": 0.773821,
-     "accuracy": 0.605769,
-     "ece": 0.158654,
-     "skillVsBase": 0.020174
+     "brier": 0.242285,
+     "logLoss": 0.704377,
+     "accuracy": 0.634615,
+     "ece": 0.138077,
+     "skillVsBase": 0.098636
     }
    },
    "test": {
     "all": {
      "n": 160,
-     "brier": 0.261897,
-     "logLoss": 0.736487,
-     "accuracy": 0.53125,
-     "ece": 0.079188,
-     "skillVsBase": -0.010535
+     "brier": 0.267418,
+     "logLoss": 0.745082,
+     "accuracy": 0.521875,
+     "ece": 0.106125,
+     "skillVsBase": -0.031837
     },
     "DIRECTION": {
      "n": 80,
-     "brier": 0.253521,
-     "logLoss": 0.700235,
-     "accuracy": 0.4875,
-     "ece": 0.029375,
-     "skillVsBase": 0.07129
+     "brier": 0.253461,
+     "logLoss": 0.70011,
+     "accuracy": 0.475,
+     "ece": 0.041125,
+     "skillVsBase": 0.07151
     },
     "BREAKOUT": {
      "n": 80,
-     "brier": 0.270273,
-     "logLoss": 0.772739,
-     "accuracy": 0.575,
-     "ece": 0.1555,
-     "skillVsBase": -0.101576
+     "brier": 0.281374,
+     "logLoss": 0.790053,
+     "accuracy": 0.56875,
+     "ece": 0.225625,
+     "skillVsBase": -0.146823
     }
    }
   },
@@ -295,79 +295,79 @@
    "all": {
     "all": {
      "n": 264,
-     "brier": 0.253997,
-     "logLoss": 0.70563,
-     "accuracy": 0.522727,
-     "ece": 0.101023,
-     "skillVsBase": 0.026748
+     "brier": 0.258717,
+     "logLoss": 0.720022,
+     "accuracy": 0.532197,
+     "ece": 0.103788,
+     "skillVsBase": 0.008665
     },
     "DIRECTION": {
      "n": 132,
-     "brier": 0.255362,
-     "logLoss": 0.703943,
-     "accuracy": 0.458333,
-     "ece": 0.11197,
-     "skillVsBase": 0.044906
+     "brier": 0.253675,
+     "logLoss": 0.700559,
+     "accuracy": 0.477273,
+     "ece": 0.07553,
+     "skillVsBase": 0.051216
     },
     "BREAKOUT": {
      "n": 132,
-     "brier": 0.252633,
-     "logLoss": 0.707318,
+     "brier": 0.263758,
+     "logLoss": 0.739486,
      "accuracy": 0.587121,
-     "ece": 0.140682,
-     "skillVsBase": 0.007679
+     "ece": 0.151136,
+     "skillVsBase": -0.036023
     }
    },
    "dev": {
     "all": {
      "n": 104,
-     "brier": 0.247513,
-     "logLoss": 0.692417,
-     "accuracy": 0.533654,
-     "ece": 0.144038,
-     "skillVsBase": 0.061614
+     "brier": 0.249795,
+     "logLoss": 0.697043,
+     "accuracy": 0.5625,
+     "ece": 0.120673,
+     "skillVsBase": 0.052963
     },
     "DIRECTION": {
      "n": 52,
-     "brier": 0.257167,
-     "logLoss": 0.707577,
-     "accuracy": 0.442308,
-     "ece": 0.194038,
-     "skillVsBase": 0.006048
+     "brier": 0.254219,
+     "logLoss": 0.701647,
+     "accuracy": 0.480769,
+     "ece": 0.136154,
+     "skillVsBase": 0.017443
     },
     "BREAKOUT": {
      "n": 52,
-     "brier": 0.23786,
-     "logLoss": 0.677257,
-     "accuracy": 0.625,
-     "ece": 0.141346,
-     "skillVsBase": 0.115098
+     "brier": 0.245371,
+     "logLoss": 0.69244,
+     "accuracy": 0.644231,
+     "ece": 0.137885,
+     "skillVsBase": 0.087153
     }
    },
    "test": {
     "all": {
      "n": 160,
-     "brier": 0.258212,
-     "logLoss": 0.714219,
-     "accuracy": 0.515625,
-     "ece": 0.082063,
-     "skillVsBase": 0.003683
+     "brier": 0.264516,
+     "logLoss": 0.734959,
+     "accuracy": 0.5125,
+     "ece": 0.107187,
+     "skillVsBase": -0.02064
     },
     "DIRECTION": {
      "n": 80,
-     "brier": 0.254189,
-     "logLoss": 0.70158,
-     "accuracy": 0.46875,
-     "ece": 0.058625,
-     "skillVsBase": 0.068845
+     "brier": 0.253321,
+     "logLoss": 0.699851,
+     "accuracy": 0.475,
+     "ece": 0.036125,
+     "skillVsBase": 0.072023
     },
     "BREAKOUT": {
      "n": 80,
-     "brier": 0.262235,
-     "logLoss": 0.726857,
-     "accuracy": 0.5625,
-     "ece": 0.17175,
-     "skillVsBase": -0.068817
+     "brier": 0.27571,
+     "logLoss": 0.770066,
+     "accuracy": 0.55,
+     "ece": 0.17825,
+     "skillVsBase": -0.123738
     }
    }
   }
@@ -378,14 +378,14 @@
    "candidate": "mem",
    "reference": "nomem",
    "split": "all",
-   "candidateBrier": 0.253997,
-   "referenceBrier": 0.262972,
-   "meanDelta": 0.008975,
+   "candidateBrier": 0.258717,
+   "referenceBrier": 0.263569,
+   "meanDelta": 0.004853,
    "ci95": [
-    -0.00682,
-    0.025825
+    -0.006007,
+    0.015267
    ],
-   "shareAboveZero": 0.871,
+   "shareAboveZero": 0.7965,
    "resamples": 2000,
    "blocks": 33,
    "n": 264
@@ -395,14 +395,14 @@
    "candidate": "mem",
    "reference": "nomem",
    "split": "dev",
-   "candidateBrier": 0.247513,
-   "referenceBrier": 0.256573,
-   "meanDelta": 0.00906,
+   "candidateBrier": 0.249795,
+   "referenceBrier": 0.252376,
+   "meanDelta": 0.002581,
    "ci95": [
-    -0.008646,
-    0.026146
+    -0.019175,
+    0.025748
    ],
-   "shareAboveZero": 0.836,
+   "shareAboveZero": 0.565,
    "resamples": 2000,
    "blocks": 13,
    "n": 104
@@ -412,14 +412,14 @@
    "candidate": "mem",
    "reference": "nomem",
    "split": "test",
-   "candidateBrier": 0.258212,
-   "referenceBrier": 0.267131,
-   "meanDelta": 0.008919,
+   "candidateBrier": 0.264516,
+   "referenceBrier": 0.270845,
+   "meanDelta": 0.006329,
    "ci95": [
-    -0.01344,
-    0.032505
+    -0.00451,
+    0.016804
    ],
-   "shareAboveZero": 0.77,
+   "shareAboveZero": 0.872,
    "resamples": 2000,
    "blocks": 20,
    "n": 160
@@ -429,14 +429,14 @@
    "candidate": "mem",
    "reference": "nomem2",
    "split": "all",
-   "candidateBrier": 0.253997,
-   "referenceBrier": 0.259293,
-   "meanDelta": 0.005295,
+   "candidateBrier": 0.258717,
+   "referenceBrier": 0.258727,
+   "meanDelta": 0.00001,
    "ci95": [
-    -0.011001,
-    0.021835
+    -0.012077,
+    0.010888
    ],
-   "shareAboveZero": 0.728,
+   "shareAboveZero": 0.4925,
    "resamples": 2000,
    "blocks": 33,
    "n": 264
@@ -446,14 +446,14 @@
    "candidate": "mem",
    "reference": "nomem2",
    "split": "dev",
-   "candidateBrier": 0.247513,
-   "referenceBrier": 0.255287,
-   "meanDelta": 0.007773,
+   "candidateBrier": 0.249795,
+   "referenceBrier": 0.245357,
+   "meanDelta": -0.004438,
    "ci95": [
-    -0.01538,
-    0.03025
+    -0.03171,
+    0.021089
    ],
-   "shareAboveZero": 0.7335,
+   "shareAboveZero": 0.3615,
    "resamples": 2000,
    "blocks": 13,
    "n": 104
@@ -463,14 +463,14 @@
    "candidate": "mem",
    "reference": "nomem2",
    "split": "test",
-   "candidateBrier": 0.258212,
-   "referenceBrier": 0.261897,
-   "meanDelta": 0.003685,
+   "candidateBrier": 0.264516,
+   "referenceBrier": 0.267418,
+   "meanDelta": 0.002902,
    "ci95": [
-    -0.017416,
-    0.026086
+    -0.006525,
+    0.011932
    ],
-   "shareAboveZero": 0.6105,
+   "shareAboveZero": 0.7295,
    "resamples": 2000,
    "blocks": 20,
    "n": 160
@@ -480,14 +480,14 @@
    "candidate": "nomem2",
    "reference": "nomem",
    "split": "all",
-   "candidateBrier": 0.259293,
-   "referenceBrier": 0.262972,
-   "meanDelta": 0.003679,
+   "candidateBrier": 0.258727,
+   "referenceBrier": 0.263569,
+   "meanDelta": 0.004842,
    "ci95": [
-    -0.0015,
-    0.008802
+    -0.000897,
+    0.010629
    ],
-   "shareAboveZero": 0.918,
+   "shareAboveZero": 0.953,
    "resamples": 2000,
    "blocks": 33,
    "n": 264
@@ -497,14 +497,14 @@
    "candidate": "nomem2",
    "reference": "nomem",
    "split": "dev",
-   "candidateBrier": 0.255287,
-   "referenceBrier": 0.256573,
-   "meanDelta": 0.001287,
+   "candidateBrier": 0.245357,
+   "referenceBrier": 0.252376,
+   "meanDelta": 0.007019,
    "ci95": [
-    -0.009349,
-    0.009718
+    -0.002725,
+    0.016811
    ],
-   "shareAboveZero": 0.6215,
+   "shareAboveZero": 0.927,
    "resamples": 2000,
    "blocks": 13,
    "n": 104
@@ -514,14 +514,14 @@
    "candidate": "nomem2",
    "reference": "nomem",
    "split": "test",
-   "candidateBrier": 0.261897,
-   "referenceBrier": 0.267131,
-   "meanDelta": 0.005234,
+   "candidateBrier": 0.267418,
+   "referenceBrier": 0.270845,
+   "meanDelta": 0.003427,
    "ci95": [
-    -0.000493,
-    0.011627
+    -0.003919,
+    0.010784
    ],
-   "shareAboveZero": 0.9595,
+   "shareAboveZero": 0.8195,
    "resamples": 2000,
    "blocks": 20,
    "n": 160
@@ -531,14 +531,14 @@
    "candidate": "mem",
    "reference": "base",
    "split": "all",
-   "candidateBrier": 0.253997,
+   "candidateBrier": 0.258717,
    "referenceBrier": 0.260978,
-   "meanDelta": 0.006981,
+   "meanDelta": 0.002261,
    "ci95": [
-    -0.014834,
-    0.029657
+    -0.020728,
+    0.025558
    ],
-   "shareAboveZero": 0.7385,
+   "shareAboveZero": 0.5975,
    "resamples": 2000,
    "blocks": 33,
    "n": 264
@@ -548,14 +548,14 @@
    "candidate": "mem",
    "reference": "base",
    "split": "dev",
-   "candidateBrier": 0.247513,
+   "candidateBrier": 0.249795,
    "referenceBrier": 0.263765,
-   "meanDelta": 0.016252,
+   "meanDelta": 0.01397,
    "ci95": [
-    -0.009904,
-    0.046257
+    -0.017495,
+    0.049008
    ],
-   "shareAboveZero": 0.879,
+   "shareAboveZero": 0.7895,
    "resamples": 2000,
    "blocks": 13,
    "n": 104
@@ -565,14 +565,14 @@
    "candidate": "mem",
    "reference": "base",
    "split": "test",
-   "candidateBrier": 0.258212,
+   "candidateBrier": 0.264516,
    "referenceBrier": 0.259166,
-   "meanDelta": 0.000955,
+   "meanDelta": -0.005349,
    "ci95": [
-    -0.030648,
-    0.0321
+    -0.037701,
+    0.023744
    ],
-   "shareAboveZero": 0.519,
+   "shareAboveZero": 0.379,
    "resamples": 2000,
    "blocks": 20,
    "n": 160
@@ -582,14 +582,14 @@
    "candidate": "nomem",
    "reference": "base",
    "split": "all",
-   "candidateBrier": 0.262972,
+   "candidateBrier": 0.263569,
    "referenceBrier": 0.260978,
-   "meanDelta": -0.001994,
+   "meanDelta": -0.002591,
    "ci95": [
-    -0.027822,
-    0.023369
+    -0.028357,
+    0.023489
    ],
-   "shareAboveZero": 0.455,
+   "shareAboveZero": 0.4285,
    "resamples": 2000,
    "blocks": 33,
    "n": 264
@@ -599,14 +599,14 @@
    "candidate": "nomem",
    "reference": "base",
    "split": "dev",
-   "candidateBrier": 0.256573,
+   "candidateBrier": 0.252376,
    "referenceBrier": 0.263765,
-   "meanDelta": 0.007192,
+   "meanDelta": 0.011389,
    "ci95": [
-    -0.025802,
-    0.044807
+    -0.020579,
+    0.049707
    ],
-   "shareAboveZero": 0.6625,
+   "shareAboveZero": 0.733,
    "resamples": 2000,
    "blocks": 13,
    "n": 104
@@ -616,14 +616,14 @@
    "candidate": "nomem",
    "reference": "base",
    "split": "test",
-   "candidateBrier": 0.267131,
+   "candidateBrier": 0.270845,
    "referenceBrier": 0.259166,
-   "meanDelta": -0.007965,
+   "meanDelta": -0.011679,
    "ci95": [
-    -0.043641,
-    0.024941
+    -0.048207,
+    0.022285
    ],
-   "shareAboveZero": 0.3355,
+   "shareAboveZero": 0.2655,
    "resamples": 2000,
    "blocks": 20,
    "n": 160
@@ -634,29 +634,29 @@
   "candidate": "mem",
   "reference": "nomem",
   "split": "test",
-  "candidateBrier": 0.258212,
-  "referenceBrier": 0.267131,
-  "meanDelta": 0.008919,
+  "candidateBrier": 0.264516,
+  "referenceBrier": 0.270845,
+  "meanDelta": 0.006329,
   "ci95": [
-   -0.01344,
-   0.032505
+   -0.00451,
+   0.016804
   ],
-  "shareAboveZero": 0.77,
+  "shareAboveZero": 0.872,
   "resamples": 2000,
   "blocks": 20,
   "n": 160
  },
  "influence": {
   "paired": 264,
-  "citing": 100,
-  "meanShiftCiting": 0.0256,
-  "meanAbsShiftCiting": 0.0408,
-  "meanBrierGainCiting": -0.00614,
-  "meanBrierGainNotCiting": 0.018191
+  "citing": 114,
+  "meanShiftCiting": 0.016754,
+  "meanAbsShiftCiting": 0.041491,
+  "meanBrierGainCiting": 0.01318,
+  "meanBrierGainNotCiting": -0.001476
  },
  "memories": {
   "run": {
-   "lessons": 181,
+   "lessons": 175,
    "calibrations": 32
   },
   "mainnet": {
@@ -690,9 +690,140 @@
   }
  },
  "costUsd": {
-  "nomem": 0.066961,
-  "nomem2": 0.068617,
-  "mem": 0.140003,
-  "reflect": 1.066356
+  "nomem": 0.069027,
+  "nomem2": 0.067071,
+  "mem": 0.137814,
+  "reflect": 1.031376
+ },
+ "rerunOf": "r-20261106-1001-f2a8",
+ "calibrationUse": {
+  "written": 32,
+  "used": 32,
+  "weeks": 32,
+  "staleWeeks": 0,
+  "frozenFrom": null
+ },
+ "otherRun": {
+  "runId": "r-20261106-1001-f2a8",
+  "role": "original",
+  "createdAt": "2026-11-06T10:01:37.084Z",
+  "headline": {
+   "id": "mem_vs_nomem",
+   "candidate": "mem",
+   "reference": "nomem",
+   "split": "test",
+   "candidateBrier": 0.258212,
+   "referenceBrier": 0.267131,
+   "meanDelta": 0.008919,
+   "ci95": [
+    -0.01344,
+    0.032505
+   ],
+   "shareAboveZero": 0.77,
+   "resamples": 2000,
+   "blocks": 20,
+   "n": 160
+  },
+  "comparisons": [
+   {
+    "id": "mem_vs_nomem",
+    "candidate": "mem",
+    "reference": "nomem",
+    "split": "test",
+    "candidateBrier": 0.258212,
+    "referenceBrier": 0.267131,
+    "meanDelta": 0.008919,
+    "ci95": [
+     -0.01344,
+     0.032505
+    ],
+    "shareAboveZero": 0.77,
+    "resamples": 2000,
+    "blocks": 20,
+    "n": 160
+   },
+   {
+    "id": "mem_vs_nomem2",
+    "candidate": "mem",
+    "reference": "nomem2",
+    "split": "test",
+    "candidateBrier": 0.258212,
+    "referenceBrier": 0.261897,
+    "meanDelta": 0.003685,
+    "ci95": [
+     -0.017416,
+     0.026086
+    ],
+    "shareAboveZero": 0.6105,
+    "resamples": 2000,
+    "blocks": 20,
+    "n": 160
+   },
+   {
+    "id": "nomem2_vs_nomem",
+    "candidate": "nomem2",
+    "reference": "nomem",
+    "split": "test",
+    "candidateBrier": 0.261897,
+    "referenceBrier": 0.267131,
+    "meanDelta": 0.005234,
+    "ci95": [
+     -0.000493,
+     0.011627
+    ],
+    "shareAboveZero": 0.9595,
+    "resamples": 2000,
+    "blocks": 20,
+    "n": 160
+   },
+   {
+    "id": "mem_vs_base",
+    "candidate": "mem",
+    "reference": "base",
+    "split": "test",
+    "candidateBrier": 0.258212,
+    "referenceBrier": 0.259166,
+    "meanDelta": 0.000955,
+    "ci95": [
+     -0.030648,
+     0.0321
+    ],
+    "shareAboveZero": 0.519,
+    "resamples": 2000,
+    "blocks": 20,
+    "n": 160
+   },
+   {
+    "id": "nomem_vs_base",
+    "candidate": "nomem",
+    "reference": "base",
+    "split": "test",
+    "candidateBrier": 0.267131,
+    "referenceBrier": 0.259166,
+    "meanDelta": -0.007965,
+    "ci95": [
+     -0.043641,
+     0.024941
+    ],
+    "shareAboveZero": 0.3355,
+    "resamples": 2000,
+    "blocks": 20,
+    "n": 160
+   }
+  ],
+  "testBrier": {
+   "base": 0.259166,
+   "nomem": 0.267131,
+   "nomem2": 0.261897,
+   "mem": 0.258212
+  },
+  "lessons": 181,
+  "calibrationUse": {
+   "written": 32,
+   "used": 6,
+   "weeks": 32,
+   "staleWeeks": 26,
+   "frozenFrom": "2026-04-27"
+  }
  }
 }

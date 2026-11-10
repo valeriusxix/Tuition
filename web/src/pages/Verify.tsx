@@ -130,7 +130,7 @@ export default function Verify() {
 
       <Section title={`All ${p.blobs.checked} checked blobs`}>
         <details>
-          <summary className="cursor-pointer text-sm text-neutral-300">Show the official run's and live blobs, with hashes</summary>
+          <summary className="cursor-pointer text-sm text-neutral-300">Show the headline run's and live blobs, with hashes</summary>
           <div className="mt-3">
             <TableWrap>
               <table className="w-full text-sm">

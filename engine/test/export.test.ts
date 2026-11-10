@@ -18,7 +18,7 @@ import { StubReflector } from "../src/agent/reflect";
 import { parseExportArgs } from "../src/commands/export";
 import { parseConfig } from "../src/config";
 import { InMemoryStore } from "../src/memory/store";
-import { buildWebData, ledgerCounts, pricePath, writeWebData, type WebData } from "../src/publish/export";
+import { buildWebData, calibrationUse, ledgerCounts, pricePath, runRef, writeWebData, type WebData } from "../src/publish/export";
 import { generateQuestions } from "../src/questions/generate";
 import { checkpointPath, newCheckpoint, type Checkpoint } from "../src/replay/checkpoint";
 import { runReplay } from "../src/replay/run";
@@ -152,5 +152,39 @@ describe("export helpers", () => {
     expect(() => parseExportArgs(["--run", "r-1", "--out", "x", "--docs"])).toThrow(/cannot be combined/);
     expect(() => parseExportArgs([])).toThrow(/--run/);
     expect(() => parseExportArgs(["--run"])).toThrow(/needs a value/);
+  });
+});
+
+describe("calibration use and the run pair (D51)", () => {
+  it("a fixed run gets the newest snapshot every week", () => {
+    const u = calibrationUse(cp);
+    expect(u.written).toBe(cp.calibrations.length);
+    expect(u.weeks).toBeGreaterThan(0);
+    expect(u.staleWeeks).toBe(0);
+    expect(u.frozenFrom).toBeNull();
+    expect(data.summary.calibrationUse).toEqual(u);
+  });
+
+  it("counts a frozen snapshot as stale, and dates the longest streak", () => {
+    const frozen: Checkpoint = structuredClone(cp);
+    const first = frozen.calibrations[0]!;
+    const firstRecalled = Object.values(frozen.forecasts.mem!).flatMap((f) => f.recalled).find((m) => m.kind === "calibration" && m.text === first.text)!;
+    for (const f of Object.values(frozen.forecasts.mem!)) {
+      const i = f.recalled.findIndex((m) => m.kind === "calibration");
+      if (i >= 0) f.recalled[i] = firstRecalled; // every week sees the first snapshot only
+    }
+    const u = calibrationUse(frozen);
+    expect(u.used).toBe(1);
+    expect(u.staleWeeks).toBe(u.weeks - 1);
+    expect(u.frozenFrom).toBe(frozen.calibrations[1]!.simDate);
+  });
+
+  it("puts the original run beside its rerun in summary.json", () => {
+    const original = runRef(cp, buildReport(cp), "original");
+    expect(original.headline?.id).toBe("mem_vs_nomem");
+    expect(original.comparisons.every((c) => c.split === "test")).toBe(true);
+    expect(Object.keys(original.testBrier).sort()).toEqual(["base", "mem", "nomem", "nomem2"]);
+    const pair = buildWebData({ cp: { ...cp, rerunOf: cp.runId }, report: buildReport(cp), candles, ledgers: [], generatedAt: "2026-11-09T12:00:00.000Z", otherRun: original });
+    expect(SummaryFileSchema.parse(pair.summary)).toMatchObject({ rerunOf: cp.runId, otherRun: { role: "original", runId: cp.runId } });
   });
 });

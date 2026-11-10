@@ -44,11 +44,11 @@ export function Section({ title, children, aside }: { title: string; children: R
 }
 
 /** A figure with its label: no box, the number carries the weight. */
-export function Stat({ label, value, note, size = "md" }: { label: string; value: ReactNode; note?: ReactNode; size?: "md" | "lg" }) {
+export function Stat({ label, value, note, size = "md" }: { label: string; value: ReactNode; note?: ReactNode; size?: "sm" | "md" | "lg" }) {
   return (
     <div className="min-w-0">
       <p className="text-sm text-paper-2">{label}</p>
-      <p className={`mt-1 font-mono text-paper ${size === "lg" ? "text-4xl sm:text-5xl" : "text-3xl"}`}>{value}</p>
+      <p className={`mt-1 font-mono text-paper ${size === "lg" ? "text-4xl sm:text-5xl" : size === "sm" ? "text-2xl" : "text-3xl"}`}>{value}</p>
       {note && <div className="mt-2 text-sm text-paper-2">{note}</div>}
     </div>
   );

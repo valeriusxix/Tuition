@@ -1,37 +1,186 @@
 @import "tailwindcss";
 
+/* ── Tokens: defined once, used everywhere ──────────────────────────────────
+   Surfaces are ink, type is paper, rules do the separating, and one red pen
+   marks corrections. See the design direction in the commit history. */
 @theme {
-  --color-accent: #5eead4;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --color-ink: #121311;
+  --color-ink-2: #1b1c1a;
+  --color-rule: #2b2d29;
+  --color-rule-2: #5b5e58;
+  --color-paper: #ece7da;
+  --color-paper-2: #a9a69b;
+  --color-slate: #8c9bb3;
+  --color-pen: #e4573d;
+  --color-accent: #e4573d; /* alias kept for existing pages */
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --radius-sm: 2px;
+
+  --spacing: 0.25rem; /* 4px base: 1=4, 2=8, 3=12, 4=16, 6=24, 8=32, 12=48, 16=64, 24=96 */
 }
 
 :root {
   color-scheme: dark;
 }
 
+html {
+  background: var(--color-ink);
+}
+
 body {
-  @apply bg-neutral-950 text-neutral-200 antialiased;
+  @apply bg-ink text-paper font-sans antialiased;
+  font-size: 1rem;
+  line-height: 1.55;
+  font-feature-settings: "kern", "liga";
+}
+
+/* Numbers, dates, IDs: always tabular, so columns line up. */
+.font-mono,
+code,
+kbd,
+pre,
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Display type: Fraunces at its larger optical sizes. A utility so @apply can use it too. */
+@utility display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+.display-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-variation-settings: "opsz" 72, "SOFT" 50;
+}
+
+/* Keyboard focus is always visible and always the pen. */
+:focus-visible {
+  outline: 2px solid var(--color-pen);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+::selection {
+  background: var(--color-pen);
+  color: var(--color-ink);
+}
+
+a {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+/* Ledger leaders: a dotted line from a label to its value. */
+.leaders {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.leaders::after {
+  content: "";
+  order: 1;
+  flex: 1 1 1rem;
+  min-width: 1rem;
+  border-bottom: 1px dotted var(--color-rule-2);
+  transform: translateY(-0.3em);
+}
+.leaders > :last-child {
+  order: 2;
+}
+
+/* The correction mark: the OFF value struck through, the ON value written beside it. */
+.mark-old {
+  color: var(--color-slate);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-pen);
+  text-decoration-thickness: 0.06em;
+}
+.mark-new {
+  position: relative;
+  display: inline-block;
+}
+.mark-new::after {
+  content: "";
+  position: absolute;
+  left: -0.05em;
+  right: -0.05em;
+  bottom: -0.08em;
+  height: 0.09em;
+  background: var(--color-pen);
+  border-radius: 999px;
+  transform: rotate(-0.6deg);
+}
+
+/* Hairline rules instead of boxes. */
+.rule-t {
+  border-top: 1px solid var(--color-rule);
+}
+.rule-b {
+  border-bottom: 1px solid var(--color-rule);
+}
+
+/* Motion: short, no bounce, and off for people who ask. */
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  button,
+  select,
+  input {
+    transition:
+      color 150ms ease,
+      border-color 150ms ease,
+      background-color 150ms ease,
+      text-decoration-color 150ms ease;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Horizontal scroll strips (mobile nav): no visible scrollbar, still scrollable. */
+.scroll-strip {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-strip::-webkit-scrollbar {
+  display: none;
 }
 
 /* The blog post (/blog), rendered from Markdown. */
 .blog {
-  @apply max-w-2xl text-neutral-300 leading-relaxed;
+  @apply max-w-2xl text-paper leading-relaxed;
 }
 .blog h1 {
-  @apply text-3xl font-semibold text-neutral-50 sm:text-4xl;
+  @apply display text-4xl text-paper sm:text-5xl;
 }
 .blog h2 {
-  @apply mt-10 mb-3 text-xl font-medium text-neutral-100;
+  @apply display mt-12 mb-3 text-2xl text-paper;
 }
 .blog h3 {
-  @apply mt-6 mb-2 font-medium text-neutral-100;
+  @apply mt-6 mb-2 font-medium text-paper;
 }
 .blog p {
-  @apply mt-4;
+  @apply mt-4 text-paper-2;
+}
+.blog > p:first-of-type {
+  @apply text-paper;
 }
 .blog ul,
 .blog ol {
-  @apply mt-4 space-y-2 pl-5;
+  @apply mt-4 space-y-2 pl-5 text-paper-2;
 }
 .blog ul {
   @apply list-disc;
@@ -39,31 +188,37 @@ body {
 .blog ol {
   @apply list-decimal;
 }
+.blog li::marker {
+  color: var(--color-pen);
+}
 .blog a {
-  @apply text-accent underline-offset-2 hover:underline;
+  @apply text-paper underline decoration-pen underline-offset-2 hover:decoration-2;
 }
 .blog strong {
-  @apply text-neutral-100;
+  @apply font-medium text-paper;
 }
 .blog code {
-  @apply font-mono text-sm break-all text-neutral-200;
+  @apply font-mono text-sm break-all text-paper;
 }
 .blog blockquote {
-  @apply mt-4 border-l-2 border-accent/60 pl-4 text-neutral-200 italic;
+  @apply mt-4 border-l-2 border-pen pl-4 text-paper;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
 }
 .blog table {
   @apply mt-4 block w-full overflow-x-auto text-sm;
 }
 .blog th,
 .blog td {
-  @apply border-b border-neutral-800 px-2 py-1 whitespace-nowrap;
+  @apply border-b border-rule px-2 py-1 whitespace-nowrap;
 }
 .blog th {
-  @apply font-normal text-neutral-400;
+  @apply font-normal text-paper-2;
 }
 .blog td {
   @apply font-mono;
 }
 .blog img {
-  @apply mt-4 rounded border border-neutral-800;
+  @apply mt-4 rounded-sm border border-rule;
 }

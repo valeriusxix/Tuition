@@ -53,7 +53,7 @@ export default function Verify() {
   const otherRunId = summary.state === "ready" ? (summary.data.otherRun?.runId ?? null) : null;
   const groups = groupNamespaces(p.counts.byNamespace, p.runId, otherRunId);
   const graphql = `curl -s ${p.account.endpoint} \\
-  -H 'x-api-key: YOUR_TATUM_KEY' -H 'content-type: application/json' \\
+  -H 'x-api-key: <your Tatum API key>' -H 'content-type: application/json' \\
   -d '{"query":"query($id:SuiAddress!){object(address:$id){version digest asMoveObject{contents{type{repr} json}}}}","variables":{"id":"${p.accountId}"}}'`;
   const sample = p.blobs.rows[0];
   const shown = showAll ? p.blobs.rows : p.blobs.rows.slice(0, 12);
@@ -93,14 +93,14 @@ export default function Verify() {
               <HexId id={p.accountId} href={p.account.explorerUrl} />
             </p>
             <p className="mt-1 text-sm text-paper-2">
-              Opens on Suiscan. This is the <span className="font-mono">MEMWAL_ACCOUNT_ID</span>.
+              Opens on Suiscan. This is the account the engine is configured to write to; the ID is on the submission form.
             </p>
             <p className="mt-5 text-sm text-paper-2">Agent ID (delegate public key)</p>
             <p className="mt-1">
               <HexId id={p.agentId} />
             </p>
             <p className="mt-1 text-sm text-paper-2">
-              The <span className="font-mono">MEMWAL_AGENT_ID</span> on the submission form. {p.account.delegateKeyFound ? "Found on the object above." : "Not found on the object."}
+              The agent ID on the submission form. {p.account.delegateKeyFound ? "Found on the object above." : "Not found on the object."}
             </p>
           </div>
           <dl>

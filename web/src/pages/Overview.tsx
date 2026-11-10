@@ -33,7 +33,7 @@ function LearningCurve({ curve, summary }: { curve: CurveFile; summary: SummaryF
   const ends = [
     { key: "on", value: last.on, text: "ON", color: SERIES.on },
     { key: "off", value: last.off, text: "OFF", color: SERIES.off },
-  ].filter((e): e is { key: string; value: number; text: string; color: string } => typeof e.value === "number");
+  ].flatMap((e) => (typeof e.value === "number" ? [{ ...e, value: e.value }] : []));
 
   return (
     <figure>
@@ -68,7 +68,7 @@ function LearningCurve({ curve, summary }: { curve: CurveFile; summary: SummaryF
               tickLine={false}
               tickFormatter={(v: number) => v.toFixed(2)}
             />
-            <ReferenceLine y={0.25} stroke={SERIES.neutral} strokeDasharray="2 4" label={{ value: "coin flip", position: "insideBottomRight", ...LABEL }} />
+            <ReferenceLine y={0.25} stroke={SERIES.neutral} strokeDasharray="2 4" label={phone ? undefined : { value: "coin flip", position: "insideBottomRight", ...LABEL }} />
             {firstTest && <ReferenceLine x={firstTest} stroke={INK.axis} strokeDasharray="2 4" label={{ value: "test split →", position: "insideBottomRight", ...LABEL }} />}
             <Tooltip
               cursor={{ stroke: INK.axis, strokeDasharray: "2 4" }}

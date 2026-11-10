@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import { RunPair } from "../components/RunPair";
-import { PageTitle, Section, Status } from "../components/ui";
+import { LINK, PageTitle, Section, Status } from "../components/ui";
 import { useSummary } from "../lib/data";
 import { REPO } from "../lib/links";
 
-const List = ({ children }: { children: ReactNode }) => <ul className="max-w-2xl list-disc space-y-2 pl-5 text-neutral-300">{children}</ul>;
+const List = ({ children }: { children: ReactNode }) => <ul className="max-w-2xl list-disc space-y-2 pl-5 text-paper-2">{children}</ul>;
 
 export default function Method() {
   const summary = useSummary();
@@ -96,8 +96,8 @@ export default function Method() {
         </List>
       </Section>
 
-      <p className="mt-10 text-neutral-300">
-        <a className="text-accent underline-offset-2 hover:underline" href={REPO}>
+      <p className="mt-10 text-paper-2">
+        <a className={LINK} href={REPO}>
           Source, decisions log and raw run data
         </a>
       </p>

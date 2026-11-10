@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-09T06:50:07.320Z",
+ "generatedAt": "2026-11-10T07:29:54.501Z",
  "runId": "r-20261106-1001-f2a8",
  "mode": "official",
  "runCreatedAt": "2026-11-06T10:01:37.084Z",
@@ -660,12 +660,12 @@
    "calibrations": 32
   },
   "mainnet": {
-   "total": 514,
+   "total": 736,
    "byKind": {
-    "lesson": 376,
-    "calibration": 73,
+    "lesson": 557,
+    "calibration": 106,
     "smoke": 1,
-    "forecast": 64
+    "forecast": 72
    },
    "byNamespace": {
     "tuition.r-20261105-0945-7e44.lessons": 19,
@@ -680,10 +680,12 @@
     "tuition.r-20261106-0958-8944.calibration": 1,
     "tuition.r-20261106-1001-f2a8.lessons": 181,
     "tuition.r-20261106-1001-f2a8.calibration": 32,
+    "tuition.r-20261109-1519-27da.lessons": 175,
+    "tuition.r-20261109-1519-27da.calibration": 32,
     "tuition.smoke": 1,
-    "tuition.live.forecasts": 64,
-    "tuition.live.lessons": 12,
-    "tuition.live.calibration": 1
+    "tuition.live.forecasts": 72,
+    "tuition.live.lessons": 18,
+    "tuition.live.calibration": 2
    }
   }
  },

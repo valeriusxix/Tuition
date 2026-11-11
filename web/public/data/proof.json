@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-11-10T11:35:54.164Z",
+ "generatedAt": "2026-11-11T06:37:38.618Z",
  "runId": "r-20261109-1519-27da",
  "agentId": "084487542e2bd6ec8eaf71edd877904d72858e4385b590514b993d40bc7c5907",
  "accountId": "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea",
  "relayer": {
   "url": "https://relayer.memory.walrus.xyz",
-  "checkedAt": "2026-11-10T11:32:32.715Z",
+  "checkedAt": "2026-11-11T06:35:25.880Z",
   "health": {
    "status": "ok",
    "version": "0.1.0",
@@ -2791,12 +2791,12 @@
   ]
  },
  "counts": {
-  "total": 736,
+  "total": 752,
   "byKind": {
-   "lesson": 557,
-   "calibration": 106,
+   "lesson": 564,
+   "calibration": 107,
    "smoke": 1,
-   "forecast": 72
+   "forecast": 80
   },
   "byNamespace": {
    "tuition.r-20261105-0945-7e44.lessons": 19,
@@ -2814,9 +2814,9 @@
    "tuition.r-20261109-1519-27da.lessons": 175,
    "tuition.r-20261109-1519-27da.calibration": 32,
    "tuition.smoke": 1,
-   "tuition.live.forecasts": 72,
-   "tuition.live.lessons": 18,
-   "tuition.live.calibration": 2
+   "tuition.live.forecasts": 80,
+   "tuition.live.lessons": 25,
+   "tuition.live.calibration": 3
   }
  }
 }

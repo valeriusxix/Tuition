@@ -3,8 +3,8 @@
  "interval": "1d",
  "source": "tatum:/v4/data/rate/symbol/OHLCV/batch interval=1d",
  "requestedFrom": "2025-08-14",
- "requestedTo": "2026-11-17",
- "updatedAt": "2026-11-18T07:34:53.350Z",
+ "requestedTo": "2026-11-18",
+ "updatedAt": "2026-11-19T07:30:26.484Z",
  "candles": [
   {
    "t": 1755129600000,
@@ -3232,6 +3232,13 @@
    "high": 75.78,
    "low": 71.07,
    "close": 75.19
+  },
+  {
+   "t": 1794960000000,
+   "open": 75.18,
+   "high": 75.66,
+   "low": 72.22,
+   "close": 73.64
   }
  ]
 }

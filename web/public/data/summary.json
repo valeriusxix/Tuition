@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-22T07:01:08.050Z",
+ "generatedAt": "2026-11-23T07:49:54.995Z",
  "runId": "r-20261109-1519-27da",
  "mode": "official",
  "runCreatedAt": "2026-11-09T15:19:21.163Z",
@@ -660,12 +660,12 @@
    "calibrations": 32
   },
   "mainnet": {
-   "total": 889,
+   "total": 898,
    "byKind": {
     "lesson": 602,
-    "calibration": 118,
+    "calibration": 119,
     "smoke": 1,
-    "forecast": 168
+    "forecast": 176
    },
    "byNamespace": {
     "tuition.r-20261105-0945-7e44.lessons": 19,
@@ -683,9 +683,9 @@
     "tuition.r-20261109-1519-27da.lessons": 175,
     "tuition.r-20261109-1519-27da.calibration": 32,
     "tuition.smoke": 1,
-    "tuition.live.forecasts": 168,
+    "tuition.live.forecasts": 176,
     "tuition.live.lessons": 63,
-    "tuition.live.calibration": 14
+    "tuition.live.calibration": 15
    }
   }
  },

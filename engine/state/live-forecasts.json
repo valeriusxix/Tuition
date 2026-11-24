@@ -7939,7 +7939,8 @@
      "trend": "down",
      "volRegime": "high",
      "volTrend": "expanding"
-    }
+    },
+    "outcome": 1
    },
    "forecast": {
     "questionId": "BREAKOUT-BTC-2026-11-16",
@@ -7989,7 +7990,8 @@
     "createdAt": "2026-11-17T08:00:04.915Z"
    },
    "blobId": "SpAUdCfeKdtLVZxdC_G--yiJdVN_xFwwQG9Lx_k0_Vg",
-   "committedAt": "2026-11-17T08:00:55.949Z"
+   "committedAt": "2026-11-17T08:00:55.949Z",
+   "resolvedAt": "2026-11-24T09:58:25.037Z"
   },
   {
    "question": {
@@ -8014,7 +8016,8 @@
      "trend": "down",
      "volRegime": "high",
      "volTrend": "expanding"
-    }
+    },
+    "outcome": 1
    },
    "forecast": {
     "questionId": "BREAKOUT-ETH-2026-11-16",
@@ -8064,7 +8067,8 @@
     "createdAt": "2026-11-17T08:00:04.312Z"
    },
    "blobId": "u8NSLq85eXN_o4d9tVDxCy8GglKlEPwpJRojCn7xBsY",
-   "committedAt": "2026-11-17T08:00:53.701Z"
+   "committedAt": "2026-11-17T08:00:53.701Z",
+   "resolvedAt": "2026-11-24T09:58:25.037Z"
   },
   {
    "question": {
@@ -8089,7 +8093,8 @@
      "trend": "down",
      "volRegime": "high",
      "volTrend": "expanding"
-    }
+    },
+    "outcome": 1
    },
    "forecast": {
     "questionId": "BREAKOUT-SOL-2026-11-16",
@@ -8139,7 +8144,8 @@
     "createdAt": "2026-11-17T08:00:38.857Z"
    },
    "blobId": "TMbrYwJvLHnOz86ZDlPcFORdgyYe4YxIeR8iAfQ7ZUc",
-   "committedAt": "2026-11-17T08:01:19.991Z"
+   "committedAt": "2026-11-17T08:01:19.991Z",
+   "resolvedAt": "2026-11-24T09:58:25.037Z"
   },
   {
    "question": {
@@ -8164,7 +8170,8 @@
      "trend": "down",
      "volRegime": "high",
      "volTrend": "expanding"
-    }
+    },
+    "outcome": 1
    },
    "forecast": {
     "questionId": "BREAKOUT-SUI-2026-11-16",
@@ -8214,7 +8221,15 @@
     "createdAt": "2026-11-17T08:01:03.453Z"
    },
    "blobId": "ZTbfdRdWjN5tF5Uj1juhL4bpSI9yp9_0SGhW-GhiMes",
-   "committedAt": "2026-11-17T08:01:44.675Z"
+   "committedAt": "2026-11-17T08:01:44.675Z",
+   "resolvedAt": "2026-11-24T09:58:25.037Z",
+   "lesson": {
+    "text": "[TUITION v1|kind=lesson|run=live|q=BREAKOUT-SUI-2026-11-16|type=BREAKOUT|regime=down/high/expanding|sim=2026-11-23|adj=raise|mag=0.12]\nLESSON (BREAKOUT, downtrend, high volatility, volatility expanding): In a down, high-vol, expanding regime (vol7 5.3% over vol30 4.1%, deep drawdown), the touch odds for a two-sided ~11% barrier exceeded my sigma estimate. Wide ranges and trend persistence fatten the downside tail, so I should not stop at 0.50. Applies when trend down, volRegime high, volTrend expanding, volRatio>1.2, drawdown30>25%, vol7>5%, barrier ~1x weekly sigma. Next time, raise my P(YES) by about 0.12.",
+    "adjustment": "raise",
+    "magnitude": 0.12,
+    "model": "anthropic/claude-sonnet-5.5",
+    "blobId": "KNZuop0U3iAqJLnRnmDGvTtiwfZP905XxJ12yR_66w0"
+   }
   },
   {
    "question": {
@@ -8238,7 +8253,8 @@
      "trend": "down",
      "volRegime": "high",
      "volTrend": "expanding"
-    }
+    },
+    "outcome": 0
    },
    "forecast": {
     "questionId": "DIRECTION-BTC-2026-11-16",
@@ -8292,7 +8308,8 @@
     "createdAt": "2026-11-17T08:00:02.907Z"
    },
    "blobId": "YfknER5eLqkWVxodKmAkubpMP6-KL4gALMQv0upV_NA",
-   "committedAt": "2026-11-17T08:00:29.385Z"
+   "committedAt": "2026-11-17T08:00:29.385Z",
+   "resolvedAt": "2026-11-24T09:58:25.037Z"
   },
   {
    "question": {
@@ -8316,7 +8333,8 @@
      "trend": "down",
      "volRegime": "high",
      "volTrend": "expanding"
-    }
+    },
+    "outcome": 0
    },
    "forecast": {
     "questionId": "DIRECTION-ETH-2026-11-16",
@@ -8370,7 +8388,8 @@
     "createdAt": "2026-11-17T08:00:02.757Z"
    },
    "blobId": "z8MnqyId0RzMqfCvnSN38veKr12LF4KNDVdrcObE-hg",
-   "committedAt": "2026-11-17T08:00:28.591Z"
+   "committedAt": "2026-11-17T08:00:28.591Z",
+   "resolvedAt": "2026-11-24T09:58:25.037Z"
   },
   {
    "question": {
@@ -8394,7 +8413,8 @@
      "trend": "down",
      "volRegime": "high",
      "volTrend": "expanding"
-    }
+    },
+    "outcome": 1
    },
    "forecast": {
     "questionId": "DIRECTION-SOL-2026-11-16",
@@ -8448,7 +8468,15 @@
     "createdAt": "2026-11-17T08:00:36.383Z"
    },
    "blobId": "qKMQLJHGKs7oqY6Z2KS4rnMnUb-NaKb1VF1EDnX7AlI",
-   "committedAt": "2026-11-17T08:01:18.214Z"
+   "committedAt": "2026-11-17T08:01:18.214Z",
+   "resolvedAt": "2026-11-24T09:58:25.037Z",
+   "lesson": {
+    "text": "[TUITION v1|kind=lesson|run=live|q=DIRECTION-SOL-2026-11-16|type=DIRECTION|regime=down/high/expanding|sim=2026-11-23|adj=raise|mag=0.12]\nLESSON (DIRECTION, downtrend, high volatility, volatility expanding): After a capitulation-style slide (ret30 near -30%, drawdown30 above 30%, price far below a falling SMA20, a wide-range spike day), 7-day direction is close to a coin flip. I shouldn't push P(YES) far below 0.5 on trend alone; I should stay near 0.40-0.45. Applies when trend down, volRegime high, volTrend expanding, ret30 below -25%, drawdown30 above 30%, smaDist20 below -15%… Next time, raise my P(YES) by about 0.12.",
+    "adjustment": "raise",
+    "magnitude": 0.12,
+    "model": "anthropic/claude-sonnet-5.5",
+    "blobId": "GMfRC2MJEGhyJR-QHld17TPK-0HvHCDTrZqPiYZyFMM"
+   }
   },
   {
    "question": {
@@ -8472,7 +8500,8 @@
      "trend": "down",
      "volRegime": "high",
      "volTrend": "expanding"
-    }
+    },
+    "outcome": 0
    },
    "forecast": {
     "questionId": "DIRECTION-SUI-2026-11-16",
@@ -8526,7 +8555,8 @@
     "createdAt": "2026-11-17T08:00:59.107Z"
    },
    "blobId": "WckILFwj3b7swUNo5_GUT35m6Wg9d-o-5OReOCj2YVk",
-   "committedAt": "2026-11-17T08:01:42.753Z"
+   "committedAt": "2026-11-17T08:01:42.753Z",
+   "resolvedAt": "2026-11-24T09:58:25.037Z"
   },
   {
    "question": {
@@ -12190,6 +12220,620 @@
    },
    "blobId": "THx9vODqTue6465QN_2Hb9kSZwXVz3tFXQVfGRRod2Y",
    "committedAt": "2026-11-23T07:46:47.099Z"
+  },
+  {
+   "question": {
+    "id": "BREAKOUT-BTC-2026-11-23",
+    "symbol": "BTC",
+    "assetCode": "Asset A",
+    "type": "BREAKOUT",
+    "decisionDate": "2026-11-23",
+    "resolveDate": "2026-11-30",
+    "threshold": 0.053,
+    "split": "live",
+    "features": {
+     "ret7": -5.57,
+     "ret30": -24.25,
+     "vol7": 2.57,
+     "vol30": 2.45,
+     "volRatio": 1.05,
+     "smaDist20": -10.7,
+     "smaSlope20": -5.76,
+     "drawdown30": 25.25,
+     "lastRange": 6.88,
+     "trend": "down",
+     "volRegime": "high",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "BREAKOUT-BTC-2026-11-23",
+    "arm": "mem",
+    "p": 0.78,
+    "rationale": "Vol30 of 2.45% implies about 6.5% sigma over 7 days, so the 5.3% barrier is roughly 0.8 sigma per side. Wide intraday ranges, including a 6.88% last range, raise touch odds. Calibration shows breakouts in this downtrend regime were underforecast, so I lean higher.",
+    "citedBlobIds": [
+     "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs"
+    ],
+    "recalled": [
+     {
+      "blobId": "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+      "distance": 0.3182802718829615,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-ETH-2026-06-22|type=BREAKOUT|regime=flat/low/contracting|sim=2026-06-29|adj=raise|mag=0.10]\nLESSON (BREAKOUT, no clear trend, low volatility, volatility contracting): After a sharp drawdown and a vol spike, a calm recent week (volRatio ~0.5) is often just a pause. I shouldn't discount vol30 so heavily; a downtrend with 30-day vol above 3% can still break a 9% barrier within 7 days. Applies when volRatio<0.6, vol30>3%, drawdown30>15%, smaSlope20 strongly negative, vol7 low, barrier about 1 sigma of vol30. Next time, raise my P(YES) by about 0.10.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+      "distance": 0.31899539666188936,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-SOL-2026-06-22|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-29|adj=raise|mag=0.08]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a sharp drop and rebound, wide daily ranges (lastRange ~5%) show intraday swings exceed what close-to-close vol7 implies. I should weight range and vol30 more than vol7 when estimating barrier touches; one miss is only mild evidence. Applies when trend flat, volRegime normal, volTrend contracting, volRatio ~0.7, lastRange >4%, drawdown30 >15%, barrier ~3x vol7. Next time, raise my P(YES) by about 0.08.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
+      "distance": 0.3220653075622354,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-BTC-2026-04-06|type=BREAKOUT|regime=flat/low/contracting|sim=2026-04-13|adj=raise|mag=0.08]\nLESSON (BREAKOUT, no clear trend, low volatility, volatility contracting): In flat, low, contracting vol with a big prior range (drawdown30 near 9%) and a strong last-day range, I underweighted a trending breakout. Barrier touches grew from a 1-day gap and then drift; sigma from vol30 understated this. Don't over-shade for contraction. Applies when trend flat, volRegime low, volTrend contracting, volRatio<0.8, drawdown30 ~9%, lastRange ~3%, ret7 positive. Next time, raise my P(YES) by about 0.08.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
+      "distance": 0.3231708706393591,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-SUI-2026-05-04|type=BREAKOUT|regime=flat/low/contracting|sim=2026-05-11|adj=raise|mag=0.12]\nLESSON (BREAKOUT, no clear trend, low volatility, volatility contracting): When vol7 is far below vol30 (volRatio ~0.4) after a 30-day history of large jumps, the quiet is not a safe signal. Fat-tailed spikes can occur, so I should not shade breakout odds down for contraction alone; the vol30 sigma estimate deserves more weight. Applies when flat trend, low vol, contracting, volRatio<0.5, vol30 high (~3%), drawdown30 ~10%, lastRange large vs vol7. Next time, raise my P(YES) by about 0.12.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs",
+      "distance": 0.3244963453425579,
+      "text": "[TUITION v1|kind=lesson|run=live|q=BREAKOUT-ETH-2026-10-31|type=BREAKOUT|regime=down/normal/stable|sim=2026-11-07|adj=raise|mag=0.04]\nLESSON (BREAKOUT, downtrend, normal volatility, volatility stable): After a steady drop of about 17% over 30 days, with price below its 20-day average and a normal, stable vol of about 1.9%, a sharp one-day bounce can hit a threshold of about 1.4 sigma. A 30% estimate was reasonable; this was largely a single-spike outcome, not clearly bad… Applies when trend down, volRegime normal, volTrend stable, volRatio about 1, drawdown30 above 15%, smaDist20 below -4%, threshold… Next time, raise my P(YES) by about 0.04.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc",
+      "distance": 0.5531328186160311,
+      "text": "[TUITION v1|kind=calibration|run=live|sim=2026-11-12|n=48]\nCALIBRATION SNAPSHOT after 48 resolved forecasts.\nDIRECTION, down trend, normal vol: I forecast 0.45 on average (n=18) but it happened 0.00 of the time → my P(YES) was too HIGH by 0.45.\nBREAKOUT, down trend, normal vol: I forecast 0.38 on average (n=18) but it happened 0.61 of the time → my P(YES) was too LOW by 0.23.\nOverall Brier so far 0.242 (coin-flip is 0.250).",
+      "kind": "calibration"
+     }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-24T09:59:27.642Z"
+   },
+   "blobId": "ppG4sawyTnmjH0eZ4WSYLesw8-e8XWSZGQ93FzytKIY",
+   "committedAt": "2026-11-24T09:59:43.955Z"
+  },
+  {
+   "question": {
+    "id": "BREAKOUT-ETH-2026-11-23",
+    "symbol": "ETH",
+    "assetCode": "Asset C",
+    "type": "BREAKOUT",
+    "decisionDate": "2026-11-23",
+    "resolveDate": "2026-11-30",
+    "threshold": 0.075,
+    "split": "live",
+    "features": {
+     "ret7": -6.04,
+     "ret30": -27.48,
+     "vol7": 3.79,
+     "vol30": 3.45,
+     "volRatio": 1.1,
+     "smaDist20": -12.26,
+     "smaSlope20": -6.71,
+     "drawdown30": 30.18,
+     "lastRange": 8.69,
+     "trend": "down",
+     "volRegime": "high",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "BREAKOUT-ETH-2026-11-23",
+    "arm": "mem",
+    "p": 0.57,
+    "rationale": "Vol30 of 3.45% implies roughly 9% sigma over 7 days, so a 7.5% touch on either side is near a coin flip or slightly better, with the downside favoured by the strong downtrend. Calibration shows past breakout forecasts in this regime were too low. The lessons' volRatio conditions don't match here (1.10), so I cite none.",
+    "citedBlobIds": [],
+    "recalled": [
+     {
+      "blobId": "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+      "distance": 0.3117651155352936,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-ETH-2026-06-22|type=BREAKOUT|regime=flat/low/contracting|sim=2026-06-29|adj=raise|mag=0.10]\nLESSON (BREAKOUT, no clear trend, low volatility, volatility contracting): After a sharp drawdown and a vol spike, a calm recent week (volRatio ~0.5) is often just a pause. I shouldn't discount vol30 so heavily; a downtrend with 30-day vol above 3% can still break a 9% barrier within 7 days. Applies when volRatio<0.6, vol30>3%, drawdown30>15%, smaSlope20 strongly negative, vol7 low, barrier about 1 sigma of vol30. Next time, raise my P(YES) by about 0.10.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+      "distance": 0.3148717193643795,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-SOL-2026-06-22|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-29|adj=raise|mag=0.08]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a sharp drop and rebound, wide daily ranges (lastRange ~5%) show intraday swings exceed what close-to-close vol7 implies. I should weight range and vol30 more than vol7 when estimating barrier touches; one miss is only mild evidence. Applies when trend flat, volRegime normal, volTrend contracting, volRatio ~0.7, lastRange >4%, drawdown30 >15%, barrier ~3x vol7. Next time, raise my P(YES) by about 0.08.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
+      "distance": 0.3173087281200768,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-SUI-2026-05-04|type=BREAKOUT|regime=flat/low/contracting|sim=2026-05-11|adj=raise|mag=0.12]\nLESSON (BREAKOUT, no clear trend, low volatility, volatility contracting): When vol7 is far below vol30 (volRatio ~0.4) after a 30-day history of large jumps, the quiet is not a safe signal. Fat-tailed spikes can occur, so I should not shade breakout odds down for contraction alone; the vol30 sigma estimate deserves more weight. Applies when flat trend, low vol, contracting, volRatio<0.5, vol30 high (~3%), drawdown30 ~10%, lastRange large vs vol7. Next time, raise my P(YES) by about 0.12.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
+      "distance": 0.31881753702505333,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-BTC-2026-04-06|type=BREAKOUT|regime=flat/low/contracting|sim=2026-04-13|adj=raise|mag=0.08]\nLESSON (BREAKOUT, no clear trend, low volatility, volatility contracting): In flat, low, contracting vol with a big prior range (drawdown30 near 9%) and a strong last-day range, I underweighted a trending breakout. Barrier touches grew from a 1-day gap and then drift; sigma from vol30 understated this. Don't over-shade for contraction. Applies when trend flat, volRegime low, volTrend contracting, volRatio<0.8, drawdown30 ~9%, lastRange ~3%, ret7 positive. Next time, raise my P(YES) by about 0.08.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0",
+      "distance": 0.3200174066205901,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-BTC-2026-06-22|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-29|adj=raise|mag=0.12]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a sharp prior selloff (drawdown30 ~18%, ret30 very negative) with volatility contracting, vol7 understated risk. Ranges of 3-4% daily and a big recent leg down mean the vol30 sigma is more reliable; I should weight it more than vol7 for 7% touch odds. Applies when drawdown30 above 15%, ret30 below -10%, volRatio below 0.8, lastRange above 3%, trend flat, smaSlope20 strongly negative. Next time, raise my P(YES) by about 0.12.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc",
+      "distance": 0.5531328186160311,
+      "text": "[TUITION v1|kind=calibration|run=live|sim=2026-11-12|n=48]\nCALIBRATION SNAPSHOT after 48 resolved forecasts.\nDIRECTION, down trend, normal vol: I forecast 0.45 on average (n=18) but it happened 0.00 of the time → my P(YES) was too HIGH by 0.45.\nBREAKOUT, down trend, normal vol: I forecast 0.38 on average (n=18) but it happened 0.61 of the time → my P(YES) was too LOW by 0.23.\nOverall Brier so far 0.242 (coin-flip is 0.250).",
+      "kind": "calibration"
+     }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-24T09:59:29.659Z"
+   },
+   "blobId": "sAAIR_ATXXJKLU7WIENhM5kc_2qate6kOVkoKgPsvJ0",
+   "committedAt": "2026-11-24T10:00:05.706Z"
+  },
+  {
+   "question": {
+    "id": "BREAKOUT-SOL-2026-11-23",
+    "symbol": "SOL",
+    "assetCode": "Asset D",
+    "type": "BREAKOUT",
+    "decisionDate": "2026-11-23",
+    "resolveDate": "2026-11-30",
+    "threshold": 0.083,
+    "split": "live",
+    "features": {
+     "ret7": 0.63,
+     "ret30": -29.64,
+     "vol7": 3.49,
+     "vol30": 3.37,
+     "volRatio": 1.03,
+     "smaDist20": -9.01,
+     "smaSlope20": -6.84,
+     "drawdown30": 30.64,
+     "lastRange": 11.93,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "BREAKOUT-SOL-2026-11-23",
+    "arm": "mem",
+    "p": 0.68,
+    "rationale": "Vol30 of about 3.4% implies a 7-day sigma near 9%, so an 8.3% touch on either side is roughly 60-65% likely, and intraday ranges around 12% push that higher. Calibration shows breakouts were underforecast in this regime, so I lean up. Only lesson 2 clearly matches; its volRatio and vol conditions fit.",
+    "citedBlobIds": [
+     "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs"
+    ],
+    "recalled": [
+     {
+      "blobId": "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+      "distance": 0.3206245687482542,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-SOL-2026-06-22|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-29|adj=raise|mag=0.08]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a sharp drop and rebound, wide daily ranges (lastRange ~5%) show intraday swings exceed what close-to-close vol7 implies. I should weight range and vol30 more than vol7 when estimating barrier touches; one miss is only mild evidence. Applies when trend flat, volRegime normal, volTrend contracting, volRatio ~0.7, lastRange >4%, drawdown30 >15%, barrier ~3x vol7. Next time, raise my P(YES) by about 0.08.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs",
+      "distance": 0.32265785201485775,
+      "text": "[TUITION v1|kind=lesson|run=live|q=BREAKOUT-ETH-2026-10-31|type=BREAKOUT|regime=down/normal/stable|sim=2026-11-07|adj=raise|mag=0.04]\nLESSON (BREAKOUT, downtrend, normal volatility, volatility stable): After a steady drop of about 17% over 30 days, with price below its 20-day average and a normal, stable vol of about 1.9%, a sharp one-day bounce can hit a threshold of about 1.4 sigma. A 30% estimate was reasonable; this was largely a single-spike outcome, not clearly bad… Applies when trend down, volRegime normal, volTrend stable, volRatio about 1, drawdown30 above 15%, smaDist20 below -4%, threshold… Next time, raise my P(YES) by about 0.04.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
+      "distance": 0.32321320603512205,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-SUI-2026-06-15|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-22|adj=raise|mag=0.12]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a violent boom-bust (drawdown30 above 30%, ret30 near -25%, steep negative smaDist/slope), realized daily ranges stay wide even when vol7 and volRatio are contracting. I should not shade breakout odds down on volRatio; the 12.8% barrier was reachable. Applies when Flat/normal vol label but drawdown30>25%, smaSlope20 strongly negative, volRatio<1, lastRange>4%, 7-day barrier ~1.3… Next time, raise my P(YES) by about 0.12.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+      "distance": 0.32529206250705334,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-ETH-2026-06-22|type=BREAKOUT|regime=flat/low/contracting|sim=2026-06-29|adj=raise|mag=0.10]\nLESSON (BREAKOUT, no clear trend, low volatility, volatility contracting): After a sharp drawdown and a vol spike, a calm recent week (volRatio ~0.5) is often just a pause. I shouldn't discount vol30 so heavily; a downtrend with 30-day vol above 3% can still break a 9% barrier within 7 days. Applies when volRatio<0.6, vol30>3%, drawdown30>15%, smaSlope20 strongly negative, vol7 low, barrier about 1 sigma of vol30. Next time, raise my P(YES) by about 0.10.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0",
+      "distance": 0.32800379916624056,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-BTC-2026-06-22|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-29|adj=raise|mag=0.12]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a sharp prior selloff (drawdown30 ~18%, ret30 very negative) with volatility contracting, vol7 understated risk. Ranges of 3-4% daily and a big recent leg down mean the vol30 sigma is more reliable; I should weight it more than vol7 for 7% touch odds. Applies when drawdown30 above 15%, ret30 below -10%, volRatio below 0.8, lastRange above 3%, trend flat, smaSlope20 strongly negative. Next time, raise my P(YES) by about 0.12.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc",
+      "distance": 0.5531328186160311,
+      "text": "[TUITION v1|kind=calibration|run=live|sim=2026-11-12|n=48]\nCALIBRATION SNAPSHOT after 48 resolved forecasts.\nDIRECTION, down trend, normal vol: I forecast 0.45 on average (n=18) but it happened 0.00 of the time → my P(YES) was too HIGH by 0.45.\nBREAKOUT, down trend, normal vol: I forecast 0.38 on average (n=18) but it happened 0.61 of the time → my P(YES) was too LOW by 0.23.\nOverall Brier so far 0.242 (coin-flip is 0.250).",
+      "kind": "calibration"
+     }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-24T09:59:54.346Z"
+   },
+   "blobId": "hpoTDK5we0iGL7xdUIqXGGoitQiXFZmVG-UJROagHyU",
+   "committedAt": "2026-11-24T10:00:22.585Z"
+  },
+  {
+   "question": {
+    "id": "BREAKOUT-SUI-2026-11-23",
+    "symbol": "SUI",
+    "assetCode": "Asset B",
+    "type": "BREAKOUT",
+    "decisionDate": "2026-11-23",
+    "resolveDate": "2026-11-30",
+    "threshold": 0.113,
+    "split": "live",
+    "features": {
+     "ret7": -6.33,
+     "ret30": -28.17,
+     "vol7": 3.94,
+     "vol30": 4.26,
+     "volRatio": 0.92,
+     "smaDist20": -12.27,
+     "smaSlope20": -6.85,
+     "drawdown30": 30.12,
+     "lastRange": 13.78,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "BREAKOUT-SUI-2026-11-23",
+    "arm": "mem",
+    "p": 0.62,
+    "rationale": "Seven-day sigma from vol30 (about 4.26% daily) is near the 11.3% barrier, so a touch is roughly a one-sigma event. Wide intraday ranges (lastRange about 13.8%) and the day 0 high of 108.81 raise touch odds. Calibration shows breakouts in this regime were underforecast, so I lean higher.",
+    "citedBlobIds": [
+     "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+     "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
+     "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0"
+    ],
+    "recalled": [
+     {
+      "blobId": "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+      "distance": 0.31549258610338105,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-SOL-2026-06-22|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-29|adj=raise|mag=0.08]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a sharp drop and rebound, wide daily ranges (lastRange ~5%) show intraday swings exceed what close-to-close vol7 implies. I should weight range and vol30 more than vol7 when estimating barrier touches; one miss is only mild evidence. Applies when trend flat, volRegime normal, volTrend contracting, volRatio ~0.7, lastRange >4%, drawdown30 >15%, barrier ~3x vol7. Next time, raise my P(YES) by about 0.08.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs",
+      "distance": 0.31552155474373145,
+      "text": "[TUITION v1|kind=lesson|run=live|q=BREAKOUT-ETH-2026-10-31|type=BREAKOUT|regime=down/normal/stable|sim=2026-11-07|adj=raise|mag=0.04]\nLESSON (BREAKOUT, downtrend, normal volatility, volatility stable): After a steady drop of about 17% over 30 days, with price below its 20-day average and a normal, stable vol of about 1.9%, a sharp one-day bounce can hit a threshold of about 1.4 sigma. A 30% estimate was reasonable; this was largely a single-spike outcome, not clearly bad… Applies when trend down, volRegime normal, volTrend stable, volRatio about 1, drawdown30 above 15%, smaDist20 below -4%, threshold… Next time, raise my P(YES) by about 0.04.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+      "distance": 0.3155424912561515,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-ETH-2026-06-22|type=BREAKOUT|regime=flat/low/contracting|sim=2026-06-29|adj=raise|mag=0.10]\nLESSON (BREAKOUT, no clear trend, low volatility, volatility contracting): After a sharp drawdown and a vol spike, a calm recent week (volRatio ~0.5) is often just a pause. I shouldn't discount vol30 so heavily; a downtrend with 30-day vol above 3% can still break a 9% barrier within 7 days. Applies when volRatio<0.6, vol30>3%, drawdown30>15%, smaSlope20 strongly negative, vol7 low, barrier about 1 sigma of vol30. Next time, raise my P(YES) by about 0.10.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
+      "distance": 0.3198274940254352,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-SUI-2026-06-15|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-22|adj=raise|mag=0.12]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a violent boom-bust (drawdown30 above 30%, ret30 near -25%, steep negative smaDist/slope), realized daily ranges stay wide even when vol7 and volRatio are contracting. I should not shade breakout odds down on volRatio; the 12.8% barrier was reachable. Applies when Flat/normal vol label but drawdown30>25%, smaSlope20 strongly negative, volRatio<1, lastRange>4%, 7-day barrier ~1.3… Next time, raise my P(YES) by about 0.12.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0",
+      "distance": 0.32019280932764627,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=BREAKOUT-BTC-2026-06-22|type=BREAKOUT|regime=flat/normal/contracting|sim=2026-06-29|adj=raise|mag=0.12]\nLESSON (BREAKOUT, no clear trend, normal volatility, volatility contracting): After a sharp prior selloff (drawdown30 ~18%, ret30 very negative) with volatility contracting, vol7 understated risk. Ranges of 3-4% daily and a big recent leg down mean the vol30 sigma is more reliable; I should weight it more than vol7 for 7% touch odds. Applies when drawdown30 above 15%, ret30 below -10%, volRatio below 0.8, lastRange above 3%, trend flat, smaSlope20 strongly negative. Next time, raise my P(YES) by about 0.12.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc",
+      "distance": 0.5531328186160311,
+      "text": "[TUITION v1|kind=calibration|run=live|sim=2026-11-12|n=48]\nCALIBRATION SNAPSHOT after 48 resolved forecasts.\nDIRECTION, down trend, normal vol: I forecast 0.45 on average (n=18) but it happened 0.00 of the time → my P(YES) was too HIGH by 0.45.\nBREAKOUT, down trend, normal vol: I forecast 0.38 on average (n=18) but it happened 0.61 of the time → my P(YES) was too LOW by 0.23.\nOverall Brier so far 0.242 (coin-flip is 0.250).",
+      "kind": "calibration"
+     }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-24T10:00:15.860Z"
+   },
+   "blobId": "TmY-KNddMffrtoqNvsrbE8Cfcy4tmGA9oRlqgVOxi4g",
+   "committedAt": "2026-11-24T10:00:45.932Z"
+  },
+  {
+   "question": {
+    "id": "DIRECTION-BTC-2026-11-23",
+    "symbol": "BTC",
+    "assetCode": "Asset A",
+    "type": "DIRECTION",
+    "decisionDate": "2026-11-23",
+    "resolveDate": "2026-11-30",
+    "split": "live",
+    "features": {
+     "ret7": -5.57,
+     "ret30": -24.25,
+     "vol7": 2.57,
+     "vol30": 2.45,
+     "volRatio": 1.05,
+     "smaDist20": -10.7,
+     "smaSlope20": -5.76,
+     "drawdown30": 25.25,
+     "lastRange": 6.88,
+     "trend": "down",
+     "volRegime": "high",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "DIRECTION-BTC-2026-11-23",
+    "arm": "mem",
+    "p": 0.44,
+    "rationale": "Downtrend with price about 10.7% below a falling 20-day mean and a deep 30-day drawdown argues mildly bearish. Ret7 is only -5.6% and the last day was flat, with high volatility, so no lesson's conditions clearly match. Calibration shows DIRECTION forecasts in down trends were too high, so I shade below 0.5.",
+    "citedBlobIds": [],
+    "recalled": [
+     {
+      "blobId": "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+      "distance": 0.29549533043931675,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-08-03|type=DIRECTION|regime=down/low/stable|sim=2026-08-10|adj=raise|mag=0.04]\nLESSON (DIRECTION, downtrend, low volatility, volatility stable): In a down-trend with low, stable volatility, a deep drawdown and price a bit below a falling 20-day mean, 7-day direction is close to a coin flip with mean-reversion risk. I should not tilt bearish on trend alone; stay near 0.5. Applies when trend down, volRegime low, volTrend stable, drawdown30 >10%, smaDist20 about -2%, ret7 near flat. Next time, raise my P(YES) by about 0.04.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+      "distance": 0.3138236690972569,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-07-27|type=DIRECTION|regime=down/normal/stable|sim=2026-08-03|adj=lower|mag=0.05]\nLESSON (DIRECTION, downtrend, normal volatility, volatility stable): In a down trend with normal, stable volatility and a deep drawdown, a mild bearish tilt was right but too timid; after a large reversal day, follow-through lower was likely. I should not hover near 0.48 when trend and a negative day-0 move agree. Applies when trend down, volRegime normal, volTrend stable, smaDist20 below -2%, smaSlope20 negative, drawdown30 above 10%… Next time, lower my P(YES) by about 0.05.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+      "distance": 0.3190831003464091,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-ETH-2026-05-25|type=DIRECTION|regime=down/low/stable|sim=2026-06-01|adj=lower|mag=0.06]\nLESSON (DIRECTION, downtrend, low volatility, volatility stable): In a persistent downtrend with price below a falling 20-day mean and a deep drawdown, a flat 7-day return after a bounce doesn't mean the slide is over. Trend persistence was under-weighted; I should lean bearish a bit more, though one outcome is weak evidence. Applies when trend down, volRegime low, volTrend stable, smaDist20 < -3%, smaSlope20 < -2%, drawdown30 > 10%, ret7 near flat. Next time, lower my P(YES) by about 0.06.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "K3Ghwv3oYVYN5hUj_-JNcULmJp49hOnktsKs7rBx9yg",
+      "distance": 0.32475105241869207,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SUI-2026-03-02|type=DIRECTION|regime=flat/high/stable|sim=2026-03-09|adj=raise|mag=0.03]\nLESSON (DIRECTION, no clear trend, high volatility, volatility stable): In high, stable volatility (~6% daily) after a steep 30-day slide, with price stalled near the 20-day mean, 7-day direction is close to a coin flip. Mild bearish tilt from momentum lacks support; I should stay near 0.50 and not shade down. Applies when trend flat, volRegime high, volTrend stable, ret30 strongly negative, drawdown30 ~20%, smaDist20 near 0, vol7 ~5-6%. Next time, raise my P(YES) by about 0.03.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+      "distance": 0.32759825254190234,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SUI-2026-05-18|type=DIRECTION|regime=flat/normal/contracting|sim=2026-05-25|adj=none|mag=0.00]\nLESSON (DIRECTION, no clear trend, normal volatility, volatility contracting): After a spike-and-crash that retraces most of the jump, with ret7 sharply negative, high vol30 and contracting volRatio, direction stays near coin flip. Stating 0.50 with a vague 'slight up lean' adds nothing; stay at 0.50 and don't force a tilt. Applies when ret7 below -15%, drawdown30 above 20%, volRatio below 0.7, smaDist20 near 0, flat trend, vol30 high after a spike. No probability adjustment: treat this as noise, not a pattern.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc",
+      "distance": 0.5531328186160311,
+      "text": "[TUITION v1|kind=calibration|run=live|sim=2026-11-12|n=48]\nCALIBRATION SNAPSHOT after 48 resolved forecasts.\nDIRECTION, down trend, normal vol: I forecast 0.45 on average (n=18) but it happened 0.00 of the time → my P(YES) was too HIGH by 0.45.\nBREAKOUT, down trend, normal vol: I forecast 0.38 on average (n=18) but it happened 0.61 of the time → my P(YES) was too LOW by 0.23.\nOverall Brier so far 0.242 (coin-flip is 0.250).",
+      "kind": "calibration"
+     }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-24T09:59:28.113Z"
+   },
+   "blobId": "q9JOkE39LvpmnfOv4Z4SDKSgXRW75BLjAtF9mS09Wv8",
+   "committedAt": "2026-11-24T10:00:03.463Z"
+  },
+  {
+   "question": {
+    "id": "DIRECTION-ETH-2026-11-23",
+    "symbol": "ETH",
+    "assetCode": "Asset C",
+    "type": "DIRECTION",
+    "decisionDate": "2026-11-23",
+    "resolveDate": "2026-11-30",
+    "split": "live",
+    "features": {
+     "ret7": -6.04,
+     "ret30": -27.48,
+     "vol7": 3.79,
+     "vol30": 3.45,
+     "volRatio": 1.1,
+     "smaDist20": -12.26,
+     "smaSlope20": -6.71,
+     "drawdown30": 30.18,
+     "lastRange": 8.69,
+     "trend": "down",
+     "volRegime": "high",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "DIRECTION-ETH-2026-11-23",
+    "arm": "mem",
+    "p": 0.4,
+    "rationale": "Strong persistent downtrend, price well below falling 20-day mean, deep drawdown, and a sharp negative day-0 move; lessons on downtrend persistence suggest a bearish tilt, though high volatility and possible mean reversion keep it moderate. Calibration shows past downtrend DIRECTION forecasts were too high, supporting a lower estimate.",
+    "citedBlobIds": [
+     "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+     "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A"
+    ],
+    "recalled": [
+     {
+      "blobId": "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+      "distance": 0.29376242122435636,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-08-03|type=DIRECTION|regime=down/low/stable|sim=2026-08-10|adj=raise|mag=0.04]\nLESSON (DIRECTION, downtrend, low volatility, volatility stable): In a down-trend with low, stable volatility, a deep drawdown and price a bit below a falling 20-day mean, 7-day direction is close to a coin flip with mean-reversion risk. I should not tilt bearish on trend alone; stay near 0.5. Applies when trend down, volRegime low, volTrend stable, drawdown30 >10%, smaDist20 about -2%, ret7 near flat. Next time, raise my P(YES) by about 0.04.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+      "distance": 0.31559999033625596,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-07-27|type=DIRECTION|regime=down/normal/stable|sim=2026-08-03|adj=lower|mag=0.05]\nLESSON (DIRECTION, downtrend, normal volatility, volatility stable): In a down trend with normal, stable volatility and a deep drawdown, a mild bearish tilt was right but too timid; after a large reversal day, follow-through lower was likely. I should not hover near 0.48 when trend and a negative day-0 move agree. Applies when trend down, volRegime normal, volTrend stable, smaDist20 below -2%, smaSlope20 negative, drawdown30 above 10%… Next time, lower my P(YES) by about 0.05.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+      "distance": 0.3183923118729539,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-ETH-2026-05-25|type=DIRECTION|regime=down/low/stable|sim=2026-06-01|adj=lower|mag=0.06]\nLESSON (DIRECTION, downtrend, low volatility, volatility stable): In a persistent downtrend with price below a falling 20-day mean and a deep drawdown, a flat 7-day return after a bounce doesn't mean the slide is over. Trend persistence was under-weighted; I should lean bearish a bit more, though one outcome is weak evidence. Applies when trend down, volRegime low, volTrend stable, smaDist20 < -3%, smaSlope20 < -2%, drawdown30 > 10%, ret7 near flat. Next time, lower my P(YES) by about 0.06.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "K3Ghwv3oYVYN5hUj_-JNcULmJp49hOnktsKs7rBx9yg",
+      "distance": 0.3219011865460978,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SUI-2026-03-02|type=DIRECTION|regime=flat/high/stable|sim=2026-03-09|adj=raise|mag=0.03]\nLESSON (DIRECTION, no clear trend, high volatility, volatility stable): In high, stable volatility (~6% daily) after a steep 30-day slide, with price stalled near the 20-day mean, 7-day direction is close to a coin flip. Mild bearish tilt from momentum lacks support; I should stay near 0.50 and not shade down. Applies when trend flat, volRegime high, volTrend stable, ret30 strongly negative, drawdown30 ~20%, smaDist20 near 0, vol7 ~5-6%. Next time, raise my P(YES) by about 0.03.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+      "distance": 0.32428876471578394,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SUI-2026-05-18|type=DIRECTION|regime=flat/normal/contracting|sim=2026-05-25|adj=none|mag=0.00]\nLESSON (DIRECTION, no clear trend, normal volatility, volatility contracting): After a spike-and-crash that retraces most of the jump, with ret7 sharply negative, high vol30 and contracting volRatio, direction stays near coin flip. Stating 0.50 with a vague 'slight up lean' adds nothing; stay at 0.50 and don't force a tilt. Applies when ret7 below -15%, drawdown30 above 20%, volRatio below 0.7, smaDist20 near 0, flat trend, vol30 high after a spike. No probability adjustment: treat this as noise, not a pattern.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc",
+      "distance": 0.5531328186160311,
+      "text": "[TUITION v1|kind=calibration|run=live|sim=2026-11-12|n=48]\nCALIBRATION SNAPSHOT after 48 resolved forecasts.\nDIRECTION, down trend, normal vol: I forecast 0.45 on average (n=18) but it happened 0.00 of the time → my P(YES) was too HIGH by 0.45.\nBREAKOUT, down trend, normal vol: I forecast 0.38 on average (n=18) but it happened 0.61 of the time → my P(YES) was too LOW by 0.23.\nOverall Brier so far 0.242 (coin-flip is 0.250).",
+      "kind": "calibration"
+     }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-24T09:59:26.799Z"
+   },
+   "blobId": "SHG5HzUUR_h0WpBlVJ2V3cE2trcbQ3-tZg1Kzy8GUG4",
+   "committedAt": "2026-11-24T09:59:45.882Z"
+  },
+  {
+   "question": {
+    "id": "DIRECTION-SOL-2026-11-23",
+    "symbol": "SOL",
+    "assetCode": "Asset D",
+    "type": "DIRECTION",
+    "decisionDate": "2026-11-23",
+    "resolveDate": "2026-11-30",
+    "split": "live",
+    "features": {
+     "ret7": 0.63,
+     "ret30": -29.64,
+     "vol7": 3.49,
+     "vol30": 3.37,
+     "volRatio": 1.03,
+     "smaDist20": -9.01,
+     "smaSlope20": -6.84,
+     "drawdown30": 30.64,
+     "lastRange": 11.93,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "DIRECTION-SOL-2026-11-23",
+    "arm": "mem",
+    "p": 0.4,
+    "rationale": "Downtrend with normal, stable volatility, deep 30-day drawdown and price below falling 20-day mean favors continuation; lesson 3 applies with a downward adjustment. Calibration shows past DIRECTION forecasts in this regime were too high, so I lean below 0.5 while avoiding overconfidence given mean-reversion risk.",
+    "citedBlobIds": [
+     "7ic9thW7LJEqDHfkUog7y0aOVpseC8_CXxVibDIxUsM",
+     "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A"
+    ],
+    "recalled": [
+     {
+      "blobId": "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+      "distance": 0.3026093342350178,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-08-03|type=DIRECTION|regime=down/low/stable|sim=2026-08-10|adj=raise|mag=0.04]\nLESSON (DIRECTION, downtrend, low volatility, volatility stable): In a down-trend with low, stable volatility, a deep drawdown and price a bit below a falling 20-day mean, 7-day direction is close to a coin flip with mean-reversion risk. I should not tilt bearish on trend alone; stay near 0.5. Applies when trend down, volRegime low, volTrend stable, drawdown30 >10%, smaDist20 about -2%, ret7 near flat. Next time, raise my P(YES) by about 0.04.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+      "distance": 0.308288248281401,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-07-27|type=DIRECTION|regime=down/normal/stable|sim=2026-08-03|adj=lower|mag=0.05]\nLESSON (DIRECTION, downtrend, normal volatility, volatility stable): In a down trend with normal, stable volatility and a deep drawdown, a mild bearish tilt was right but too timid; after a large reversal day, follow-through lower was likely. I should not hover near 0.48 when trend and a negative day-0 move agree. Applies when trend down, volRegime normal, volTrend stable, smaDist20 below -2%, smaSlope20 negative, drawdown30 above 10%… Next time, lower my P(YES) by about 0.05.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "7ic9thW7LJEqDHfkUog7y0aOVpseC8_CXxVibDIxUsM",
+      "distance": 0.3210752947632528,
+      "text": "[TUITION v1|kind=lesson|run=live|q=DIRECTION-ETH-2026-11-03|type=DIRECTION|regime=down/normal/stable|sim=2026-11-10|adj=lower|mag=0.06]\nLESSON (DIRECTION, downtrend, normal volatility, volatility stable): In a steady downtrend with normal, stable volatility (ret30 around -16%, price below a falling 20-day average), I should not tilt toward bounces. Rallies faded and the decline continued. Wide daily ranges mean big noise, but the drift stayed down. Applies when trend down, volRegime normal, volTrend stable, ret30 below -10%, smaDist20 negative, smaSlope20 negative, drawdown30… Next time, lower my P(YES) by about 0.06.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "T6j41TYkD9LN23KVK939gx_wNlJTxYWb7KVHA5_Bl_s",
+      "distance": 0.32195861115460367,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-03-09|type=DIRECTION|regime=flat/normal/stable|sim=2026-03-16|adj=none|mag=0.00]\nLESSON (DIRECTION, no clear trend, normal volatility, volatility stable): In a flat, normal-vol, stable regime after a large prior drawdown, price near the 20-day mean and a bounce off the range low, my small bearish tilt from weak trend features had no edge. Stay near 0.50; this miss is mostly noise. Applies when trend flat, volRegime normal, volTrend stable, volRatio ~0.9, smaDist20 near 0, ret30 slightly negative, drawdown30 ~10%. No probability adjustment: treat this as noise, not a pattern.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+      "distance": 0.32515516748556106,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SUI-2026-05-18|type=DIRECTION|regime=flat/normal/contracting|sim=2026-05-25|adj=none|mag=0.00]\nLESSON (DIRECTION, no clear trend, normal volatility, volatility contracting): After a spike-and-crash that retraces most of the jump, with ret7 sharply negative, high vol30 and contracting volRatio, direction stays near coin flip. Stating 0.50 with a vague 'slight up lean' adds nothing; stay at 0.50 and don't force a tilt. Applies when ret7 below -15%, drawdown30 above 20%, volRatio below 0.7, smaDist20 near 0, flat trend, vol30 high after a spike. No probability adjustment: treat this as noise, not a pattern.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc",
+      "distance": 0.5531328186160311,
+      "text": "[TUITION v1|kind=calibration|run=live|sim=2026-11-12|n=48]\nCALIBRATION SNAPSHOT after 48 resolved forecasts.\nDIRECTION, down trend, normal vol: I forecast 0.45 on average (n=18) but it happened 0.00 of the time → my P(YES) was too HIGH by 0.45.\nBREAKOUT, down trend, normal vol: I forecast 0.38 on average (n=18) but it happened 0.61 of the time → my P(YES) was too LOW by 0.23.\nOverall Brier so far 0.242 (coin-flip is 0.250).",
+      "kind": "calibration"
+     }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-24T09:59:51.906Z"
+   },
+   "blobId": "RHMBIBRdtvGhDteHGU3M-smy8z4FO7HnI4jRAi_wb48",
+   "committedAt": "2026-11-24T10:00:24.351Z"
+  },
+  {
+   "question": {
+    "id": "DIRECTION-SUI-2026-11-23",
+    "symbol": "SUI",
+    "assetCode": "Asset B",
+    "type": "DIRECTION",
+    "decisionDate": "2026-11-23",
+    "resolveDate": "2026-11-30",
+    "split": "live",
+    "features": {
+     "ret7": -6.33,
+     "ret30": -28.17,
+     "vol7": 3.94,
+     "vol30": 4.26,
+     "volRatio": 0.92,
+     "smaDist20": -12.27,
+     "smaSlope20": -6.85,
+     "drawdown30": 30.12,
+     "lastRange": 13.78,
+     "trend": "down",
+     "volRegime": "normal",
+     "volTrend": "stable"
+    }
+   },
+   "forecast": {
+    "questionId": "DIRECTION-SUI-2026-11-23",
+    "arm": "mem",
+    "p": 0.36,
+    "rationale": "Strong downtrend: price far below falling 20-day mean, ret30 -28%, deep drawdown, and day-0 reversal down. Lessons 2, 3, 5 argue for a bearish tilt; lesson 1 and 4 (flat/near-mean cases) don't match well. Calibration shows past downtrend DIRECTION forecasts were too high, so lean lower.",
+    "citedBlobIds": [
+     "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+     "7ic9thW7LJEqDHfkUog7y0aOVpseC8_CXxVibDIxUsM",
+     "MJUlCT5H0jVYrUXU931X_t6Z6WhjFV0u3eAbsY9tPH4"
+    ],
+    "recalled": [
+     {
+      "blobId": "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+      "distance": 0.2931109488492074,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-08-03|type=DIRECTION|regime=down/low/stable|sim=2026-08-10|adj=raise|mag=0.04]\nLESSON (DIRECTION, downtrend, low volatility, volatility stable): In a down-trend with low, stable volatility, a deep drawdown and price a bit below a falling 20-day mean, 7-day direction is close to a coin flip with mean-reversion risk. I should not tilt bearish on trend alone; stay near 0.5. Applies when trend down, volRegime low, volTrend stable, drawdown30 >10%, smaDist20 about -2%, ret7 near flat. Next time, raise my P(YES) by about 0.04.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+      "distance": 0.3019949618640705,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-07-27|type=DIRECTION|regime=down/normal/stable|sim=2026-08-03|adj=lower|mag=0.05]\nLESSON (DIRECTION, downtrend, normal volatility, volatility stable): In a down trend with normal, stable volatility and a deep drawdown, a mild bearish tilt was right but too timid; after a large reversal day, follow-through lower was likely. I should not hover near 0.48 when trend and a negative day-0 move agree. Applies when trend down, volRegime normal, volTrend stable, smaDist20 below -2%, smaSlope20 negative, drawdown30 above 10%… Next time, lower my P(YES) by about 0.05.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "7ic9thW7LJEqDHfkUog7y0aOVpseC8_CXxVibDIxUsM",
+      "distance": 0.3110265480833393,
+      "text": "[TUITION v1|kind=lesson|run=live|q=DIRECTION-ETH-2026-11-03|type=DIRECTION|regime=down/normal/stable|sim=2026-11-10|adj=lower|mag=0.06]\nLESSON (DIRECTION, downtrend, normal volatility, volatility stable): In a steady downtrend with normal, stable volatility (ret30 around -16%, price below a falling 20-day average), I should not tilt toward bounces. Rallies faded and the decline continued. Wide daily ranges mean big noise, but the drift stayed down. Applies when trend down, volRegime normal, volTrend stable, ret30 below -10%, smaDist20 negative, smaSlope20 negative, drawdown30… Next time, lower my P(YES) by about 0.06.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "T6j41TYkD9LN23KVK939gx_wNlJTxYWb7KVHA5_Bl_s",
+      "distance": 0.31455710576353424,
+      "text": "[TUITION v1|kind=lesson|run=r-20261106-1001-f2a8|q=DIRECTION-SOL-2026-03-09|type=DIRECTION|regime=flat/normal/stable|sim=2026-03-16|adj=none|mag=0.00]\nLESSON (DIRECTION, no clear trend, normal volatility, volatility stable): In a flat, normal-vol, stable regime after a large prior drawdown, price near the 20-day mean and a bounce off the range low, my small bearish tilt from weak trend features had no edge. Stay near 0.50; this miss is mostly noise. Applies when trend flat, volRegime normal, volTrend stable, volRatio ~0.9, smaDist20 near 0, ret30 slightly negative, drawdown30 ~10%. No probability adjustment: treat this as noise, not a pattern.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "MJUlCT5H0jVYrUXU931X_t6Z6WhjFV0u3eAbsY9tPH4",
+      "distance": 0.31819686396615954,
+      "text": "[TUITION v1|kind=lesson|run=live|q=DIRECTION-ETH-2026-11-02|type=DIRECTION|regime=down/normal/stable|sim=2026-11-09|adj=lower|mag=0.05]\nLESSON (DIRECTION, downtrend, normal volatility, volatility stable): In a steady downtrend with normal, stable volatility, a deep 30-day drawdown and price below a falling 20-day average, I should not hedge toward 0.5 on mean reversion. Slight continuation held, and the later spikes reversed. Small tilt, not big. Applies when trend down, volRegime normal, volTrend stable, ret30 below -10%, smaDist20 negative, smaSlope20 negative, drawdown30… Next time, lower my P(YES) by about 0.05.",
+      "kind": "lesson"
+     },
+     {
+      "blobId": "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc",
+      "distance": 0.5531328186160311,
+      "text": "[TUITION v1|kind=calibration|run=live|sim=2026-11-12|n=48]\nCALIBRATION SNAPSHOT after 48 resolved forecasts.\nDIRECTION, down trend, normal vol: I forecast 0.45 on average (n=18) but it happened 0.00 of the time → my P(YES) was too HIGH by 0.45.\nBREAKOUT, down trend, normal vol: I forecast 0.38 on average (n=18) but it happened 0.61 of the time → my P(YES) was too LOW by 0.23.\nOverall Brier so far 0.242 (coin-flip is 0.250).",
+      "kind": "calibration"
+     }
+    ],
+    "model": "anthropic/claude-haiku-5.5",
+    "createdAt": "2026-11-24T10:00:08.701Z"
+   },
+   "blobId": "nv2MZiupg5BDCgfh9dgezMtTQSrFaN_mTMxtiEJ2UaY",
+   "committedAt": "2026-11-24T10:00:45.554Z"
   }
  ],
  "calibrations": [
@@ -12267,6 +12911,11 @@
    "simDate": "2026-11-22",
    "n": 120,
    "blobId": "1-fN_j4_iv5UNulpIgCbN5tCNi1m4YdHUTfO1d24stc"
+  },
+  {
+   "simDate": "2026-11-23",
+   "n": 128,
+   "blobId": "M3AJ1O6jStxCuBOOfQBFpJGAFtNeOLZfvHy5Ozd5bd4"
   }
  ]
 }

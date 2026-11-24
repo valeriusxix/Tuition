@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-11-23T07:49:54.387Z",
+ "generatedAt": "2026-11-24T10:04:18.750Z",
  "runId": "r-20261109-1519-27da",
  "agentId": "084487542e2bd6ec8eaf71edd877904d72858e4385b590514b993d40bc7c5907",
  "accountId": "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea",
  "relayer": {
   "url": "https://relayer.memory.walrus.xyz",
-  "checkedAt": "2026-11-23T07:46:47.656Z",
+  "checkedAt": "2026-11-24T10:00:46.659Z",
   "health": {
    "status": "ok",
    "version": "0.1.0",
@@ -65,10 +65,10 @@
  },
  "blobs": {
   "aggregator": "https://aggregator.walrus-mainnet.walrus.space",
-  "checked": 452,
-  "ok": 452,
+  "checked": 461,
+  "ok": 461,
   "failed": 0,
-  "totalBytes": 408638,
+  "totalBytes": 416047,
   "rows": [
    {
     "blobId": "jg8rwGuE5YYE3JJgyhliiKDxvHwyxMYjWcqAxUiwMM8",
@@ -4137,6 +4137,87 @@
     "bytes": 792,
     "sha256": "9e14581f2b2ad74d719fd532b5e64bcb584916907f175d10d3e3dd7798c19fa5",
     "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/29kg8SF5tieTq4OWdvf7h19hnl_6sAziOR_U0UyfAfw"
+   },
+   {
+    "blobId": "1-fN_j4_iv5UNulpIgCbN5tCNi1m4YdHUTfO1d24stc",
+    "kind": "calibration",
+    "namespace": "tuition.live.calibration",
+    "status": 200,
+    "bytes": 995,
+    "sha256": "9c727fcff5b814873ff8ae12af0530756d897f8c4ba5fc65094265142c317610",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/1-fN_j4_iv5UNulpIgCbN5tCNi1m4YdHUTfO1d24stc"
+   },
+   {
+    "blobId": "R9wWavLoM8azY4ssE3R5KgSl8u7xVmCvlPKdZUhQlGA",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 823,
+    "sha256": "fe0f2668b1598386b27cc4cef1c50da26366773465acfdf50bbc92ced2344697",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/R9wWavLoM8azY4ssE3R5KgSl8u7xVmCvlPKdZUhQlGA"
+   },
+   {
+    "blobId": "u4ZmdQgw7fUw2GNKslV1geotaJ6iy23GrNfL64YbqD4",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 777,
+    "sha256": "9b82d9184ce6082877734461a5f85ab7ca99b70bef826d3078796208a57accd7",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/u4ZmdQgw7fUw2GNKslV1geotaJ6iy23GrNfL64YbqD4"
+   },
+   {
+    "blobId": "kdBxyXNoJibE-EM4lEoHGsPa3Knr8xkLBsVz3qSZzcc",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 796,
+    "sha256": "008a22f90ac10d88c75ff381e0ed49164b9aac4cc15e6e2e047214ea16626e36",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/kdBxyXNoJibE-EM4lEoHGsPa3Knr8xkLBsVz3qSZzcc"
+   },
+   {
+    "blobId": "RGS8U0oc6dB7bpDQX0ZdSTD9Ob0k-_xwsRrj6TcrW_s",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 797,
+    "sha256": "e5cb41f68fd2ae0ca43f85b0a8a304e9dd79ef0fb2e33232c14507916597b14b",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/RGS8U0oc6dB7bpDQX0ZdSTD9Ob0k-_xwsRrj6TcrW_s"
+   },
+   {
+    "blobId": "2kBYCvt57_uF9A6ZI1Ux6p6-8EAw-P-w3XbcvhnOT4A",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 816,
+    "sha256": "9a3c9f9d9d12e85e13856e105a236252f6f251a34116ed6d91b92c0c0303d6ec",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/2kBYCvt57_uF9A6ZI1Ux6p6-8EAw-P-w3XbcvhnOT4A"
+   },
+   {
+    "blobId": "tEdYVVdZmWaK6ggL_LpbAm1pJqZuKGWd02jy9mlBqTw",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 784,
+    "sha256": "2cbef0531b1ae64b06167597ea03f812230136ced511bc3cac41705c153fa6b2",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/tEdYVVdZmWaK6ggL_LpbAm1pJqZuKGWd02jy9mlBqTw"
+   },
+   {
+    "blobId": "NSAxma90mPVrbw3XiYeqPmNvMLFm-G0qoET21CyMUKc",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 799,
+    "sha256": "5f7d9f94bf96956b191f4b00f5e1fc58ec87fb62ee4c5b3d48bf9f27db3ff532",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/NSAxma90mPVrbw3XiYeqPmNvMLFm-G0qoET21CyMUKc"
+   },
+   {
+    "blobId": "THx9vODqTue6465QN_2Hb9kSZwXVz3tFXQVfGRRod2Y",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 822,
+    "sha256": "8fa6b99c23edaa8f47e934e40490644d58806a7e7cc9aeae0c63decf9295bceb",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/THx9vODqTue6465QN_2Hb9kSZwXVz3tFXQVfGRRod2Y"
    }
   ]
  },
@@ -4148,7 +4229,7 @@
     "blobId": "sPERu7h4ymXrwQZN7HSUObDNiS0ymuK1jT8eM5kmxZg",
     "questionId": "DIRECTION-SOL-2026-03-16",
     "topBlobId": "sPERu7h4ymXrwQZN7HSUObDNiS0ymuK1jT8eM5kmxZg",
-    "distance": 0.11903402458589885,
+    "distance": 0.12140372420427925,
     "matched": true
    },
    {
@@ -4168,12 +4249,12 @@
   ]
  },
  "counts": {
-  "total": 898,
+  "total": 909,
   "byKind": {
-   "lesson": 602,
-   "calibration": 119,
+   "lesson": 604,
+   "calibration": 120,
    "smoke": 1,
-   "forecast": 176
+   "forecast": 184
   },
   "byNamespace": {
    "tuition.r-20261105-0945-7e44.lessons": 19,
@@ -4191,9 +4272,9 @@
    "tuition.r-20261109-1519-27da.lessons": 175,
    "tuition.r-20261109-1519-27da.calibration": 32,
    "tuition.smoke": 1,
-   "tuition.live.forecasts": 176,
-   "tuition.live.lessons": 63,
-   "tuition.live.calibration": 15
+   "tuition.live.forecasts": 184,
+   "tuition.live.lessons": 65,
+   "tuition.live.calibration": 16
   }
  }
 }

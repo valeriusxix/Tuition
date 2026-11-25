@@ -1,214 +1,8 @@
 {
- "generatedAt": "2026-11-24T09:58:25.037Z",
+ "generatedAt": "2026-11-25T08:41:40.095Z",
  "namespace": "tuition.live.forecasts",
- "latestDecisionDate": "2026-11-23",
+ "latestDecisionDate": "2026-11-24",
  "pending": [
-  {
-   "questionId": "BREAKOUT-BTC-2026-11-17",
-   "symbol": "BTC",
-   "assetCode": "Asset A",
-   "type": "BREAKOUT",
-   "decisionDate": "2026-11-17",
-   "resolveDate": "2026-11-24",
-   "threshold": 0.05,
-   "regime": "down/high/expanding",
-   "p": 0.72,
-   "rationale": "Daily vol30 of 2.29% implies roughly 6% sigma over 7 days, so a 5% barrier on either side is reachable. Intraday highs and lows add touch chances, and the snapshot shows breakout forecasts running too low in down-trend regimes. Lessons 2 and 5 match the wide-range, deep-drawdown conditions and push upward.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [
-    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
-    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE"
-   ],
-   "recalledBlobIds": [
-    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
-    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
-    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
-    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
-    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "lXZEKzvvGBjSg59nATn2O06MnWPKhiXvduh4TpIpN3c",
-   "committedAt": "2026-11-18T07:37:00.837Z"
-  },
-  {
-   "questionId": "BREAKOUT-ETH-2026-11-17",
-   "symbol": "ETH",
-   "assetCode": "Asset C",
-   "type": "BREAKOUT",
-   "decisionDate": "2026-11-17",
-   "resolveDate": "2026-11-24",
-   "threshold": 0.072,
-   "regime": "down/high/expanding",
-   "p": 0.6,
-   "rationale": "Barrier is about 0.9 sigma of 7-day vol30, and recent daily ranges near 5% make a touch on either side plausible. Price already sits near the 92.8 lower barrier in a downtrend with expanding volatility. Cited lessons assume flat, contracting regimes, so they don't apply here.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [],
-   "recalledBlobIds": [
-    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
-    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
-    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
-    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
-    "8ThwMPwVGJENDZnLIJhu1IuFEyV14VJJdTM-OnH-h3I",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "I8EbfD_WyUpx_6apxx0FEV6qr14PkYLqDuxbbjUaC38",
-   "committedAt": "2026-11-18T07:36:54.169Z"
-  },
-  {
-   "questionId": "BREAKOUT-SOL-2026-11-17",
-   "symbol": "SOL",
-   "assetCode": "Asset D",
-   "type": "BREAKOUT",
-   "decisionDate": "2026-11-17",
-   "resolveDate": "2026-11-24",
-   "threshold": 0.081,
-   "regime": "down/high/expanding",
-   "p": 0.65,
-   "rationale": "Vol30 of 3.22% implies a 7-day sigma near 8.5%, so the 8.1% barrier in either direction is about one sigma. Barrier-touch odds for each side are roughly 0.3-0.35, and the elevated vol7 and expanding volatility push the combined estimate higher. The cited lessons are for flat, low-vol, contracting regimes that do not match, so I did not use them.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [],
-   "recalledBlobIds": [
-    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
-    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
-    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
-    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
-    "8ThwMPwVGJENDZnLIJhu1IuFEyV14VJJdTM-OnH-h3I",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "LYKfCLiUHQuzUrnCxnEKN4Ui1cvyaRAROntBhwNjfmM",
-   "committedAt": "2026-11-18T07:37:25.617Z"
-  },
-  {
-   "questionId": "BREAKOUT-SUI-2026-11-17",
-   "symbol": "SUI",
-   "assetCode": "Asset B",
-   "type": "BREAKOUT",
-   "decisionDate": "2026-11-17",
-   "resolveDate": "2026-11-24",
-   "threshold": 0.11,
-   "regime": "down/high/expanding",
-   "p": 0.55,
-   "rationale": "Vol30 of 4.1% over 7 days gives sigma near 10.9%, so the 11% barrier is about 1 sigma, and touch odds for either side combined are near 0.5. Recent daily ranges around 5% and high vol7 support a touch. Calibration suggests breakout odds were underforecast, so I lean slightly higher. None of the cited lessons match this flat-trend, low-vol setup.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [],
-   "recalledBlobIds": [
-    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
-    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
-    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
-    "8ThwMPwVGJENDZnLIJhu1IuFEyV14VJJdTM-OnH-h3I",
-    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "ddtgEmnD-wFty7xEoqN8de8GQEwUBbKUIb9elOWLIsE",
-   "committedAt": "2026-11-18T07:37:46.956Z"
-  },
-  {
-   "questionId": "DIRECTION-BTC-2026-11-17",
-   "symbol": "BTC",
-   "assetCode": "Asset A",
-   "type": "DIRECTION",
-   "decisionDate": "2026-11-17",
-   "resolveDate": "2026-11-24",
-   "regime": "down/high/expanding",
-   "p": 0.3,
-   "rationale": "Strong downtrend, price well below falling 20-day average, deep drawdown, expanding high volatility, and a sharp reversal day all favor continuation lower. Lessons 2, 3, 5 point bearish; lesson 1 applies weakly (volatility regime differs). Calibration snapshot shows past DIRECTION downtrend forecasts were too high, supporting a lower estimate.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [
-    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
-    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
-    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE"
-   ],
-   "recalledBlobIds": [
-    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
-    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
-    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
-    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
-    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "rsgruHS51Pecf-S5jegONLSKzXA9w40M2Vdr05flxdo",
-   "committedAt": "2026-11-18T07:36:39.226Z"
-  },
-  {
-   "questionId": "DIRECTION-ETH-2026-11-17",
-   "symbol": "ETH",
-   "assetCode": "Asset C",
-   "type": "DIRECTION",
-   "decisionDate": "2026-11-17",
-   "resolveDate": "2026-11-24",
-   "regime": "down/high/expanding",
-   "p": 0.3,
-   "rationale": "Strong persistent downtrend, price far below falling 20-day average, deep drawdown, high expanding volatility, and a sharp multi-day slide. Lessons on bounces fading and continuation favor NO. Calibration snapshot shows past overforecasting of YES in similar regimes, so I lean lower than 0.5.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [
-    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
-    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
-    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY"
-   ],
-   "recalledBlobIds": [
-    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
-    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
-    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
-    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
-    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "aHgCf66RmNmSCSb7tJU2-n_qRZt0R5xf7QaP0lD5HW4",
-   "committedAt": "2026-11-18T07:36:30.829Z"
-  },
-  {
-   "questionId": "DIRECTION-SOL-2026-11-17",
-   "symbol": "SOL",
-   "assetCode": "Asset D",
-   "type": "DIRECTION",
-   "decisionDate": "2026-11-17",
-   "resolveDate": "2026-11-24",
-   "regime": "down/high/expanding",
-   "p": 0.35,
-   "rationale": "Strong downtrend with high, expanding volatility, price far below falling 20-day mean and deep drawdown; last day's bounce faded in data. Lessons 2, 4, 5 point bearish; lesson 1 (low vol) does not match. Calibration snapshot shows overforecasting in this regime, so lean lower.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [
-    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
-    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
-    "91Cdn69knz737Gidn8e7iRnEq90Lx4strq7CRX6V8P8"
-   ],
-   "recalledBlobIds": [
-    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
-    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
-    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
-    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
-    "91Cdn69knz737Gidn8e7iRnEq90Lx4strq7CRX6V8P8",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "efjTFHUddSLWNMf_M4-MY_nNnq2abmUTIgR5q1XN5Kw",
-   "committedAt": "2026-11-18T07:37:14.451Z"
-  },
-  {
-   "questionId": "DIRECTION-SUI-2026-11-17",
-   "symbol": "SUI",
-   "assetCode": "Asset B",
-   "type": "DIRECTION",
-   "decisionDate": "2026-11-17",
-   "resolveDate": "2026-11-24",
-   "regime": "down/high/expanding",
-   "p": 0.36,
-   "rationale": "Down trend, high and expanding volatility, deep drawdown and price well below falling 20-day average favor continuation; the day-0 close sits near the low of its range with no reversal confirmation. Lesson 2 supports leaning NO after bounces; lesson 3 supports lowering probability. Lesson 1 and 5 regime conditions (low volatility) do not match, so not applied.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [
-    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
-    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M"
-   ],
-   "recalledBlobIds": [
-    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
-    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
-    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
-    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
-    "qaZPZIT14yYTuqjDxOp8wA6G0QvscydevepZhm6B4Lo",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "EJTd56IPxW8LMp7sftVggY-tym-Rhe0hB0GEfRk1UfQ",
-   "committedAt": "2026-11-18T07:37:34.444Z"
-  },
   {
    "questionId": "BREAKOUT-BTC-2026-11-18",
    "symbol": "BTC",
@@ -1245,55 +1039,6 @@
    "committedAt": "2026-11-24T09:59:43.955Z"
   },
   {
-   "questionId": "DIRECTION-ETH-2026-11-23",
-   "symbol": "ETH",
-   "assetCode": "Asset C",
-   "type": "DIRECTION",
-   "decisionDate": "2026-11-23",
-   "resolveDate": "2026-11-30",
-   "regime": "down/high/stable",
-   "p": 0.4,
-   "rationale": "Strong persistent downtrend, price well below falling 20-day mean, deep drawdown, and a sharp negative day-0 move; lessons on downtrend persistence suggest a bearish tilt, though high volatility and possible mean reversion keep it moderate. Calibration shows past downtrend DIRECTION forecasts were too high, supporting a lower estimate.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [
-    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
-    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A"
-   ],
-   "recalledBlobIds": [
-    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
-    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
-    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
-    "K3Ghwv3oYVYN5hUj_-JNcULmJp49hOnktsKs7rBx9yg",
-    "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "SHG5HzUUR_h0WpBlVJ2V3cE2trcbQ3-tZg1Kzy8GUG4",
-   "committedAt": "2026-11-24T09:59:45.882Z"
-  },
-  {
-   "questionId": "DIRECTION-BTC-2026-11-23",
-   "symbol": "BTC",
-   "assetCode": "Asset A",
-   "type": "DIRECTION",
-   "decisionDate": "2026-11-23",
-   "resolveDate": "2026-11-30",
-   "regime": "down/high/stable",
-   "p": 0.44,
-   "rationale": "Downtrend with price about 10.7% below a falling 20-day mean and a deep 30-day drawdown argues mildly bearish. Ret7 is only -5.6% and the last day was flat, with high volatility, so no lesson's conditions clearly match. Calibration shows DIRECTION forecasts in down trends were too high, so I shade below 0.5.",
-   "model": "anthropic/claude-haiku-5.5",
-   "citedBlobIds": [],
-   "recalledBlobIds": [
-    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
-    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
-    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
-    "K3Ghwv3oYVYN5hUj_-JNcULmJp49hOnktsKs7rBx9yg",
-    "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
-    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
-   ],
-   "blobId": "q9JOkE39LvpmnfOv4Z4SDKSgXRW75BLjAtF9mS09Wv8",
-   "committedAt": "2026-11-24T10:00:03.463Z"
-  },
-  {
    "questionId": "BREAKOUT-ETH-2026-11-23",
    "symbol": "ETH",
    "assetCode": "Asset C",
@@ -1342,6 +1087,83 @@
    ],
    "blobId": "hpoTDK5we0iGL7xdUIqXGGoitQiXFZmVG-UJROagHyU",
    "committedAt": "2026-11-24T10:00:22.585Z"
+  },
+  {
+   "questionId": "BREAKOUT-SUI-2026-11-23",
+   "symbol": "SUI",
+   "assetCode": "Asset B",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-23",
+   "resolveDate": "2026-11-30",
+   "threshold": 0.113,
+   "regime": "down/normal/stable",
+   "p": 0.62,
+   "rationale": "Seven-day sigma from vol30 (about 4.26% daily) is near the 11.3% barrier, so a touch is roughly a one-sigma event. Wide intraday ranges (lastRange about 13.8%) and the day 0 high of 108.81 raise touch odds. Calibration shows breakouts in this regime were underforecast, so I lean higher.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
+    "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0"
+   ],
+   "recalledBlobIds": [
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs",
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
+    "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "TmY-KNddMffrtoqNvsrbE8Cfcy4tmGA9oRlqgVOxi4g",
+   "committedAt": "2026-11-24T10:00:45.932Z"
+  },
+  {
+   "questionId": "DIRECTION-BTC-2026-11-23",
+   "symbol": "BTC",
+   "assetCode": "Asset A",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-23",
+   "resolveDate": "2026-11-30",
+   "regime": "down/high/stable",
+   "p": 0.44,
+   "rationale": "Downtrend with price about 10.7% below a falling 20-day mean and a deep 30-day drawdown argues mildly bearish. Ret7 is only -5.6% and the last day was flat, with high volatility, so no lesson's conditions clearly match. Calibration shows DIRECTION forecasts in down trends were too high, so I shade below 0.5.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+    "K3Ghwv3oYVYN5hUj_-JNcULmJp49hOnktsKs7rBx9yg",
+    "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "q9JOkE39LvpmnfOv4Z4SDKSgXRW75BLjAtF9mS09Wv8",
+   "committedAt": "2026-11-24T10:00:03.463Z"
+  },
+  {
+   "questionId": "DIRECTION-ETH-2026-11-23",
+   "symbol": "ETH",
+   "assetCode": "Asset C",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-23",
+   "resolveDate": "2026-11-30",
+   "regime": "down/high/stable",
+   "p": 0.4,
+   "rationale": "Strong persistent downtrend, price well below falling 20-day mean, deep drawdown, and a sharp negative day-0 move; lessons on downtrend persistence suggest a bearish tilt, though high volatility and possible mean reversion keep it moderate. Calibration shows past downtrend DIRECTION forecasts were too high, supporting a lower estimate.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A"
+   ],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+    "K3Ghwv3oYVYN5hUj_-JNcULmJp49hOnktsKs7rBx9yg",
+    "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "SHG5HzUUR_h0WpBlVJ2V3cE2trcbQ3-tZg1Kzy8GUG4",
+   "committedAt": "2026-11-24T09:59:45.882Z"
   },
   {
    "questionId": "DIRECTION-SOL-2026-11-23",
@@ -1397,32 +1219,210 @@
    "committedAt": "2026-11-24T10:00:45.554Z"
   },
   {
-   "questionId": "BREAKOUT-SUI-2026-11-23",
-   "symbol": "SUI",
-   "assetCode": "Asset B",
-   "type": "BREAKOUT",
-   "decisionDate": "2026-11-23",
-   "resolveDate": "2026-11-30",
-   "threshold": 0.113,
-   "regime": "down/normal/stable",
-   "p": 0.62,
-   "rationale": "Seven-day sigma from vol30 (about 4.26% daily) is near the 11.3% barrier, so a touch is roughly a one-sigma event. Wide intraday ranges (lastRange about 13.8%) and the day 0 high of 108.81 raise touch odds. Calibration shows breakouts in this regime were underforecast, so I lean higher.",
+   "questionId": "DIRECTION-ETH-2026-11-24",
+   "symbol": "ETH",
+   "assetCode": "Asset C",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-24",
+   "resolveDate": "2026-12-01",
+   "regime": "down/high/stable",
+   "p": 0.4,
+   "rationale": "Downtrend with high volatility, price well below falling 20-day mean and deep drawdown; momentum favors continuation, but mean-reversion after a sharp bounce risk exists. Lessons mostly target low/normal vol regimes, so only mildly applied; calibration suggests shading down from coin flip.",
    "model": "anthropic/claude-haiku-5.5",
    "citedBlobIds": [
-    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
-    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
-    "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0"
+    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o"
    ],
    "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+    "K3Ghwv3oYVYN5hUj_-JNcULmJp49hOnktsKs7rBx9yg",
+    "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "H6pBGGGQSg9Zn__UWvJntL0I_TAVysy6G1F8uJCU2V4",
+   "committedAt": "2026-11-25T08:42:31.366Z"
+  },
+  {
+   "questionId": "DIRECTION-BTC-2026-11-24",
+   "symbol": "BTC",
+   "assetCode": "Asset A",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-24",
+   "resolveDate": "2026-12-01",
+   "regime": "down/high/stable",
+   "p": 0.4,
+   "rationale": "Strong downtrend, price below falling 20-day mean, deep 30-day drawdown, high vol; momentum favors continued weakness though mean reversion after sharp drop is possible. Lessons on low/stable vol downtrends suggest bearish lean; calibration shows past DIRECTION downtrend forecasts too high, so shade lower.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A"
+   ],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "eu-e_2ipYYfiWb2DWlWmVMufRjcVJj-LwxAnMjVqh8o",
+    "K3Ghwv3oYVYN5hUj_-JNcULmJp49hOnktsKs7rBx9yg",
+    "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "KtRl7Thkq7PvvgOe6nMrx9odUpA4lZ5hMT_NxM05Omg",
+   "committedAt": "2026-11-25T08:42:32.898Z"
+  },
+  {
+   "questionId": "BREAKOUT-ETH-2026-11-24",
+   "symbol": "ETH",
+   "assetCode": "Asset C",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-24",
+   "resolveDate": "2026-12-01",
+   "threshold": 0.075,
+   "regime": "down/high/stable",
+   "p": 0.78,
+   "rationale": "With vol30 near 3.5% and vol7 near 3.8%, a 7-day sigma is roughly 9-10%, so the 7.5% barrier is under one sigma on each side. Intraday highs and lows add touch chances. Calibration shows breakout forecasts in downtrends were too low, so I lean higher.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs"
+   ],
+   "recalledBlobIds": [
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
     "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
+    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
     "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "SKGnsDrUVDVXNqssgSoeHUVja9mAZno79HWKE0sVcDA",
+   "committedAt": "2026-11-25T08:42:48.719Z"
+  },
+  {
+   "questionId": "BREAKOUT-BTC-2026-11-24",
+   "symbol": "BTC",
+   "assetCode": "Asset A",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-24",
+   "resolveDate": "2026-12-01",
+   "threshold": 0.053,
+   "regime": "down/high/stable",
+   "p": 0.68,
+   "rationale": "Vol30 of about 2.5% implies a 7-day sigma near 6.5%, so the 5.3% barrier is under one sigma on each side. Recent daily ranges near 5-10% make intraday touches likely. Lessons were not cited because their volRatio conditions (below 0.6-1.0) do not match this day's 1.05. Calibration shows past down-trend breakouts were underforecast, so I nudged upward.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [],
+   "recalledBlobIds": [
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
+    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
+    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "RpeChb1NT-LanCXVATKDKxTeS6ALQynnmXQYcS4dLkA",
+   "committedAt": "2026-11-25T08:42:50.911Z"
+  },
+  {
+   "questionId": "BREAKOUT-SOL-2026-11-24",
+   "symbol": "SOL",
+   "assetCode": "Asset D",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-24",
+   "resolveDate": "2026-12-01",
+   "threshold": 0.083,
+   "regime": "down/normal/stable",
+   "p": 0.7,
+   "rationale": "Vol30 of 3.4% implies a 7-day sigma near 8.5%, so the 8.3% barrier is about 1 sigma. Daily highs and lows, with a 5.9% last range, raise touch odds. Calibration shows breakout forecasts in this regime were too low, so I lean higher.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs",
+    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE"
+   ],
+   "recalledBlobIds": [
+    "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs",
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
     "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
     "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
     "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0",
     "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
    ],
-   "blobId": "TmY-KNddMffrtoqNvsrbE8Cfcy4tmGA9oRlqgVOxi4g",
-   "committedAt": "2026-11-24T10:00:45.932Z"
+   "blobId": "fmEGZAYLoVf9ldvTJ_MEs_0WxhiOlyn7j3QYqwNdNVo",
+   "committedAt": "2026-11-25T08:43:05.836Z"
+  },
+  {
+   "questionId": "DIRECTION-SOL-2026-11-24",
+   "symbol": "SOL",
+   "assetCode": "Asset D",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-24",
+   "resolveDate": "2026-12-01",
+   "regime": "down/normal/stable",
+   "p": 0.3,
+   "rationale": "Downtrend with normal, stable volatility, deep drawdown and a negative day-0 move. Lessons 2 and 4 both lower P(YES) for this setup. Calibration shows DIRECTION forecasts in this bucket were far too high (0 of 18 hit), so I lean bearish.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "7ic9thW7LJEqDHfkUog7y0aOVpseC8_CXxVibDIxUsM"
+   ],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "T6j41TYkD9LN23KVK939gx_wNlJTxYWb7KVHA5_Bl_s",
+    "7ic9thW7LJEqDHfkUog7y0aOVpseC8_CXxVibDIxUsM",
+    "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "dAbKlpmGo79iNdKMa2MeaQiTzJ4kO0ThfG-ut_wlnMo",
+   "committedAt": "2026-11-25T08:43:08.593Z"
+  },
+  {
+   "questionId": "DIRECTION-SUI-2026-11-24",
+   "symbol": "SUI",
+   "assetCode": "Asset B",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-24",
+   "resolveDate": "2026-12-01",
+   "regime": "down/normal/stable",
+   "p": 0.36,
+   "rationale": "Downtrend with normal, stable vol, deep 30-day drawdown and price well below falling 20-day mean; trend persistence and steady decline favor NO. Calibration shows past DIRECTION forecasts in this regime were far too high, so I lean lower. Day-0 bounce from low is a small offset.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "7ic9thW7LJEqDHfkUog7y0aOVpseC8_CXxVibDIxUsM"
+   ],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "T6j41TYkD9LN23KVK939gx_wNlJTxYWb7KVHA5_Bl_s",
+    "7ic9thW7LJEqDHfkUog7y0aOVpseC8_CXxVibDIxUsM",
+    "9LNJFaQu3eC-eGZRccW3ZV4Lgie19iV-y2MFivspfUg",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "X5GkoaPHiV3S2WsIirKrQsN3eWaPLUndG_1p_YPp_FU",
+   "committedAt": "2026-11-25T08:43:24.612Z"
+  },
+  {
+   "questionId": "BREAKOUT-SUI-2026-11-24",
+   "symbol": "SUI",
+   "assetCode": "Asset B",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-24",
+   "resolveDate": "2026-12-01",
+   "threshold": 0.113,
+   "regime": "down/normal/stable",
+   "p": 0.6,
+   "rationale": "Barrier is about 1 sigma of 7-day vol30 and roughly 1.1 sigma of vol7, with two-sided touch odds near 0.45-0.5 before intraday range effects. Wide daily ranges and the calibration under-forecast on downtrend breakouts push it higher. The lessons were written for flat trends, so I apply only a partial adjustment.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE"
+   ],
+   "recalledBlobIds": [
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+    "a1ryS-GTxt-y93YnDxQf0sgfBftMW0Kj5KhyOTsQZAs",
+    "ipTbDLppsgXgrpbHdtyAloavXa0TNmf3NhyNfkCk5K0",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "LTtuK7ct0t1meysTQy-dc6HNfdBTxZfm2YeB782x8QY",
+   "committedAt": "2026-11-25T08:43:27.472Z"
   }
  ],
  "resolved": [
@@ -4479,11 +4479,233 @@
    "committedAt": "2026-11-17T08:01:42.753Z",
    "outcome": 0,
    "brier": 0.12249999999999998
+  },
+  {
+   "questionId": "BREAKOUT-BTC-2026-11-17",
+   "symbol": "BTC",
+   "assetCode": "Asset A",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-17",
+   "resolveDate": "2026-11-24",
+   "threshold": 0.05,
+   "regime": "down/high/expanding",
+   "p": 0.72,
+   "rationale": "Daily vol30 of 2.29% implies roughly 6% sigma over 7 days, so a 5% barrier on either side is reachable. Intraday highs and lows add touch chances, and the snapshot shows breakout forecasts running too low in down-trend regimes. Lessons 2 and 5 match the wide-range, deep-drawdown conditions and push upward.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE"
+   ],
+   "recalledBlobIds": [
+    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
+    "vXOV4xWGeqrF6CHOsy0OXSm1ii_2RtcFiixzFIpmgLE",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "lXZEKzvvGBjSg59nATn2O06MnWPKhiXvduh4TpIpN3c",
+   "committedAt": "2026-11-18T07:37:00.837Z",
+   "outcome": 1,
+   "brier": 0.07840000000000001
+  },
+  {
+   "questionId": "BREAKOUT-ETH-2026-11-17",
+   "symbol": "ETH",
+   "assetCode": "Asset C",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-17",
+   "resolveDate": "2026-11-24",
+   "threshold": 0.072,
+   "regime": "down/high/expanding",
+   "p": 0.6,
+   "rationale": "Barrier is about 0.9 sigma of 7-day vol30, and recent daily ranges near 5% make a touch on either side plausible. Price already sits near the 92.8 lower barrier in a downtrend with expanding volatility. Cited lessons assume flat, contracting regimes, so they don't apply here.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [],
+   "recalledBlobIds": [
+    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+    "8ThwMPwVGJENDZnLIJhu1IuFEyV14VJJdTM-OnH-h3I",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "I8EbfD_WyUpx_6apxx0FEV6qr14PkYLqDuxbbjUaC38",
+   "committedAt": "2026-11-18T07:36:54.169Z",
+   "outcome": 1,
+   "brier": 0.16000000000000003
+  },
+  {
+   "questionId": "BREAKOUT-SOL-2026-11-17",
+   "symbol": "SOL",
+   "assetCode": "Asset D",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-17",
+   "resolveDate": "2026-11-24",
+   "threshold": 0.081,
+   "regime": "down/high/expanding",
+   "p": 0.65,
+   "rationale": "Vol30 of 3.22% implies a 7-day sigma near 8.5%, so the 8.1% barrier in either direction is about one sigma. Barrier-touch odds for each side are roughly 0.3-0.35, and the elevated vol7 and expanding volatility push the combined estimate higher. The cited lessons are for flat, low-vol, contracting regimes that do not match, so I did not use them.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [],
+   "recalledBlobIds": [
+    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
+    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "8ThwMPwVGJENDZnLIJhu1IuFEyV14VJJdTM-OnH-h3I",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "LYKfCLiUHQuzUrnCxnEKN4Ui1cvyaRAROntBhwNjfmM",
+   "committedAt": "2026-11-18T07:37:25.617Z",
+   "outcome": 1,
+   "brier": 0.12249999999999998
+  },
+  {
+   "questionId": "BREAKOUT-SUI-2026-11-17",
+   "symbol": "SUI",
+   "assetCode": "Asset B",
+   "type": "BREAKOUT",
+   "decisionDate": "2026-11-17",
+   "resolveDate": "2026-11-24",
+   "threshold": 0.11,
+   "regime": "down/high/expanding",
+   "p": 0.55,
+   "rationale": "Vol30 of 4.1% over 7 days gives sigma near 10.9%, so the 11% barrier is about 1 sigma, and touch odds for either side combined are near 0.5. Recent daily ranges around 5% and high vol7 support a touch. Calibration suggests breakout odds were underforecast, so I lean slightly higher. None of the cited lessons match this flat-trend, low-vol setup.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [],
+   "recalledBlobIds": [
+    "DGUUvpRp26nwOKBCKsD61bNOHS3KNWJ53fyUr3YDbj8",
+    "q0k6Bb3MwT5bhfn3oypDgpDxm05eWoHmabLTHgXVoR0",
+    "cpwm7aRGZyudH0RCyk0CM8GiIjgVjqEsig4QWxDmS2I",
+    "8ThwMPwVGJENDZnLIJhu1IuFEyV14VJJdTM-OnH-h3I",
+    "SxKp5HD4PIlENvSUUlqx3TDnZs_oPTDFmPIclVeH9MQ",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "ddtgEmnD-wFty7xEoqN8de8GQEwUBbKUIb9elOWLIsE",
+   "committedAt": "2026-11-18T07:37:46.956Z",
+   "outcome": 1,
+   "brier": 0.20249999999999996
+  },
+  {
+   "questionId": "DIRECTION-BTC-2026-11-17",
+   "symbol": "BTC",
+   "assetCode": "Asset A",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-17",
+   "resolveDate": "2026-11-24",
+   "regime": "down/high/expanding",
+   "p": 0.3,
+   "rationale": "Strong downtrend, price well below falling 20-day average, deep drawdown, expanding high volatility, and a sharp reversal day all favor continuation lower. Lessons 2, 3, 5 point bearish; lesson 1 applies weakly (volatility regime differs). Calibration snapshot shows past DIRECTION downtrend forecasts were too high, supporting a lower estimate.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
+    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
+    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE"
+   ],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
+    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "rsgruHS51Pecf-S5jegONLSKzXA9w40M2Vdr05flxdo",
+   "committedAt": "2026-11-18T07:36:39.226Z",
+   "outcome": 0,
+   "brier": 0.09
+  },
+  {
+   "questionId": "DIRECTION-ETH-2026-11-17",
+   "symbol": "ETH",
+   "assetCode": "Asset C",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-17",
+   "resolveDate": "2026-11-24",
+   "regime": "down/high/expanding",
+   "p": 0.3,
+   "rationale": "Strong persistent downtrend, price far below falling 20-day average, deep drawdown, high expanding volatility, and a sharp multi-day slide. Lessons on bounces fading and continuation favor NO. Calibration snapshot shows past overforecasting of YES in similar regimes, so I lean lower than 0.5.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
+    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
+    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY"
+   ],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
+    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
+    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "aHgCf66RmNmSCSb7tJU2-n_qRZt0R5xf7QaP0lD5HW4",
+   "committedAt": "2026-11-18T07:36:30.829Z",
+   "outcome": 0,
+   "brier": 0.09
+  },
+  {
+   "questionId": "DIRECTION-SOL-2026-11-17",
+   "symbol": "SOL",
+   "assetCode": "Asset D",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-17",
+   "resolveDate": "2026-11-24",
+   "regime": "down/high/expanding",
+   "p": 0.35,
+   "rationale": "Strong downtrend with high, expanding volatility, price far below falling 20-day mean and deep drawdown; last day's bounce faded in data. Lessons 2, 4, 5 point bearish; lesson 1 (low vol) does not match. Calibration snapshot shows overforecasting in this regime, so lean lower.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
+    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
+    "91Cdn69knz737Gidn8e7iRnEq90Lx4strq7CRX6V8P8"
+   ],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "4JmluOW3uqoFvjmfvP9pkmuW80ZgdjePnrFF8bcO8PE",
+    "91Cdn69knz737Gidn8e7iRnEq90Lx4strq7CRX6V8P8",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "efjTFHUddSLWNMf_M4-MY_nNnq2abmUTIgR5q1XN5Kw",
+   "committedAt": "2026-11-18T07:37:14.451Z",
+   "outcome": 0,
+   "brier": 0.12249999999999998
+  },
+  {
+   "questionId": "DIRECTION-SUI-2026-11-17",
+   "symbol": "SUI",
+   "assetCode": "Asset B",
+   "type": "DIRECTION",
+   "decisionDate": "2026-11-17",
+   "resolveDate": "2026-11-24",
+   "regime": "down/high/expanding",
+   "p": 0.36,
+   "rationale": "Down trend, high and expanding volatility, deep drawdown and price well below falling 20-day average favor continuation; the day-0 close sits near the low of its range with no reversal confirmation. Lesson 2 supports leaning NO after bounces; lesson 3 supports lowering probability. Lesson 1 and 5 regime conditions (low volatility) do not match, so not applied.",
+   "model": "anthropic/claude-haiku-5.5",
+   "citedBlobIds": [
+    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
+    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M"
+   ],
+   "recalledBlobIds": [
+    "-rBmSLzFPB29Z5x93pSVHN5t_dph3d2OZp-HWHJ5BOE",
+    "trJEPx6GnrFSSZORKJSmt-9yqUFq1oyKmriHPDbOIvY",
+    "3PLitd8nh8Qw1PdwGQe_Ov1AopOXHpY3Fjm-PG16X3M",
+    "CQKUxu7h-7YdbTnFBi0d1dzReYRTlWHmQ7xuTJStv4A",
+    "qaZPZIT14yYTuqjDxOp8wA6G0QvscydevepZhm6B4Lo",
+    "vY-hn2I4gphgoQE-WN0QvXcztmTsPue0TskjB1Bmrpc"
+   ],
+   "blobId": "EJTd56IPxW8LMp7sftVggY-tym-Rhe0hB0GEfRk1UfQ",
+   "committedAt": "2026-11-18T07:37:34.444Z",
+   "outcome": 0,
+   "brier": 0.1296
   }
  ],
  "metrics": {
   "pending": 56,
-  "resolved": 128,
-  "brier": 0.20455625
+  "resolved": 136,
+  "brier": 0.19984338235294113
  }
 }

@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-11-27T08:46:56.108Z",
+ "generatedAt": "2026-11-28T08:01:10.795Z",
  "runId": "r-20261109-1519-27da",
  "agentId": "084487542e2bd6ec8eaf71edd877904d72858e4385b590514b993d40bc7c5907",
  "accountId": "0x5c5969045495377ceb3ad60a5e6be9c240c5daca384f057c4845dbb4981a22ea",
  "relayer": {
   "url": "https://relayer.memory.walrus.xyz",
-  "checkedAt": "2026-11-27T08:43:09.603Z",
+  "checkedAt": "2026-11-28T07:57:15.753Z",
   "health": {
    "status": "ok",
    "version": "0.1.0",
@@ -65,10 +65,10 @@
  },
  "blobs": {
   "aggregator": "https://aggregator.walrus-mainnet.walrus.space",
-  "checked": 490,
-  "ok": 490,
+  "checked": 501,
+  "ok": 501,
   "failed": 0,
-  "totalBytes": 440417,
+  "totalBytes": 449473,
   "rows": [
    {
     "blobId": "jg8rwGuE5YYE3JJgyhliiKDxvHwyxMYjWcqAxUiwMM8",
@@ -4479,6 +4479,105 @@
     "bytes": 841,
     "sha256": "c0ae04959e5d06be998bf21074fc87850ea821c20a473de714ba9b9d1c4402c2",
     "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/Ayby4107dfHvBlXiOnF0UNIr5BCFRz6vNAZwpE23KPw"
+   },
+   {
+    "blobId": "yGgd85K3oLJOvmwVMKxIB1EEGf3Y_U9uTpGjiy3rF7o",
+    "kind": "lesson",
+    "namespace": "tuition.live.lessons",
+    "status": 200,
+    "bytes": 887,
+    "sha256": "d2a40019c3976c0a559ad97e53e03424c2969fefe529ed1577675ccb2a0b616f",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/yGgd85K3oLJOvmwVMKxIB1EEGf3Y_U9uTpGjiy3rF7o"
+   },
+   {
+    "blobId": "F8FzWbiuMvRMGy8wBLTC8NfLM70M4WUWCgi1vQp3Zpw",
+    "kind": "lesson",
+    "namespace": "tuition.live.lessons",
+    "status": 200,
+    "bytes": 897,
+    "sha256": "f02ad5511a87c4c03ac21a21f8673df20c32cccb27257c9cef668ce0f5d3f973",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/F8FzWbiuMvRMGy8wBLTC8NfLM70M4WUWCgi1vQp3Zpw"
+   },
+   {
+    "blobId": "iVX0EwNQt6ywEnCjueJO30DaxVRX5eW3oN7RImti0Ms",
+    "kind": "calibration",
+    "namespace": "tuition.live.calibration",
+    "status": 200,
+    "bytes": 995,
+    "sha256": "c2a8da4f04a0d758889f51024a5151fca51c5c9398547e3e8a37f24ee1ea3e8e",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/iVX0EwNQt6ywEnCjueJO30DaxVRX5eW3oN7RImti0Ms"
+   },
+   {
+    "blobId": "yHBsmhFJX_Da_rveEmy14NQIAdt63br2fp7H40nAGN0",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 821,
+    "sha256": "a42f3065325f1d530a7e0ef7d5f24590c61ddcccb7fdb2e334121fba9321234a",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/yHBsmhFJX_Da_rveEmy14NQIAdt63br2fp7H40nAGN0"
+   },
+   {
+    "blobId": "VVA4MxGKHmF9Y4z6meNMvzdaldzyqD78EwbsNInTbn0",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 730,
+    "sha256": "69c3a5a6a03f15d29ac485fb46e480c599c0547b1d7aa9423be1952fee5459aa",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/VVA4MxGKHmF9Y4z6meNMvzdaldzyqD78EwbsNInTbn0"
+   },
+   {
+    "blobId": "ajF_mr7tOQdOY-d0VnYnNZe4fIfM6AloE_h_KJpdbE4",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 818,
+    "sha256": "675ec656637e4292c3f2b09aaff5051a731b7788a3a5bd4b964b9b80dfde56ee",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/ajF_mr7tOQdOY-d0VnYnNZe4fIfM6AloE_h_KJpdbE4"
+   },
+   {
+    "blobId": "EdXnAab1qcOH_eRJnU-ou42nTGNNxEp7rL1RlncAbQM",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 751,
+    "sha256": "ddd18476f560223338c020943ca40d6109dd3c04684e8bfd54106cffc099b89c",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/EdXnAab1qcOH_eRJnU-ou42nTGNNxEp7rL1RlncAbQM"
+   },
+   {
+    "blobId": "GsKFIBJOt4nrquQiZbYYq-uoinksY3wU0zz_1ynra1A",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 816,
+    "sha256": "131e3e57b3a3e49cdebb628eee0e3e892d088ec6faf5686f42f0b495e70b7df8",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/GsKFIBJOt4nrquQiZbYYq-uoinksY3wU0zz_1ynra1A"
+   },
+   {
+    "blobId": "cgKTfSzQV5Iwszat5SwzrJJgHc7pGMMFJ-QuGAgYtB4",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 833,
+    "sha256": "6acfd53b0153e9c1f5322e008ec0998a8488fa7c764a8840b9d8b2961fd641e1",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/cgKTfSzQV5Iwszat5SwzrJJgHc7pGMMFJ-QuGAgYtB4"
+   },
+   {
+    "blobId": "J2lEPU-wxpAuNZOQW1JnS-dUMpZnozq8IFm1yHrr1Ao",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 772,
+    "sha256": "8f3f740dc3fe5530fc359f00cea495f4153cc409732b90831d4cf875df39521e",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/J2lEPU-wxpAuNZOQW1JnS-dUMpZnozq8IFm1yHrr1Ao"
+   },
+   {
+    "blobId": "fWzAPwfFcasrPcTeK1jj3r3x5LLFenb4oIYWPLHxL_A",
+    "kind": "forecast",
+    "namespace": "tuition.live.forecasts",
+    "status": 200,
+    "bytes": 736,
+    "sha256": "71b223583a83577fd263f2564dfd5179f027e9c9cde502e4f09ca8d89808b6bb",
+    "url": "https://aggregator.walrus-mainnet.walrus.space/v1/blobs/fWzAPwfFcasrPcTeK1jj3r3x5LLFenb4oIYWPLHxL_A"
    }
   ]
  },
@@ -4504,18 +4603,18 @@
     "blobId": "ScY8F-LMiOt2z8yMufOiUCSf71ktYJKB3b1c-AVEFmg",
     "questionId": "BREAKOUT-BTC-2026-04-06",
     "topBlobId": "ScY8F-LMiOt2z8yMufOiUCSf71ktYJKB3b1c-AVEFmg",
-    "distance": 0.11773284017123409,
+    "distance": 0.11811778873238121,
     "matched": true
    }
   ]
  },
  "counts": {
-  "total": 938,
+  "total": 951,
   "byKind": {
-   "lesson": 606,
-   "calibration": 123,
+   "lesson": 610,
+   "calibration": 124,
    "smoke": 1,
-   "forecast": 208
+   "forecast": 216
   },
   "byNamespace": {
    "tuition.r-20261105-0945-7e44.lessons": 19,
@@ -4533,9 +4632,9 @@
    "tuition.r-20261109-1519-27da.lessons": 175,
    "tuition.r-20261109-1519-27da.calibration": 32,
    "tuition.smoke": 1,
-   "tuition.live.forecasts": 208,
-   "tuition.live.lessons": 67,
-   "tuition.live.calibration": 19
+   "tuition.live.forecasts": 216,
+   "tuition.live.lessons": 71,
+   "tuition.live.calibration": 20
   }
  }
 }
